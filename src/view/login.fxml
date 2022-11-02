@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="714.0" prefWidth="506.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane maxWidth="-1.0" prefHeight="714.0" prefWidth="473.0" VBox.vgrow="ALWAYS">
+         <children>
+            <ImageView fitHeight="663.0" fitWidth="503.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="55.2247314453125" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="-3.0">
+               <image>
+                  <Image url="@fridgedeck_login.PNG" />
+               </image>
+            </ImageView>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+    </AnchorPane>
+  </children>
+</VBox>

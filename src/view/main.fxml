@@ -9,14 +9,14 @@
 
 <VBox prefHeight="663.0" prefWidth="414.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <AnchorPane maxWidth="-1.0" prefHeight="663.0" prefWidth="414.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxWidth="-1.0" prefHeight="663.0" prefWidth="186.0" VBox.vgrow="ALWAYS">
          <children>
             <ImageView fitHeight="663.0" fitWidth="414.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@fridgedeck_main.PNG" />
                </image>
             </ImageView>
-            <Button layoutX="184.0" layoutY="188.0" mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="106.0" />
+            <Button fx:id="btnLogin" layoutX="181.0" layoutY="186.0" mnemonicParsing="false" onAction="#abrirLogin" opacity="0.0" prefHeight="53.0" prefWidth="111.0" />
          </children>
          <VBox.margin>
             <Insets />
