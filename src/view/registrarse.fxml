@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="660.0" prefWidth="508.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <AnchorPane maxWidth="-1.0" prefHeight="660.0" prefWidth="508.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="470.0" VBox.vgrow="ALWAYS">
          <children>
-            <ImageView fitHeight="660.0" fitWidth="508.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.184478759765625" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="611.0" fitWidth="470.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@fridgedeck_registrarse.PNG" />
                </image>
