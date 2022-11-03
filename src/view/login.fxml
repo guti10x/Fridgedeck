@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,6 +16,8 @@
                   <Image url="@fridgedeck_login.png" />
                </image>
             </ImageView>
+            <TextField layoutX="95.0" layoutY="301.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;" />
+            <TextField layoutX="95.0" layoutY="422.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 5;" />
          </children>
          <VBox.margin>
             <Insets />
