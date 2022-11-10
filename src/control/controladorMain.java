@@ -1,5 +1,6 @@
 package control;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +35,7 @@ public class controladorMain {
 			
 			stage.initModality(Modality.WINDOW_MODAL);
 			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-			
+			stage.setResizable(false);
 			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -44,21 +45,21 @@ public class controladorMain {
 	@FXML
     void abrirRegistrarse(ActionEvent event) {
 		try {
-			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/registrarse.fxml"));
+			FXMLLoader loader3 = new FXMLLoader(getClass().getResource("/view/registrarse.fxml"));
 			
-			controladorLogin control2 = new controladorLogin();
+			controladorRegistrarse control3 = new controladorRegistrarse();
 			
-			loader2.setController(control2);
+			loader3.setController(control3);
 	
-			Parent root2 = loader2.load();
+			Parent root3 = loader3.load();
 						
 			Stage stage = new Stage();
 			
-			stage.setScene(new Scene(root2));
+			stage.setScene(new Scene(root3));
 			
 			stage.initModality(Modality.WINDOW_MODAL);
 			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-			
+			stage.setResizable(false);
 			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
