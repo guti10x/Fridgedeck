@@ -11,14 +11,12 @@ import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class controladorMain {
+public class controladorVentanaUsuario {
 	@FXML
     private Button btnLogin;
 	
 	@FXML
     private Button btnRegistrarse;
-	
-	public static final Stage stage  = new Stage();
 	
 	@FXML
     void abrirLogin(ActionEvent event) {
@@ -30,6 +28,8 @@ public class controladorMain {
 			loader2.setController(control2);
 	
 			Parent root2 = loader2.load();
+						
+			Stage stage = new Stage();
 			
 			stage.setScene(new Scene(root2));
 			
@@ -41,11 +41,7 @@ public class controladorMain {
 			e.printStackTrace();
 		}
 	}
-	/*
-	public void cancelLogin() {
-	    stage.getScene().getWindow().hide();
-	}
-	*/
+	
 	@FXML
     void abrirRegistrarse(ActionEvent event) {
 		try {

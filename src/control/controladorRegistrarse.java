@@ -26,6 +26,7 @@ import application.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class controladorRegistrarse {
@@ -39,7 +40,7 @@ public class controladorRegistrarse {
     private TextField tfEmail;
 	
 	@FXML
-    private TextField tfPassword;
+    private PasswordField pfPassword;
 	
 	@FXML
     private TextField tfName;
@@ -50,38 +51,78 @@ public class controladorRegistrarse {
 	@FXML
     void registrarUsuario(ActionEvent e) {
 		JFrame jFrame = new JFrame();
-        JOptionPane.showMessageDialog(jFrame, "Has registrado");
         
         String username = tfUsername.getText().toString();
         String email = tfEmail.getText().toString();
-        String password = tfPassword.getText().toString();
+        String password = pfPassword.getText().toString();
         String name = tfName.getText().toString();
         String address = tfAddress.getText().toString();
         
-        Usuario user = new Usuario(1, username, email, password, name, address);
-        
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try {
-			Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
-			List<Usuario> users = new Gson().fromJson(reader, new TypeToken<List<Usuario>>() {}.getType());
-			users.add(user);
-			users.forEach(System.out::println);
-			reader.close();
-			
-			Writer writer = new FileWriter("userbase.json");
-		    new Gson().toJson(users, writer);
-			writer.close();
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-        /*
-        try {
-			SendEmail.enviarCorreo(username, password, email);
-		} catch (MessagingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-        */
+        if(username.equals("")||email.equals("")||password.equals("")||
+        		name.equals("")|address.equals("")) {
+        	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
+        }else {
+            try {
+            	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            	Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
+    			Usuario[] usersArray = new Gson().fromJson(reader, Usuario[].class);
+    			System.out.println("usersArray " +usersArray);
+    			reader.close();
+    			Reader reader2 = Files.newBufferedReader(Paths.get("userbase.json"));
+    			List<Usuario> users = new Gson().fromJson(reader2, new TypeToken<List<Usuario>>() {}.getType());
+    			System.out.println("users " +users);
+    			Usuario user = new Usuario(usersArray.length+1, username, email, password, name, address);
+    			System.out.println("user "+user);
+    	
+    			boolean checkUser = true;
+    			for(int i=0; i<usersArray.length; i++) {
+    				/*if((usersArray[i].username!=username)&&(usersArray[i].email!=email)) {
+    					checkUser=true;
+    				}else {*/
+    					if(usersArray[i].username.equals(username)) {
+        					JOptionPane.showMessageDialog(jFrame, "Username ya existe");
+        					checkUser=false;
+        				}
+        				if(usersArray[i].email.equals(email)) {
+        					JOptionPane.showMessageDialog(jFrame, "Existe usuario con este correo");
+        					checkUser=false;
+        				}
+    				//}	
+    			}
+    			
+    			
+    			users.add(user);
+    			users.forEach(System.out::println);
+    			reader.close();
+    			
+    			if(checkUser==true) {
+    				Writer writer = new FileWriter("userbase.json");
+    		    new Gson().toJson(users, writer);
+    			writer.close();
+    			JOptionPane.showMessageDialog(jFrame, "Has registrado");
+    			try {
+					SendEmail.enviarCorreo(username, password, email);
+				} catch (MessagingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    			}
+    			
+    			
+    		} catch (IOException e2) {
+    			// TODO Auto-generated catch block
+    			e2.printStackTrace();
+    		}
+            
+            
+            /*
+            try {
+    			SendEmail.enviarCorreo(username, password, email);
+    		} catch (MessagingException e1) {
+    			// TODO Auto-generated catch block
+    			e1.printStackTrace();
+    		}
+            */	
+        }
 	}
 }
