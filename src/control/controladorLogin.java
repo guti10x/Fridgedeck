@@ -39,7 +39,9 @@ public class controladorLogin {
     private Button btnLogin;
 	
 	public static final Stage stage  = new Stage();
-	 
+	
+	public static int user_id = 0;
+	
 	@FXML
     void entrar(ActionEvent e) {
 		JFrame jFrame = new JFrame();
@@ -58,6 +60,7 @@ public class controladorLogin {
     			for(int i=0; i<users.length; i++) {
     				if(users[i].username.equals(username)&&users[i].password.equals(password)) {
     					//System.out.println("Existe");
+    					user_id = users[i].id;
     					checkUser = true;
     					try {
     						FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_usuario.fxml"));
@@ -75,7 +78,7 @@ public class controladorLogin {
     						stage.setResizable(false);
     						stage.show();
     						
-    						//controladorMain cm = new controladorMain();
+    						controladorMain cm = new controladorMain();
     						//cm.cancelLogin();
     					} catch(Exception e3) {
     						e3.printStackTrace();

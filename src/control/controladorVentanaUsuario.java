@@ -1,68 +1,83 @@
 package control;
 
-import application.Main;
-import javafx.event.ActionEvent;
+import java.io.IOException;
+import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.SwingUtilities;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import application.FridgeDate;
+import application.Usuario;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 public class controladorVentanaUsuario {
 	@FXML
-    private Button btnLogin;
+    private Label lblTime;
 	
 	@FXML
-    private Button btnRegistrarse;
+    private Label lblTemperatura;
 	
 	@FXML
-    void abrirLogin(ActionEvent event) {
-		try {
-			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/login.fxml"));
-			
-			controladorLogin control2 = new controladorLogin();
-			
-			loader2.setController(control2);
+    private Label lblHumedad;
 	
-			Parent root2 = loader2.load();
-						
-			Stage stage = new Stage();
-			
-			stage.setScene(new Scene(root2));
-			
-			stage.initModality(Modality.WINDOW_MODAL);
-			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-			stage.setResizable(false);
-			stage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	public void initialize() throws InterruptedException{
+		Timer timer = new Timer("Display Timer");
+		TimerTask task = new TimerTask() {
+		    @Override
+		    public void run() {
+		        	try {
+						Platform.runLater(new Runnable() {
+						    @Override
+						    public void run() {
+						        DateFormat timeFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", new Locale("es, ES"));
+						        Calendar cali = Calendar.getInstance();
+						        cali.getTime();
+						        String time = timeFormat.format(cali.getTimeInMillis());
+						        //System.out.println(timeFormat.format(cali.getTimeInMillis()));
+						        lblTime.setText(time);
+
+						    }
+						});
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		    }
+		};
+		timer.scheduleAtFixedRate(task, 1000, 1000);
+		
+		leer_datos();
 	}
-	
-	@FXML
-    void abrirRegistrarse(ActionEvent event) {
+
+	private void leer_datos() {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		try {
-			FXMLLoader loader3 = new FXMLLoader(getClass().getResource("/view/registrarse.fxml"));
-			
-			controladorRegistrarse control3 = new controladorRegistrarse();
-			
-			loader3.setController(control3);
-	
-			Parent root3 = loader3.load();
-						
-			Stage stage = new Stage();
-			
-			stage.setScene(new Scene(root3));
-			
-			stage.initModality(Modality.WINDOW_MODAL);
-			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-			stage.setResizable(false);
-			stage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
+			Reader reader = Files.newBufferedReader(Paths.get("fridgedate.json"));
+			FridgeDate[] datos = new Gson().fromJson(reader, FridgeDate[].class);
+			lblTemperatura.setText(String.valueOf(datos[controladorLogin.user_id-1].temperatura) + "C");
+			lblHumedad.setText(String.valueOf(datos[controladorLogin.user_id-1].humedad) + "%");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 }

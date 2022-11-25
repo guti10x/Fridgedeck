@@ -18,8 +18,6 @@ public class controladorMain {
 	@FXML
     private Button btnRegistrarse;
 	
-	public static final Stage stage  = new Stage();
-	
 	@FXML
     void abrirLogin(ActionEvent event) {
 		try {
@@ -30,6 +28,8 @@ public class controladorMain {
 			loader2.setController(control2);
 	
 			Parent root2 = loader2.load();
+						
+			Stage stage = new Stage();
 			
 			stage.setScene(new Scene(root2));
 			
@@ -40,10 +40,6 @@ public class controladorMain {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void cancelLogin() {
-	    stage.getScene().getWindow().hide();
 	}
 	
 	@FXML

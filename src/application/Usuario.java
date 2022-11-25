@@ -2,7 +2,7 @@ package application;
 
 public class Usuario {
 	
-    private final int id;
+    public final int id;
     public final String username;
     public final String email;
     public final String password;

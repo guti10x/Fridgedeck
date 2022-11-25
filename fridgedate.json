@@ -1,0 +1,49 @@
+[
+    {
+		"id_user": 1,
+        "temperatura": -5,
+        "humedad": 25,
+        "estado": "cerrado",
+        "productos":
+		[
+			{
+        	"name": "banana", "cantidad": "1 kilo"
+			},
+			{
+        	"name": "potato", "cantidad": "6 kilos"
+			}
+        ],
+        "lista_compras":
+        [
+			{
+        	"name": "manzana", "cantidad": "2 kilos"
+			},
+			{
+        	"name": "agua mineral", "cantidad": "2 litros"
+			}
+        ]
+    },
+	{	"id_user": 2,
+        "temperatura": -7,
+        "humedad": 27,
+        "estado": "cerrado",
+        "productos":
+        [
+			{
+        	"name": "pollo", "cantidad": "2 kilos"
+			},
+        	{
+        	"name": "agua", "cantidad": "1 litro"
+        	}
+        ],
+        "lista_compras":
+        [
+			{
+        	"name": "arroz", "cantidad": "3 kilos"
+			},
+			{
+        	"name": "agua", "cantidad": "3 litros"
+			}
+        ]
+    }
+]
