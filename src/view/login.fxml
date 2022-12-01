@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/8.0.17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="470.0" VBox.vgrow="ALWAYS">
          <children>
@@ -19,16 +19,17 @@
                   <Image url="@fridgedeck_login.png" />
                </image>
             </ImageView>
-            <TextField fx:id="tfUsernameLogin" layoutX="95.0" layoutY="301.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
+            <TextField fx:id="tfUsernameLogin" layoutX="95.0" layoutY="301.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;" text="leon">
                <font>
                   <Font size="18.0" />
                </font></TextField>
             <Button fx:id="btnLogin" layoutX="175.0" layoutY="476.0" mnemonicParsing="false" onAction="#entrar" opacity="0.0" prefHeight="57.0" prefWidth="113.0" />
-            <PasswordField fx:id="pfPasswordLogin" layoutX="95.0" layoutY="421.0" prefHeight="22.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
+            <PasswordField fx:id="pfPasswordLogin" layoutX="95.0" layoutY="421.0" prefHeight="22.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;" text="leonpasswd">
                <font>
                   <Font size="18.0" />
                </font>
             </PasswordField>
+            <Button fx:id="btnRecContr" layoutX="159.0" layoutY="545.0" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="152.0" text="Recuperar contraseña" />
          </children>
          <VBox.margin>
             <Insets />

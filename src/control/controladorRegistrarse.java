@@ -100,15 +100,13 @@ public class controladorRegistrarse {
     		    new Gson().toJson(users, writer);
     			writer.close();
     			JOptionPane.showMessageDialog(jFrame, "Has registrado");
-    			try {
-					SendEmail.enviarCorreo(username, password, email);
-				} catch (MessagingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-    			}
-    			
-    			
+	    			try {
+						SendEmail.enviarCorreo(username, password, email);
+					} catch (MessagingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+    			}	
     		} catch (IOException e2) {
     			// TODO Auto-generated catch block
     			e2.printStackTrace();

@@ -7,8 +7,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,15 +21,22 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import application.FridgeDate;
+import application.ListaCompras;
 import application.Usuario;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class controladorVentanaUsuario {
 	@FXML
@@ -38,6 +47,23 @@ public class controladorVentanaUsuario {
 	
 	@FXML
     private Label lblHumedad;
+	
+	@FXML
+    private ImageView imgPuertaAbierta;
+	
+	@FXML
+    private ImageView imgPuertaCerrada;
+	
+	@FXML
+    private Label lblPuerta;
+	
+	@FXML
+    private ListView listaCompras;
+	
+	@FXML
+    private Button btnAddProductBasket;
+	
+	public static final Stage stage  = new Stage();
 	
 	public void initialize() throws InterruptedException{
 		Timer timer = new Timer("Display Timer");
@@ -67,17 +93,54 @@ public class controladorVentanaUsuario {
 		
 		leer_datos();
 	}
-
-	private void leer_datos() {
+/*
+	@FXML
+	public void logoutWindow() throws IOException {
+	    stage.showAndWait();
+	}
+	*/
+	void leer_datos() {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get("fridgedate.json"));
 			FridgeDate[] datos = new Gson().fromJson(reader, FridgeDate[].class);
 			lblTemperatura.setText(String.valueOf(datos[controladorLogin.user_id-1].temperatura) + "C");
 			lblHumedad.setText(String.valueOf(datos[controladorLogin.user_id-1].humedad) + "%");
+			if((datos[controladorLogin.user_id-1].estado).equals("abierta")) {
+				imgPuertaAbierta.setVisible(true);
+				lblPuerta.setText("open");
+			}else {
+				imgPuertaCerrada.setVisible(true);
+				lblPuerta.setText("close");
+			}
+			for(int i=0; i<datos[controladorLogin.user_id-1].lista_compras.size(); i++) {
+				listaCompras.getItems().add("- " + datos[controladorLogin.user_id-1].lista_compras.get(i).name + ", "
+						+ datos[controladorLogin.user_id-1].lista_compras.get(i).cantidad);
+			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}
+	}
+	@FXML
+    void openAddProductBasket(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add_product_basket.fxml"));
+			
+			controladorAddProductBasket control = new controladorAddProductBasket();
+			
+			loader.setController(control);
+	
+			Parent root = loader.load();
+			
+			stage.setScene(new Scene(root));
+			
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+			stage.setResizable(false);
+			stage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

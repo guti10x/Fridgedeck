@@ -38,6 +38,9 @@ public class controladorLogin {
 	@FXML
     private Button btnLogin;
 	
+	@FXML
+    private Button btnRecContr;
+	
 	public static final Stage stage  = new Stage();
 	
 	public static int user_id = 0;
