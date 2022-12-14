@@ -103,7 +103,9 @@ public class controladorVentanaUsuario {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get("fridgedate.json"));
+			Reader readerListaCompras = Files.newBufferedReader(Paths.get("listas_compras.json"));
 			FridgeDate[] datos = new Gson().fromJson(reader, FridgeDate[].class);
+			ListaCompras[] listaComp = new Gson().fromJson(readerListaCompras, ListaCompras[].class);
 			lblTemperatura.setText(String.valueOf(datos[controladorLogin.user_id-1].temperatura) + "C");
 			lblHumedad.setText(String.valueOf(datos[controladorLogin.user_id-1].humedad) + "%");
 			if((datos[controladorLogin.user_id-1].estado).equals("abierta")) {
@@ -113,10 +115,18 @@ public class controladorVentanaUsuario {
 				imgPuertaCerrada.setVisible(true);
 				lblPuerta.setText("close");
 			}
-			for(int i=0; i<datos[controladorLogin.user_id-1].lista_compras.size(); i++) {
-				listaCompras.getItems().add("- " + datos[controladorLogin.user_id-1].lista_compras.get(i).name + ", "
-						+ datos[controladorLogin.user_id-1].lista_compras.get(i).cantidad);
+			for(int i=0; i<listaComp.length; i++) {
+				System.out.println(listaComp[i].lista_compras.size());
+				if(listaComp[i].id_user==controladorLogin.user_id) {
+					for(int j=0; j<listaComp[i].lista_compras.size(); j++) {
+						System.out.println(listaComp[i].lista_compras.size());
+						listaCompras.getItems().add("- " + listaComp[i].lista_compras.get(j).name + ", "
+								+ listaComp[i].lista_compras.get(j).cantidad);
+					}
+				}
 			}
+			reader.close();
+			readerListaCompras.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

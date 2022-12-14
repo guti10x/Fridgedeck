@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import application.Compras;
 import application.FridgeDate;
 import application.ListaCompras;
 import application.Productos;
@@ -56,30 +57,32 @@ public class controladorAddProductBasket {
         }else {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             try {
-    			Reader reader = Files.newBufferedReader(Paths.get("fridgedate.json"));
-    			FridgeDate[] datos = new Gson().fromJson(reader, FridgeDate[].class);
+            	
+    			Reader reader = Files.newBufferedReader(Paths.get("listas_compras.json"));
+    			ListaCompras[] lcomp = new Gson().fromJson(reader, ListaCompras[].class);
     			
-    			List<ListaCompras> listaActualizada = new ArrayList<>();
-    			for(int i = 0; i < datos[controladorLogin.user_id-1].lista_compras.size(); i++) {
+    			List<Compras> listaActualizada = new ArrayList<>();
+    			for(int i = 0; i < lcomp.length; i++) {
     				//System.out.println("lista: " + listaActualizada);
-    				//listaActualizada.add(new ListaCompras(datos[controladorLogin.user_id-1].lista_compras.get(i).name, datos[controladorLogin.user_id-1].productos.get(i).cantidad)); 
-    				listaActualizada.add(new ListaCompras(name, count));
+    				listaActualizada.add(new Compras(lcomp[controladorLogin.user_id-1].lista_compras.get(i).name, lcomp[controladorLogin.user_id-1].lista_compras.get(i).cantidad)); 
+    				listaActualizada.add(new Compras(name, count));
     			}
-    			listaActualizada.add(new ListaCompras(name, count));
+    			listaActualizada.add(new Compras(name, count));
     			System.out.println("Lista Act:" + listaActualizada.toArray());
     			reader.close();
     			
-    			Writer writer = new FileWriter("fridgedate.json");
-    			datos[controladorLogin.user_id-1].lista_compras.clear();
-    			datos[controladorLogin.user_id-1].lista_compras.addAll(listaActualizada);
-    			new Gson().toJson(datos, writer);
+    			Writer writer = new FileWriter("listas_compras.json");
+    			//lcomp[controladorLogin.user_id-1].lista_compras.clear();
+    			lcomp[controladorLogin.user_id-1].lista_compras.addAll(listaActualizada);
+    			//datos[controladorLogin.user_id-1].lista_compras.addAll(listaActualizada);
+    			new Gson().toJson(lcomp, writer);
     			writer.close();
     			
     			final Node source = (Node) e.getSource();
     			stage = (Stage) source.getScene().getWindow();
     			stage.close();
     			
-    			controladorVentanaUsuario cvu = new controladorVentanaUsuario();
+    			//controladorVentanaUsuario cvu = new controladorVentanaUsuario();
     			//cvu.initialize();
     			
     		} catch (IOException e2) {

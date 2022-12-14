@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane prefHeight="600.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+         <children>
+            <ImageView fitHeight="600.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@ventana_tecnico.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblTimeTecnico" layoutX="17.0" layoutY="11.0" prefHeight="35.0" prefWidth="433.0" text="22:30">
+               <font>
+                  <Font name="Cambria Math" size="18.0" />
+               </font>
+            </Label>
+            <ListView fx:id="listaUsuarios" layoutX="30.0" layoutY="143.0" prefHeight="409.0" prefWidth="163.0" style="-fx-background-color: #FFFFFF; -fx-fixed-cell-size: 36;" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+    </AnchorPane>
+  </children>
+</VBox>

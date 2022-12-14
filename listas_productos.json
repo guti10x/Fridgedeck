@@ -1,0 +1,26 @@
+[
+    {
+		"id_user": 1,
+        "productos":
+		[
+			{
+        	"name": "Banana", "cantidad": "1 kilo"
+			},
+			{
+        	"name": "Potato", "cantidad": "6 kilos"
+			}
+        ]
+    },
+	{	
+    "id_user": 2,
+    "productos":
+        [
+			{
+        	"name": "Pollo", "cantidad": "2 kilos"
+			},
+        	{
+        	"name": "Agua", "cantidad": "1 litro"
+        	}
+        ]
+    }
+]
