@@ -145,8 +145,8 @@ public class controladorVentanaUsuario {
 			
 			stage.setScene(new Scene(root));
 			
-			stage.initModality(Modality.WINDOW_MODAL);
-			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+			//stage.initModality(Modality.WINDOW_MODAL);
+			//stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
 			stage.setResizable(false);
 			stage.show();
 		} catch(Exception e) {

@@ -58,7 +58,7 @@ public class controladorVentanaTecnico {
 		leer_datos();
 	}
 
-	private void leer_datos() {
+	public void leer_datos() {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));

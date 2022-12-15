@@ -60,30 +60,32 @@ public class controladorAddProductBasket {
             	
     			Reader reader = Files.newBufferedReader(Paths.get("listas_compras.json"));
     			ListaCompras[] lcomp = new Gson().fromJson(reader, ListaCompras[].class);
-    			
+    			/*
     			List<Compras> listaActualizada = new ArrayList<>();
     			for(int i = 0; i < lcomp.length; i++) {
     				//System.out.println("lista: " + listaActualizada);
     				listaActualizada.add(new Compras(lcomp[controladorLogin.user_id-1].lista_compras.get(i).name, lcomp[controladorLogin.user_id-1].lista_compras.get(i).cantidad)); 
-    				listaActualizada.add(new Compras(name, count));
+    				
     			}
     			listaActualizada.add(new Compras(name, count));
-    			System.out.println("Lista Act:" + listaActualizada.toArray());
+    			for(int i = 0; i < lcomp.length+1; i++) {
+    				System.out.println(listaActualizada.get(i).name); 
+    			}
+    			*/
     			reader.close();
     			
     			Writer writer = new FileWriter("listas_compras.json");
     			//lcomp[controladorLogin.user_id-1].lista_compras.clear();
-    			lcomp[controladorLogin.user_id-1].lista_compras.addAll(listaActualizada);
-    			//datos[controladorLogin.user_id-1].lista_compras.addAll(listaActualizada);
+    			lcomp[controladorLogin.user_id-1].lista_compras.add(new Compras(name, count));
     			new Gson().toJson(lcomp, writer);
     			writer.close();
     			
     			final Node source = (Node) e.getSource();
-    			stage = (Stage) source.getScene().getWindow();
-    			stage.close();
+    		    final Stage stage = (Stage) source.getScene().getWindow();
+    		    stage.close();
     			
-    			//controladorVentanaUsuario cvu = new controladorVentanaUsuario();
-    			//cvu.initialize();
+    			controladorVentanaUsuario cvu = new controladorVentanaUsuario();
+    			cvu.leer_datos();
     			
     		} catch (IOException e2) {
     			// TODO Auto-generated catch block
