@@ -16,11 +16,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import application.Compras;
-import application.FridgeDate;
-import application.ListaCompras;
-import application.Productos;
-import application.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +27,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Compras;
+import model.FridgeDate;
+import model.ListaCompras;
+import model.Productos;
+import model.Usuario;
 
 public class controladorAddProductBasket {
 	@FXML
@@ -76,7 +76,7 @@ public class controladorAddProductBasket {
     			
     			Writer writer = new FileWriter("listas_compras.json");
     			//lcomp[controladorLogin.user_id-1].lista_compras.clear();
-    			lcomp[controladorLogin.user_id-1].lista_compras.add(new Compras(name, count));
+    			lcomp[controladorDatos.user_id].lista_compras.add(new Compras(name, count));
     			new Gson().toJson(lcomp, writer);
     			writer.close();
     			

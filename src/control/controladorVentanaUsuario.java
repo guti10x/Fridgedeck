@@ -20,9 +20,6 @@ import javax.swing.SwingUtilities;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import application.FridgeDate;
-import application.ListaCompras;
-import application.Usuario;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,6 +34,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.FridgeDate;
+import model.ListaCompras;
+import model.Usuario;
 
 public class controladorVentanaUsuario {
 	@FXML
@@ -106,9 +106,11 @@ public class controladorVentanaUsuario {
 			Reader readerListaCompras = Files.newBufferedReader(Paths.get("listas_compras.json"));
 			FridgeDate[] datos = new Gson().fromJson(reader, FridgeDate[].class);
 			ListaCompras[] listaComp = new Gson().fromJson(readerListaCompras, ListaCompras[].class);
-			lblTemperatura.setText(String.valueOf(datos[controladorLogin.user_id-1].temperatura) + "C");
-			lblHumedad.setText(String.valueOf(datos[controladorLogin.user_id-1].humedad) + "%");
-			if((datos[controladorLogin.user_id-1].estado).equals("abierta")) {
+			//System.out.println(datos[controladorLogin.user_id-1].temperatura);
+			System.out.println("ID from user page: " + controladorDatos.user_id);
+			lblTemperatura.setText(String.valueOf(datos[controladorDatos.user_id].temperatura) + "C");
+			lblHumedad.setText(String.valueOf(datos[controladorDatos.user_id].humedad) + "%");
+			if((datos[controladorDatos.user_id].estado).equals("abierta")) {
 				imgPuertaAbierta.setVisible(true);
 				lblPuerta.setText("open");
 			}else {
@@ -117,7 +119,7 @@ public class controladorVentanaUsuario {
 			}
 			for(int i=0; i<listaComp.length; i++) {
 				System.out.println(listaComp[i].lista_compras.size());
-				if(listaComp[i].id_user==controladorLogin.user_id) {
+				if(listaComp[i].id_user==controladorDatos.user_id) {
 					for(int j=0; j<listaComp[i].lista_compras.size(); j++) {
 						System.out.println(listaComp[i].lista_compras.size());
 						listaCompras.getItems().add("- " + listaComp[i].lista_compras.get(j).name + ", "
@@ -145,8 +147,8 @@ public class controladorVentanaUsuario {
 			
 			stage.setScene(new Scene(root));
 			
-			//stage.initModality(Modality.WINDOW_MODAL);
-			//stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
 			stage.setResizable(false);
 			stage.show();
 		} catch(Exception e) {

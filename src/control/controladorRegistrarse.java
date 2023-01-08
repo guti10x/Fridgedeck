@@ -21,13 +21,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.reflect.TypeToken;
 
-import application.SendEmail;
-import application.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import model.Usuario;
 
 public class controladorRegistrarse {
 	@FXML
@@ -49,15 +49,41 @@ public class controladorRegistrarse {
     private TextField tfAddress;
 	
 	@FXML
+    private ComboBox cmbRole;
+	
+	
+	public void initialize() throws InterruptedException{
+		cmbRole.getItems().add("Usuario");
+		cmbRole.getItems().add("Tecnico");
+		cmbRole.getItems().add("Proveedor");
+	}
+		
+	@FXML
     void registrarUsuario(ActionEvent e) {
 		JFrame jFrame = new JFrame();
-        
-        String username = tfUsername.getText().toString();
-        String email = tfEmail.getText().toString();
-        String password = pfPassword.getText().toString();
-        String name = tfName.getText().toString();
-        String address = tfAddress.getText().toString();
-        
+		String address="", tipo="", username="", email="", password="", name="";
+		if(cmbRole.getValue().equals("Elegir role")) {
+			JOptionPane.showMessageDialog(jFrame, "Necesita elegir role");
+		}else {	
+			username = tfUsername.getText().toString();
+            email = tfEmail.getText().toString();
+            password = pfPassword.getText().toString();
+            name = tfName.getText().toString();
+        	if(cmbRole.getValue().equals("Usuario")) {
+        		tipo = "user";
+        		address = tfAddress.getText().toString();
+        		//tfAddress.setDisable(false);
+        	}if(cmbRole.getValue().equals("Tecnico")) {
+        		tipo = "tecnico";
+        		address = "-";
+        		//tfAddress.setDisable(true);
+        	}if(cmbRole.getValue().equals("Proveedor")) {
+        		tipo = "proveedor";
+        		address = "-";
+        		//tfAddress.setDisable(true);
+        	}
+		}
+            
         if(username.equals("")||email.equals("")||password.equals("")||
         		name.equals("")|address.equals("")) {
         	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
@@ -71,7 +97,7 @@ public class controladorRegistrarse {
     			Reader reader2 = Files.newBufferedReader(Paths.get("userbase.json"));
     			List<Usuario> users = new Gson().fromJson(reader2, new TypeToken<List<Usuario>>() {}.getType());
     			System.out.println("users " +users);
-    			Usuario user = new Usuario(usersArray.length+1, username, email, password, name, address);
+    			Usuario user = new Usuario(usersArray.length, tipo, username, email, password, name, address);
     			System.out.println("user "+user);
     	
     			boolean checkUser = true;

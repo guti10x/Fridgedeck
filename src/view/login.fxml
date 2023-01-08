@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -17,7 +16,7 @@
          <children>
             <ImageView fitHeight="611.0" fitWidth="470.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@fridgedeck_login.png" />
+                  <Image url="@../../../../eclipse-workspace/Fridgedeck/src/view/fridgedeck_login.png" />
                </image>
             </ImageView>
             <TextField fx:id="tfUsernameLogin" layoutX="95.0" layoutY="301.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;" text="leon">
@@ -31,7 +30,6 @@
                </font>
             </PasswordField>
             <Button fx:id="btnRecContr" layoutX="159.0" layoutY="545.0" mnemonicParsing="false" opacity="0.0" prefHeight="25.0" prefWidth="152.0" text="Recuperar contraseña" />
-            <ComboBox fx:id="cmbRole" layoutX="95.0" layoutY="219.0" prefHeight="25.0" prefWidth="195.0" promptText="Role" />
          </children>
          <VBox.margin>
             <Insets />

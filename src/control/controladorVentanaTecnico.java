@@ -14,13 +14,13 @@ import java.util.TimerTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import application.FridgeDate;
-import application.ListaCompras;
-import application.Usuario;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import model.FridgeDate;
+import model.ListaCompras;
+import model.Usuario;
 
 public class controladorVentanaTecnico {
 	@FXML
