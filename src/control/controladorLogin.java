@@ -1,5 +1,6 @@
 package control;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
@@ -46,6 +47,7 @@ public class controladorLogin {
 	
 	@FXML
     void entrar(ActionEvent e) {
+		int user_id = 0;
 
 		JFrame jFrame = new JFrame();
         
@@ -63,6 +65,17 @@ public class controladorLogin {
     				if(users[i].username.equals(username)&&users[i].password.equals(password)) {
     					//System.out.println("Existe");
     					checkUser = true;
+    					user_id = users[i].id;
+    					try {
+					        FileWriter myWriter = new FileWriter("user_id.txt");
+					        myWriter.write(String.valueOf(user_id));
+					        myWriter.close();
+					        System.out.println("Successfully wrote to the file.");
+					    } catch (IOException e2) {
+					      System.out.println("An error occurred.");
+					      e2.printStackTrace();
+					    }
+    					
     					if(users[i].tipo.equals("user")) {
     						try {
         						FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_usuario.fxml"));
@@ -72,13 +85,7 @@ public class controladorLogin {
         						loader.setController(control);
         				
         						Parent root = loader.load();
-        						
-        						controladorDatos control2 = new controladorDatos();
-        						
-        						loader.setController(control2);
-        						System.out.println("Login/id: " + users[i].id);
-        						control2.idUsuario(users[i].id);
-        						
+      						
         						stage.setScene(new Scene(root));
         						
         						stage.initModality(Modality.WINDOW_MODAL);
@@ -100,13 +107,29 @@ public class controladorLogin {
         						loader.setController(control);
         				
         						Parent root = loader.load();
+				
+        						stage.setScene(new Scene(root));
         						
-        						controladorDatos control2 = new controladorDatos();
+        						stage.initModality(Modality.WINDOW_MODAL);
+        						stage.initOwner(((Node) (e.getSource())).getScene().getWindow());
+        						stage.setResizable(false);
+        						stage.show();
         						
-        						loader.setController(control2);
-        						System.out.println("Login/id: " + users[i].id);
-        						control2.idUsuario(users[i].id);
+        						controladorMain cm = new controladorMain();
+        						//cm.cancelLogin();
+        					} catch(Exception e3) {
+        						e3.printStackTrace();
+        					}
+    					}else if(users[i].tipo.equals("proveedor")) {
+    						try {
+        						FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_repartidor.fxml"));
         						
+        						controladorVentanaRepartidor control = new controladorVentanaRepartidor();
+        						
+        						loader.setController(control);
+        				
+        						Parent root = loader.load();
+				
         						stage.setScene(new Scene(root));
         						
         						stage.initModality(Modality.WINDOW_MODAL);

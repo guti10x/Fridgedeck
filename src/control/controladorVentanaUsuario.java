@@ -1,5 +1,7 @@
 package control;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
@@ -12,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,13 +33,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.FridgeDate;
 import model.ListaCompras;
-import model.Usuario;
 
 public class controladorVentanaUsuario {
 	@FXML
@@ -99,18 +100,31 @@ public class controladorVentanaUsuario {
 	    stage.showAndWait();
 	}
 	*/
-	void leer_datos() {
+	public void leer_datos() {
+		int user_id = 0;
+		try {
+		      File myObj = new File("user_id.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String id = myReader.nextLine();
+		        user_id = Integer.valueOf(id);
+		      }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get("fridgedate.json"));
 			Reader readerListaCompras = Files.newBufferedReader(Paths.get("listas_compras.json"));
 			FridgeDate[] datos = new Gson().fromJson(reader, FridgeDate[].class);
 			ListaCompras[] listaComp = new Gson().fromJson(readerListaCompras, ListaCompras[].class);
-			//System.out.println(datos[controladorLogin.user_id-1].temperatura);
-			System.out.println("ID from user page: " + controladorDatos.user_id);
-			lblTemperatura.setText(String.valueOf(datos[controladorDatos.user_id].temperatura) + "C");
-			lblHumedad.setText(String.valueOf(datos[controladorDatos.user_id].humedad) + "%");
-			if((datos[controladorDatos.user_id].estado).equals("abierta")) {
+			lblTemperatura.setText(String.valueOf(datos[user_id].temperatura) + "C");
+			lblHumedad.setText(String.valueOf(datos[user_id].humedad) + "%");
+			if((datos[user_id].estado).equals("abierta")) {
 				imgPuertaAbierta.setVisible(true);
 				lblPuerta.setText("open");
 			}else {
@@ -118,10 +132,9 @@ public class controladorVentanaUsuario {
 				lblPuerta.setText("close");
 			}
 			for(int i=0; i<listaComp.length; i++) {
-				System.out.println(listaComp[i].lista_compras.size());
-				if(listaComp[i].id_user==controladorDatos.user_id) {
+				if(listaComp[i].id_user==user_id) {
 					for(int j=0; j<listaComp[i].lista_compras.size(); j++) {
-						System.out.println(listaComp[i].lista_compras.size());
+						System.out.println("Size lc" + listaComp[i].lista_compras.size());
 						listaCompras.getItems().add("- " + listaComp[i].lista_compras.get(j).name + ", "
 								+ listaComp[i].lista_compras.get(j).cantidad);
 					}
