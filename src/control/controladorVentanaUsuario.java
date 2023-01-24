@@ -38,6 +38,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.FridgeDate;
 import model.ListaCompras;
+import model.ListaProductos;
 
 public class controladorVentanaUsuario {
 	@FXML
@@ -60,6 +61,9 @@ public class controladorVentanaUsuario {
 	
 	@FXML
     private ListView listaCompras;
+	
+	@FXML
+    private ListView listaProductos;
 	
 	@FXML
     private Button btnAddProductBasket;
@@ -120,8 +124,10 @@ public class controladorVentanaUsuario {
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get("fridgedate.json"));
 			Reader readerListaCompras = Files.newBufferedReader(Paths.get("listas_compras.json"));
+			Reader readerListaProductos = Files.newBufferedReader(Paths.get("listas_productos.json"));
 			FridgeDate[] datos = new Gson().fromJson(reader, FridgeDate[].class);
 			ListaCompras[] listaComp = new Gson().fromJson(readerListaCompras, ListaCompras[].class);
+			ListaProductos[] listaProd = new Gson().fromJson(readerListaProductos, ListaProductos[].class);
 			lblTemperatura.setText(String.valueOf(datos[user_id].temperatura) + "C");
 			lblHumedad.setText(String.valueOf(datos[user_id].humedad) + "%");
 			if((datos[user_id].estado).equals("abierta")) {
@@ -140,8 +146,18 @@ public class controladorVentanaUsuario {
 					}
 				}
 			}
+			for(int i=0; i<listaProd.length; i++) {
+				if(listaProd[i].id_user==user_id) {
+					for(int j=0; j<listaProd[i].lista_productos.size(); j++) {
+						System.out.println("Size lc" + listaProd[i].lista_productos.size());
+						listaProductos.getItems().add("- " + listaProd[i].lista_productos.get(j).name + ", "
+								+ listaProd[i].lista_productos.get(j).cantidad);
+					}
+				}
+			}
 			reader.close();
 			readerListaCompras.close();
+			readerListaProductos.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

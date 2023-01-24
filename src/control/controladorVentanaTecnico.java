@@ -66,7 +66,9 @@ public class controladorVentanaTecnico {
 			Usuario[] users = new Gson().fromJson(reader, Usuario[].class);
 			
 			for(int i=0; i<users.length; i++) {
-				listaUsuarios.getItems().add("- " + users[i].name_surname);
+				if(users[i].tipo.equals("user")) {
+					listaUsuarios.getItems().add("- " + users[i].name_surname);
+				}
 			}
 			reader.close();
 		} catch (IOException e1) {
