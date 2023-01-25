@@ -15,20 +15,53 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.FridgeDate;
 import model.ListaCompras;
 import model.Usuario;
 
 public class controladorVentanaTecnico {
+	public static final Stage stage  = new Stage();
 	@FXML
 	private Label lblTimeTecnico;
 	
 	@FXML
     private ListView listaUsuarios;
-	
+	@FXML
+	private Button bttnInfoTecnico;
+	 @FXML
+    void mostrarInfoTecnico(ActionEvent event) {
+		 try {
+			 FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
+				
+				controladorVentanaInformacionUsuario control2 = new controladorVentanaInformacionUsuario();
+				
+				loader2.setController(control2);
+				
+				Parent root2 = loader2.load();
+				
+				stage.setScene(new Scene(root2));
+				
+				stage.initModality(Modality.WINDOW_MODAL);
+				stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+				stage.setResizable(false);
+				stage.show();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	 
 	public void initialize() throws InterruptedException{
 		Timer timer = new Timer("Display Timer");
 		TimerTask task = new TimerTask() {

@@ -1,3 +1,4 @@
+package control;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -5,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class PleaseProvideControllerClassName {
+public class controladorVentanaInformacionUsuario {
 
     @FXML
     private ResourceBundle resources;
