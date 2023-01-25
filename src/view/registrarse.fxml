@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="611.0" prefWidth="470.0" VBox.vgrow="ALWAYS">
          <children>
             <ImageView fitHeight="611.0" fitWidth="470.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@fridgedeck_registrarse.PNG" />
+                  <Image url="@fridgedeck_registrarse.png" />
                </image>
             </ImageView>
             <TextField fx:id="tfUsername" layoutX="132.0" layoutY="242.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="29.0" prefWidth="245.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
@@ -42,7 +42,8 @@
             </TextField>
             <Button fx:id="btnRegistrarUsuario" layoutX="177.0" layoutY="528.0" mnemonicParsing="false" onAction="#registrarUsuario" opacity="0.0" prefHeight="44.0" prefWidth="148.0" />
             <PasswordField fx:id="pfPassword" layoutX="130.0" layoutY="368.0" prefHeight="27.0" prefWidth="245.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;" />
-            <ComboBox fx:id="cmbRole" layoutX="132.0" layoutY="135.0" prefHeight="29.0" prefWidth="245.0" promptText="Elegir role" style="-fx-background-color: #ffffff;" />
+            <ComboBox fx:id="cmbRole" layoutX="55.0" layoutY="535.0" prefHeight="31.0" prefWidth="196.0" promptText="Elegir role" style="-fx-background-color: #ffffff;" />
+            <Button fx:id="btnLogin" layoutX="263.0" layoutY="522.0" mnemonicParsing="false" onAction="#entrar" opacity="0.0" prefHeight="57.0" prefWidth="148.0" />
          </children>
          <VBox.margin>
             <Insets />
