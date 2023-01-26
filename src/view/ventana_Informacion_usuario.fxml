@@ -18,22 +18,22 @@
                   <Image url="@fridgedeck_userInfo.png" />
                </image>
             </ImageView>
-            <TextField fx:id="tfUsernameLogin" layoutX="86.0" layoutY="246.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
+            <TextField fx:id="tfUsernameInfo" layoutX="86.0" layoutY="246.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
                <font>
                   <Font size="18.0" />
                </font></TextField>
-            <Button fx:id="btnLogin" layoutX="175.0" layoutY="476.0" mnemonicParsing="false" onAction="#entrar" opacity="0.0" prefHeight="57.0" prefWidth="113.0" />
-            <TextField fx:id="tfUsernameLogin1" layoutX="86.0" layoutY="312.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
+            <Button fx:id="btnCerrarSesion" layoutX="164.0" layoutY="560.0" mnemonicParsing="false" onAction="#btnCerrar_Click" opacity="0.0" prefHeight="54.0" prefWidth="151.0" text="CerrarSesion" />
+            <TextField fx:id="tfemailinfo" layoutX="86.0" layoutY="312.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="tfUsernameLogin11" layoutX="86.0" layoutY="378.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
+            <TextField fx:id="tfpasswordInfo" layoutX="86.0" layoutY="378.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField fx:id="tfUsernameLogin111" layoutX="86.0" layoutY="447.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
+            <TextField fx:id="tfNameSurnameInfo" layoutX="86.0" layoutY="447.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
                <font>
                   <Font size="18.0" />
                </font>

@@ -3,48 +3,53 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class controladorVentanaInformacionUsuario {
 
-    @FXML
+	@FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
 
     @FXML
-    private TextField tfUsernameLogin;
+    private TextField tfUsernameInfo;
 
     @FXML
-    private Button btnLogin;
+    private Button btnCerrarSesion;
 
     @FXML
-    private TextField tfUsernameLogin1;
+    private TextField tfemailinfo;
 
     @FXML
-    private TextField tfUsernameLogin11;
+    private TextField tfpasswordInfo;
 
     @FXML
-    private TextField tfUsernameLogin111;
+    private TextField tfNameSurnameInfo;
 
     @FXML
-    private TextField tfUsernameLogin1111;
+    private TextField tfFridgeaddressInfo;
+    public static final Stage stage  = new Stage();
+ 
 
     @FXML
-    void entrar(ActionEvent event) {
+    void btnCerrar_Click(ActionEvent event) {
+    	System.exit(0);
 
     }
-
+   
     @FXML
     void initialize() {
-        assert tfUsernameLogin != null : "fx:id=\"tfUsernameLogin\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
-        assert btnLogin != null : "fx:id=\"btnLogin\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
-        assert tfUsernameLogin1 != null : "fx:id=\"tfUsernameLogin1\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
-        assert tfUsernameLogin11 != null : "fx:id=\"tfUsernameLogin11\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
-        assert tfUsernameLogin111 != null : "fx:id=\"tfUsernameLogin111\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
-        assert tfUsernameLogin1111 != null : "fx:id=\"tfUsernameLogin1111\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
+    	  assert tfUsernameInfo != null : "fx:id=\"tfUsernameInfo\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
+          assert btnCerrarSesion != null : "fx:id=\"btnCerrarSesion\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
+          assert tfemailinfo != null : "fx:id=\"tfemailinfo\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
+          assert tfpasswordInfo != null : "fx:id=\"tfpasswordInfo\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
+          assert tfNameSurnameInfo != null : "fx:id=\"tfNameSurnameInfo\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
+          assert tfFridgeaddressInfo != null : "fx:id=\"tfFridgeaddressInfo\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
 
     }
 }
