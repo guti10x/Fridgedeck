@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,6 +36,10 @@ public class controladorVentanaRepartidor {
 	public static final Stage stage  = new Stage();
 	@FXML
     private ListView lwCL;
+	@FXML
+    private ListView lwD;
+	@FXML
+    private ListView lwCS;
 	@FXML
 	private Button bttnInfoRepartidor;
 	@FXML
@@ -102,6 +107,55 @@ public class controladorVentanaRepartidor {
 				}
 			}
 			reader.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	public void selectClient() {
+		lwD.getItems().clear();
+		lwCS.getItems().clear();
+		int id = -1;
+		Vector<Usuario> us = new Vector<Usuario>();
+		int selectedId = lwCL.getSelectionModel().getSelectedIndex();
+		System.out.println(selectedId);
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		try {
+			Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
+			Reader readerListaCompras = Files.newBufferedReader(Paths.get("listas_compras.json"));
+			Reader readerListaProductos = Files.newBufferedReader(Paths.get("listas_productos.json"));
+			Usuario[] users = new Gson().fromJson(reader, Usuario[].class);
+			ListaCompras[] listaComp = new Gson().fromJson(readerListaCompras, ListaCompras[].class);
+			ListaProductos[] listaProd = new Gson().fromJson(readerListaProductos, ListaProductos[].class);
+			for(int i=0; i<users.length; i++) {
+				if(users[i].tipo.equals("user")) {
+					us.add(users[i]);
+				}
+			}
+			id = us.get(selectedId).id;
+			System.out.println(id);
+			for(int i=0; i<listaComp.length; i++) {
+				if(listaComp[i].id_user==id) {
+					for(int j=0; j<listaComp[i].lista_compras.size(); j++) {
+						System.out.println("Size lc" + listaComp[i].lista_compras.size());
+						lwD.getItems().add("- " + listaComp[i].lista_compras.get(j).name + ", "
+								+ listaComp[i].lista_compras.get(j).cantidad);
+					}
+				}
+			}
+			for(int i=0; i<listaProd.length; i++) {
+				if(listaProd[i].id_user==id) {
+					for(int j=0; j<listaProd[i].lista_productos.size(); j++) {
+						System.out.println("Size lc" + listaProd[i].lista_productos.size());
+						lwCS.getItems().add("- " + listaProd[i].lista_productos.get(j).name + ", "
+								+ listaProd[i].lista_productos.get(j).cantidad);
+					}
+				}
+			}
+
+			reader.close();
+			readerListaCompras.close();
+			readerListaProductos.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
