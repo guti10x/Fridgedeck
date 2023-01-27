@@ -1,11 +1,18 @@
 package control;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,16 +23,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.FridgeDate;
+import model.ListaCompras;
+import model.ListaProductos;
+import model.Usuario;
 
 public class controladorVentanaRepartidor {
 	public static final Stage stage  = new Stage();
 	@FXML
+    private ListView lwCL;
+	@FXML
 	private Button bttnInfoRepartidor;
 	@FXML
 	private Label lblTimeRepatridor;
-	 @FXML
+	@FXML
 	    void mostrarInfoRepartidor(ActionEvent event) {
 			 try {
 				 FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
@@ -76,7 +90,21 @@ public class controladorVentanaRepartidor {
 	}
 
 	private void leer_datos() {
-		// TODO Auto-generated method stub
-		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		try {
+			Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
+			//Reader readerListaCompras = Files.newBufferedReader(Paths.get("listas_compras.json"));
+			Usuario[] users = new Gson().fromJson(reader, Usuario[].class);
+			
+			for(int i=0; i<users.length; i++) {
+				if(users[i].tipo.equals("user")) {
+					lwCL.getItems().add("- " + users[i].name_surname);
+				}
+			}
+			reader.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

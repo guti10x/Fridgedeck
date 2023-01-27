@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.FridgeDate;
@@ -33,8 +36,17 @@ import model.Usuario;
 public class controladorVentanaTecnico {
 	public static final Stage stage  = new Stage();
 	@FXML
+    private ImageView imgDoorOpen;
+	@FXML
+    private ImageView imgDoorClose;
+	@FXML
 	private Label lblTimeTecnico;
-	
+	@FXML
+	private Label lblEstado;
+	@FXML
+	private Label lblHum;
+	@FXML
+	private Label lblTemp;
 	@FXML
     private ListView listaUsuarios;
 	@FXML
@@ -86,7 +98,10 @@ public class controladorVentanaTecnico {
 					}
 		    }
 		};
-		timer.scheduleAtFixedRate(task, 1000, 1000);
+		timer.scheduleAtFixedRate(task, 1000, 1000);	
+		
+		imgDoorOpen.setVisible(false);
+		imgDoorClose.setVisible(false);
 		
 		leer_datos();
 	}
@@ -104,6 +119,42 @@ public class controladorVentanaTecnico {
 				}
 			}
 			reader.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	public void selectUser() {
+		lblEstado.setText("");
+		imgDoorOpen.setVisible(false);
+		imgDoorClose.setVisible(false);
+		int id = -1;
+		Vector<Usuario> us = new Vector<Usuario>();
+		int selectedId = listaUsuarios.getSelectionModel().getSelectedIndex();
+		System.out.println(selectedId);
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		try {
+			Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
+			Reader readerFridgedate = Files.newBufferedReader(Paths.get("fridgedate.json"));
+			Usuario[] users = new Gson().fromJson(reader, Usuario[].class);
+			FridgeDate[] fd = new Gson().fromJson(readerFridgedate, FridgeDate[].class);
+			for(int i=0; i<users.length; i++) {
+				if(users[i].tipo.equals("user")) {
+					us.add(users[i]);
+				}
+			}
+			id = us.get(selectedId).id;
+			if(fd[id].estado.equals("abierta")) {
+				imgDoorOpen.setVisible(true);
+				lblEstado.setText("open");
+			}else {
+				imgDoorClose.setVisible(true);
+				lblEstado.setText("close");
+			}
+			lblTemp.setText(fd[id].temperatura + "C");
+			lblHum.setText(fd[id].humedad + "%");
+			reader.close();
+			readerFridgedate.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
