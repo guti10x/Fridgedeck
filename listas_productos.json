@@ -1,7 +1,7 @@
 [
     {
-		"id_user": 1,
-        "productos":
+		"id_user": 0,
+        "lista_productos":
 		[
 			{
         	"name": "Banana", "cantidad": "1 kilo"
@@ -12,8 +12,8 @@
         ]
     },
 	{	
-    "id_user": 2,
-    "productos":
+    "id_user": 1,
+    "lista_productos":
         [
 			{
         	"name": "Pollo", "cantidad": "2 kilos"
