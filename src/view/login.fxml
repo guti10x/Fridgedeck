@@ -16,15 +16,15 @@
          <children>
             <ImageView fitHeight="611.0" fitWidth="470.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@../../../../eclipse-workspace/Fridgedeck/src/view/fridgedeck_login.png" />
+                  <Image url="@fridgedeck_login.png" />
                </image>
             </ImageView>
-            <TextField fx:id="tfUsernameLogin" layoutX="95.0" layoutY="301.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;" text="leon">
+            <TextField fx:id="tfUsernameLogin" layoutX="95.0" layoutY="301.0" prefHeight="35.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;" text="Ivan">
                <font>
                   <Font size="18.0" />
                </font></TextField>
             <Button fx:id="btnLogin" layoutX="175.0" layoutY="476.0" mnemonicParsing="false" onAction="#entrar" opacity="0.0" prefHeight="57.0" prefWidth="113.0" />
-            <PasswordField fx:id="pfPasswordLogin" layoutX="95.0" layoutY="421.0" prefHeight="22.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;" text="leonpasswd">
+            <PasswordField fx:id="pfPasswordLogin" layoutX="95.0" layoutY="421.0" prefHeight="22.0" prefWidth="325.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;" text="ivan">
                <font>
                   <Font size="18.0" />
                </font>

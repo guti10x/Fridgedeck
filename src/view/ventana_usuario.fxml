@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <AnchorPane prefHeight="600.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
          <children>
@@ -51,6 +51,8 @@
             </Label>
             <ListView fx:id="listaCompras" layoutX="636.0" layoutY="183.0" prefHeight="333.0" prefWidth="214.0" style="-fx-background-color: #FFFFFF; -fx-fixed-cell-size: 36;" />
             <Button fx:id="btnAddProductBasket" layoutX="827.0" layoutY="517.0" mnemonicParsing="false" onAction="#openAddProductBasket" opacity="0.0" prefHeight="35.0" prefWidth="33.0" text="Add product" />
+            <ListView fx:id="listaProductos" layoutX="322.0" layoutY="183.0" prefHeight="333.0" prefWidth="246.0" style="-fx-background-color: #FFFFFF; -fx-fixed-cell-size: 36;" />
+            <Button fx:id="bttnInfoUsuario" layoutX="641.0" layoutY="-3.0" mnemonicParsing="false" onAction="#mostrarInfoUsuario" opacity="0.0" prefHeight="59.0" prefWidth="59.0" text="MostrarInfo" />
          </children>
          <VBox.margin>
             <Insets />

@@ -5,6 +5,7 @@ public class Productos {
     public String cantidad;
     
 	public Productos(String name, String cantidad) {
+		super();
 		this.name = name;
 		this.cantidad = cantidad;
 	}

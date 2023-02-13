@@ -1,5 +1,7 @@
 package control;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
@@ -8,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -47,6 +50,21 @@ public class controladorAddProductBasket {
 	
 	@FXML
     void addProduct(ActionEvent e) {
+		int user_id = 0;
+		try {
+		      File myObj = new File("user_id.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String id = myReader.nextLine();
+		        user_id = Integer.valueOf(id);
+		        System.out.println("basket id " + user_id);
+		      }
+		      myReader.close();
+	    } catch (FileNotFoundException e3) {
+	      System.out.println("An error occurred.");
+	      e3.printStackTrace();
+	    }
+		
 		JFrame jFrame = new JFrame();
         
         String name = tfNombre.getText().toString();
@@ -76,7 +94,12 @@ public class controladorAddProductBasket {
     			
     			Writer writer = new FileWriter("listas_compras.json");
     			//lcomp[controladorLogin.user_id-1].lista_compras.clear();
-    			lcomp[controladorDatos.user_id].lista_compras.add(new Compras(name, count));
+    			for(int i = 0; i<lcomp.length; i++) {
+    				if(lcomp[i].id_user==user_id) {
+    					lcomp[i].lista_compras.add(new Compras(name, count));
+    				}
+    			}
+    			System.out.println("basket id " + user_id);
     			new Gson().toJson(lcomp, writer);
     			writer.close();
     			
@@ -84,8 +107,8 @@ public class controladorAddProductBasket {
     		    final Stage stage = (Stage) source.getScene().getWindow();
     		    stage.close();
     			
-    			controladorVentanaUsuario cvu = new controladorVentanaUsuario();
-    			cvu.leer_datos();
+				controladorVentanaUsuario controladorVentanaUsuario = new controladorVentanaUsuario();
+				//controladorVentanaUsuario.leer_datos();
     			
     		} catch (IOException e2) {
     			// TODO Auto-generated catch block

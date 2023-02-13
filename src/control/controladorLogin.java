@@ -1,11 +1,16 @@
 package control;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -28,6 +33,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Usuario;
+import application.connectBBDD;
+
 
 public class controladorLogin {
 	@FXML
@@ -45,7 +52,9 @@ public class controladorLogin {
 	public static final Stage stage  = new Stage();
 	
 	@FXML
-    void entrar(ActionEvent e) {
+    void entrar(ActionEvent e) throws IOException {
+		int user_id = -1;
+		boolean checkUser = false;
 
 		JFrame jFrame = new JFrame();
         
@@ -55,81 +64,108 @@ public class controladorLogin {
         	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
         }else {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            try {
-    			Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
-    			Usuario[] users = new Gson().fromJson(reader, Usuario[].class);
-    			boolean checkUser = false;
-    			for(int i=0; i<users.length; i++) {
-    				if(users[i].username.equals(username)&&users[i].password.equals(password)) {
-    					//System.out.println("Existe");
-    					checkUser = true;
-    					if(users[i].tipo.equals("user")) {
-    						try {
-        						FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_usuario.fxml"));
-        						
-        						controladorVentanaUsuario control = new controladorVentanaUsuario();
-        						
-        						loader.setController(control);
-        				
-        						Parent root = loader.load();
-        						
-        						controladorDatos control2 = new controladorDatos();
-        						
-        						loader.setController(control2);
-        						System.out.println("Login/id: " + users[i].id);
-        						control2.idUsuario(users[i].id);
-        						
-        						stage.setScene(new Scene(root));
-        						
-        						stage.initModality(Modality.WINDOW_MODAL);
-        						stage.initOwner(((Node) (e.getSource())).getScene().getWindow());
-        						stage.setResizable(false);
-        						stage.show();
-        						
-        						controladorMain cm = new controladorMain();
-        						//cm.cancelLogin();
-        					} catch(Exception e3) {
-        						e3.printStackTrace();
-        					}
-    					}else if(users[i].tipo.equals("tecnico")) {
-    						try {
-        						FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_tecnico.fxml"));
-        						
-        						controladorVentanaTecnico control = new controladorVentanaTecnico();
-        						
-        						loader.setController(control);
-        				
-        						Parent root = loader.load();
-        						
-        						controladorDatos control2 = new controladorDatos();
-        						
-        						loader.setController(control2);
-        						System.out.println("Login/id: " + users[i].id);
-        						control2.idUsuario(users[i].id);
-        						
-        						stage.setScene(new Scene(root));
-        						
-        						stage.initModality(Modality.WINDOW_MODAL);
-        						stage.initOwner(((Node) (e.getSource())).getScene().getWindow());
-        						stage.setResizable(false);
-        						stage.show();
-        						
-        						controladorMain cm = new controladorMain();
-        						//cm.cancelLogin();
-        					} catch(Exception e3) {
-        						e3.printStackTrace();
-        					}
-    					}
-    				}
-    			}
-    			if(checkUser == false) {
-    				JOptionPane.showMessageDialog(jFrame, "Has introducido login o contraseña erroneo");
-    			}
-    			reader.close();
-    		} catch (IOException e2) {
-    			// TODO Auto-generated catch block
-    			e2.printStackTrace();
-    		}
+            
+            int id = -1;
+    		String type = "";
+    		String sql = "SELECT id, type FROM users where username ='" + username + "' and password ='" + password + "';";
+            
+            try (Connection conn = connectBBDD.connect();
+                 Statement stmt  = conn.createStatement();
+                 ResultSet rs    = stmt.executeQuery(sql)){
+                
+                while (rs.next()) {
+                	user_id = rs.getInt("id");
+                    type = rs.getString("type");
+                }
+            } catch (SQLException e2) {
+                System.out.println(e2.getMessage());
+            }
+ 
+			System.out.println("User id: " + user_id);
+			if(user_id!=-1) {
+				checkUser = true;
+				try {
+			        FileWriter myWriter = new FileWriter("user_id.txt");
+			        myWriter.write(String.valueOf(user_id));
+			        myWriter.close();
+			        System.out.println("Successfully wrote to the file.");
+			    } catch (IOException e2) {
+			      System.out.println("An error occurred.");
+			      e2.printStackTrace();
+			    }
+			}
+
+			if(type.equals("user")) {
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_usuario.fxml"));
+					
+					controladorVentanaUsuario control = new controladorVentanaUsuario();
+					
+					loader.setController(control);
+			
+					Parent root = loader.load();
+				
+					stage.setScene(new Scene(root));
+					
+					stage.initModality(Modality.WINDOW_MODAL);
+					stage.initOwner(((Node) (e.getSource())).getScene().getWindow());
+					stage.setResizable(false);
+					stage.show();
+					
+					controladorMain cm = new controladorMain();
+					//cm.cancelLogin();
+				} catch(Exception e3) {
+					e3.printStackTrace();
+				}
+			}else if(type.equals("tecnico")) {
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_tecnico.fxml"));
+					
+					controladorVentanaTecnico control = new controladorVentanaTecnico();
+					
+					loader.setController(control);
+			
+					Parent root = loader.load();
+	
+					stage.setScene(new Scene(root));
+					
+					stage.initModality(Modality.WINDOW_MODAL);
+					stage.initOwner(((Node) (e.getSource())).getScene().getWindow());
+					stage.setResizable(false);
+					stage.show();
+					
+					controladorMain cm = new controladorMain();
+					//cm.cancelLogin();
+				} catch(Exception e3) {
+					e3.printStackTrace();
+				}
+			}else if(type.equals("proveedor")) {
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_repartidor.fxml"));
+					
+					controladorVentanaRepartidor control = new controladorVentanaRepartidor();
+					
+					loader.setController(control);
+			
+					Parent root = loader.load();
+	
+					stage.setScene(new Scene(root));
+					
+					stage.initModality(Modality.WINDOW_MODAL);
+					stage.initOwner(((Node) (e.getSource())).getScene().getWindow());
+					stage.setResizable(false);
+					stage.show();
+					
+					controladorMain cm = new controladorMain();
+					//cm.cancelLogin();
+				} catch(Exception e3) {
+					e3.printStackTrace();
+				}
+			}
+				
+			if(checkUser == false) {
+				JOptionPane.showMessageDialog(jFrame, "Has introducido login o contraseña erroneo");
+			}
         }
 	}
 }
