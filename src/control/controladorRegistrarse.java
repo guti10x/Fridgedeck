@@ -8,6 +8,10 @@ import java.io.Writer;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -21,6 +25,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.reflect.TypeToken;
 
+import application.connectBBDD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -89,22 +94,12 @@ public class controladorRegistrarse {
         	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
         }else {
             try {
-            	Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            	Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
-    			Usuario[] usersArray = new Gson().fromJson(reader, Usuario[].class);
-    			System.out.println("usersArray " +usersArray);
-    			reader.close();
-    			Reader reader2 = Files.newBufferedReader(Paths.get("userbase.json"));
-    			List<Usuario> users = new Gson().fromJson(reader2, new TypeToken<List<Usuario>>() {}.getType());
-    			System.out.println("users " +users);
-    			Usuario user = new Usuario(usersArray.length, tipo, username, email, password, name, address);
-    			System.out.println("user "+user);
-    	
-    			boolean checkUser = true;
+            	String sql = "INSERT INTO users (type, username, email, password, name_surname, fridge_adress)"
+            			+ "VALUES ('" + tipo + "', '" + username + "', '" + email + "', '" + password + "', '" + name + "', '" + address + "')";
+            	
+    			/*boolean checkUser = true;
     			for(int i=0; i<usersArray.length; i++) {
-    				/*if((usersArray[i].username!=username)&&(usersArray[i].email!=email)) {
-    					checkUser=true;
-    				}else {*/
+    	
     					if(usersArray[i].username.equals(username)) {
         					JOptionPane.showMessageDialog(jFrame, "Username ya existe");
         					checkUser=false;
@@ -113,32 +108,28 @@ public class controladorRegistrarse {
         					JOptionPane.showMessageDialog(jFrame, "Existe usuario con este correo");
         					checkUser=false;
         				}
-    				//}	
     			}
-    			
-    			
-    			users.add(user);
-    			users.forEach(System.out::println);
-    			reader.close();
-    			
-    			if(checkUser==true) {
-    				Writer writer = new FileWriter("userbase.json");
-    		    new Gson().toJson(users, writer);
-    			writer.close();
-    			JOptionPane.showMessageDialog(jFrame, "Has registrado");
-	    			try {
+    			*/
+
+    			//if(checkUser==true) {
+            		Connection conn = connectBBDD.connect();
+                    Statement stmt  = conn.createStatement();
+                    stmt.executeUpdate(sql);
+                    conn.close();
+               } catch (SQLException e2) {
+                   System.out.println(e2.getMessage());
+               }
+
+				JOptionPane.showMessageDialog(jFrame, "Has registrado");
+	    			/*
+				try {
 						SendEmail.enviarCorreo(username, password, email);
 					} catch (MessagingException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}
-    			}	
-    		} catch (IOException e2) {
-    			// TODO Auto-generated catch block
-    			e2.printStackTrace();
-    		}
-            
-            
+					}*/
+    			//}	
+  
             /*
             try {
     			SendEmail.enviarCorreo(username, password, email);
