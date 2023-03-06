@@ -71,8 +71,7 @@ public class controladorLogin {
             
             try (Connection conn = connectBBDD.connect();
                  Statement stmt  = conn.createStatement();
-                 ResultSet rs    = stmt.executeQuery(sql)){
-                
+                 ResultSet rs    = stmt.executeQuery(sql)){      
                 while (rs.next()) {
                 	user_id = rs.getInt("id");
                     type = rs.getString("type");

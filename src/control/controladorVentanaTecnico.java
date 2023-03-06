@@ -1,10 +1,9 @@
 package control;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.Date;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,9 +12,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
+import application.connectBBDD;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,8 +27,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.FridgeDate;
-import model.ListaCompras;
 import model.Usuario;
 
 public class controladorVentanaTecnico {
@@ -51,7 +47,7 @@ public class controladorVentanaTecnico {
     private ListView listaUsuarios;
 	@FXML
 	private Button bttnInfoTecnico;
-	 @FXML
+	@FXML
     void mostrarInfoTecnico(ActionEvent event) {
 		 try {
 			 FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
@@ -107,31 +103,28 @@ public class controladorVentanaTecnico {
 	}
 
 	public void leer_datos() {
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String sql = "SELECT id, name_surname from users where type = 'user';";
+		int id;
+		String name="";
 		try {
-			Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
-			//Reader readerListaCompras = Files.newBufferedReader(Paths.get("listas_compras.json"));
-			Usuario[] users = new Gson().fromJson(reader, Usuario[].class);
-			
-			for(int i=0; i<users.length; i++) {
-				if(users[i].tipo.equals("user")) {
-					listaUsuarios.getItems().add("- " + users[i].name_surname);
-				}
-			}
-			reader.close();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+            Connection conn = connectBBDD.connect();
+            Statement stmt  = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+            	int cont = 0;
+            	id = rs.getInt("id");
+            	name = rs.getString("name_surname");
+            	listaUsuarios.getItems().add(name);
+            	cont++;
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+       } catch (SQLException e2) {
+           System.out.println(e2.getMessage());
+       }
 	}
-	public void selectUser() {
-		lblEstado.setText("");
-		imgDoorOpen.setVisible(false);
-		imgDoorClose.setVisible(false);
-		int id = -1;
-		Vector<Usuario> us = new Vector<Usuario>();
-		int selectedId = listaUsuarios.getSelectionModel().getSelectedIndex();
-		System.out.println(selectedId);
+	public void selectUser() {/*
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
@@ -158,6 +151,44 @@ public class controladorVentanaTecnico {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
+		
+		lblEstado.setText("");
+		imgDoorOpen.setVisible(false);
+		imgDoorClose.setVisible(false);
+		int id = -1;
+		Vector<Usuario> us = new Vector<Usuario>();
+		int selectedId = listaUsuarios.getSelectionModel().getSelectedIndex();
+		String name_surname = (String) listaUsuarios.getSelectionModel().getSelectedItem();
+		String sql = "SELECT temperatura, humedad, estado FROM datos_nevera where id_user = (SELECT id from users where name_surname = '" + name_surname + "');";
+		String temperatura = "", humedad = "", estado = "";
+		try {
+            Connection conn = connectBBDD.connect();
+            Statement stmt  = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+            	int cont = 0;
+            	temperatura = rs.getString("temperatura");
+            	humedad = rs.getString("humedad");
+            	estado = rs.getString("estado");
+            	cont++;
+            	
+            	lblTemp.setText(temperatura + "C");
+    			lblHum.setText(humedad + "%");
+    			
+    			if(estado.equals("abierta")) {
+    				imgDoorOpen.setVisible(true);
+    				lblEstado.setText("open");
+    			}else {
+    				imgDoorClose.setVisible(true);
+    				lblEstado.setText("close");
+    			}
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+       } catch (SQLException e2) {
+           System.out.println(e2.getMessage());
+       }
 	}
 }

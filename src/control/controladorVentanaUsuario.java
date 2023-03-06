@@ -7,6 +7,10 @@ import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ import javax.swing.SwingUtilities;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import application.connectBBDD;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,6 +44,7 @@ import javafx.stage.Stage;
 import model.FridgeDate;
 import model.ListaCompras;
 import model.ListaProductos;
+import model.Productos;
 
 public class controladorVentanaUsuario {
 	@FXML
@@ -142,34 +148,82 @@ public class controladorVentanaUsuario {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
 		    }
-
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		
-		try {
+		/*
 			Reader reader = Files.newBufferedReader(Paths.get("fridgedate.json"));
 			Reader readerListaCompras = Files.newBufferedReader(Paths.get("listas_compras.json"));
 			Reader readerListaProductos = Files.newBufferedReader(Paths.get("listas_productos.json"));
 			FridgeDate[] datos = new Gson().fromJson(reader, FridgeDate[].class);
 			ListaCompras[] listaComp = new Gson().fromJson(readerListaCompras, ListaCompras[].class);
 			ListaProductos[] listaProd = new Gson().fromJson(readerListaProductos, ListaProductos[].class);
-			lblTemperatura.setText(String.valueOf(datos[user_id].temperatura) + "C");
-			lblHumedad.setText(String.valueOf(datos[user_id].humedad) + "%");
-			if((datos[user_id].estado).equals("abierta")) {
+*/
+    		String sql = "SELECT temperatura, humedad, estado FROM datos_nevera where id_user = '" + user_id + "';";
+    		String sqlProductos = "SELECT name, cantidad FROM lista_productos where id_user = '" + user_id + "';";
+    		String sqlCompras = "SELECT name, cantidad FROM lista_compras where id_user = '" + user_id + "';";
+    		int temperatura = -999, humedad = -999;
+    		String estado = "", name = "", cantidad = "";;
+            try {
+                 Connection conn = connectBBDD.connect();
+                 Statement stmt  = conn.createStatement();
+                 ResultSet rs    = stmt.executeQuery(sql);
+                while (rs.next()) {
+                	temperatura = rs.getInt("temperatura");
+                	humedad = rs.getInt("humedad");
+                	estado = rs.getString("estado");
+                }
+                rs.close();
+                stmt.close();
+                conn.close();
+            } catch (SQLException e2) {
+                System.out.println(e2.getMessage());
+            }
+            
+            
+            try {
+                Connection conn2 = connectBBDD.connect();
+                Statement stmt2  = conn2.createStatement();
+                ResultSet rsPrd = stmt2.executeQuery(sqlProductos);
+                while (rsPrd.next()) {
+                	int cont = 0;
+                	name = rsPrd.getString("name");
+                	cantidad = rsPrd.getString("cantidad");
+                	listaProductos.getItems().add("- " + name + ", " + cantidad);
+                	cont++;
+                }
+                rsPrd.close();
+                stmt2.close();
+                conn2.close();
+           } catch (SQLException e2) {
+               System.out.println(e2.getMessage());
+           }
+            
+            try {
+                Connection connComp = connectBBDD.connect();
+                Statement stmtComp  = connComp.createStatement();
+                ResultSet rsCmp = stmtComp.executeQuery(sqlCompras);
+                while (rsCmp.next()) {
+                	int cont = 0;
+                	name = rsCmp.getString("name");
+                	cantidad = rsCmp.getString("cantidad");
+                	listaCompras.getItems().add("- " + name + ", " + cantidad);
+                	cont++;
+                }
+                rsCmp.close();
+                stmtComp.close();
+                connComp.close();
+           } catch (SQLException e2) {
+               System.out.println(e2.getMessage());
+           }
+            
+            
+            lblTemperatura.setText(String.valueOf(temperatura + "C"));
+			lblHumedad.setText(String.valueOf(humedad + "%"));
+			if(estado.equals("abierta")) {
 				imgPuertaAbierta.setVisible(true);
 				lblPuerta.setText("open");
 			}else {
 				imgPuertaCerrada.setVisible(true);
 				lblPuerta.setText("close");
-			}
-			for(int i=0; i<listaComp.length; i++) {
-				if(listaComp[i].id_user==user_id) {
-					for(int j=0; j<listaComp[i].lista_compras.size(); j++) {
-						System.out.println("Size lc" + listaComp[i].lista_compras.size());
-						listaCompras.getItems().add("- " + listaComp[i].lista_compras.get(j).name + ", "
-								+ listaComp[i].lista_compras.get(j).cantidad);
-					}
-				}
-			}
+			}/*
 			for(int i=0; i<listaProd.length; i++) {
 				if(listaProd[i].id_user==user_id) {
 					for(int j=0; j<listaProd[i].lista_productos.size(); j++) {
@@ -178,14 +232,7 @@ public class controladorVentanaUsuario {
 								+ listaProd[i].lista_productos.get(j).cantidad);
 					}
 				}
-			}
-			reader.close();
-			readerListaCompras.close();
-			readerListaProductos.close();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+			}*/
 	}
 	@FXML
     void openAddProductBasket(ActionEvent event) {
