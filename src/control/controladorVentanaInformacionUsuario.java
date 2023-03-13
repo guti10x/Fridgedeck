@@ -6,6 +6,10 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -13,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import application.Usuario;
+import application.connectBBDD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -80,24 +85,31 @@ public class controladorVentanaInformacionUsuario {
   		      e.printStackTrace();
   		    }
   		
-  			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String username = "", email = "", password = "", name_surname = "", fridge_adress = "";
+		String sql = "SELECT username, email, password, name_surname, fridge_adress FROM users where id ='" + user_id + "';";
+        
+        try (Connection conn = connectBBDD.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){      
+            while (rs.next()) {
+            	username = rs.getString("username");
+            	email = rs.getString("email");
+            	password = rs.getString("password");
+            	name_surname = rs.getString("name_surname");
+            	fridge_adress = rs.getString("fridge_adress");
+            }
+            tfUsernameInfo.setText(String.valueOf(username));
+			tfemailinfo.setText(String.valueOf(email));
+			tfpasswordInfo.setText(String.valueOf(password));
+			tfNameSurnameInfo.setText(String.valueOf(name_surname));
+			tfFridgeaddressInfo.setText(String.valueOf(fridge_adress));
+			
+			rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e2) {
+            System.out.println(e2.getMessage());
+        }
 		
-		try {
-			Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
-			Usuario[] users = new Gson().fromJson(reader, Usuario[].class);
-			for(int i=0; i<users.length; i++) {
-				if(users[i].id==user_id) {
-					tfUsernameInfo.setText(String.valueOf(users[user_id].username));
-					tfemailinfo.setText(String.valueOf(users[user_id].email));
-					tfpasswordInfo.setText(String.valueOf(users[user_id].password));
-					tfNameSurnameInfo.setText(String.valueOf(users[user_id].name_surname));
-					tfFridgeaddressInfo.setText(String.valueOf(users[user_id].fridge_adress));
-				}
-			}
-			reader.close();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
     }
 }

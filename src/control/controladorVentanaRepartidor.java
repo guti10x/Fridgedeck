@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,6 +19,7 @@ import java.util.Vector;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import application.connectBBDD;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -95,26 +100,71 @@ public class controladorVentanaRepartidor {
 	}
 
 	private void leer_datos() {
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String sql = "SELECT id, name_surname from users where type = 'user';";
+		int id;
+		String name="";
 		try {
-			Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
-			//Reader readerListaCompras = Files.newBufferedReader(Paths.get("listas_compras.json"));
-			Usuario[] users = new Gson().fromJson(reader, Usuario[].class);
-			
-			for(int i=0; i<users.length; i++) {
-				if(users[i].tipo.equals("user")) {
-					lwCL.getItems().add("- " + users[i].name_surname);
-				}
-			}
-			reader.close();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+            Connection conn = connectBBDD.connect();
+            Statement stmt  = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+            	int cont = 0;
+            	id = rs.getInt("id");
+            	name = rs.getString("name_surname");
+            	lwCL.getItems().add(name);
+            	cont++;
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+       } catch (SQLException e2) {
+           System.out.println(e2.getMessage());
+       }
 	}
 	public void selectClient() {
 		lwD.getItems().clear();
 		lwCS.getItems().clear();
+		
+
+		int selectedId = lwCL.getSelectionModel().getSelectedIndex();
+		String name_surname = (String) lwCL.getSelectionModel().getSelectedItem();
+		String sqlDelivery = "SELECT name, cantidad FROM lista_compras where id_user = (SELECT id from users where name_surname = '" + name_surname + "');";
+		String sqlClientStock = "SELECT name, cantidad FROM lista_compras where id_user = (SELECT id from users where name_surname = '" + name_surname + "');";
+		String name = "", cantidad = "";
+		try {
+            Connection conn = connectBBDD.connect();
+            Statement stmt  = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlDelivery);
+            while (rs.next()) {
+            	int cont = 0;
+            	name = rs.getString("name");
+            	cantidad = rs.getString("cantidad");
+            	cont++;
+            	
+            	lwD.getItems().add("- " + name + ", " + cantidad);
+    			
+            }
+            rs.close();
+            rs = stmt.executeQuery(sqlClientStock);
+            
+            while (rs.next()) {
+            	int cont = 0;
+            	name = rs.getString("name");
+            	cantidad = rs.getString("cantidad");
+            	cont++;
+            	
+            	lwCS.getItems().add("- " + name + ", " + cantidad);
+    			
+            }
+            
+            rs.close();
+            stmt.close();
+            conn.close();
+       } catch (SQLException e2) {
+           System.out.println(e2.getMessage());
+       }
+		
+		/*
 		int id = -1;
 		Vector<Usuario> us = new Vector<Usuario>();
 		int selectedId = lwCL.getSelectionModel().getSelectedIndex();
@@ -159,6 +209,6 @@ public class controladorVentanaRepartidor {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 	}
 }

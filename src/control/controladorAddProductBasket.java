@@ -8,6 +8,10 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import application.connectBBDD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,7 +62,6 @@ public class controladorAddProductBasket {
 		      while (myReader.hasNextLine()) {
 		        String id = myReader.nextLine();
 		        user_id = Integer.valueOf(id);
-		        System.out.println("basket id " + user_id);
 		      }
 		      myReader.close();
 	    } catch (FileNotFoundException e3) {
@@ -68,52 +72,27 @@ public class controladorAddProductBasket {
 		JFrame jFrame = new JFrame();
         
         String name = tfNombre.getText().toString();
-        String count = tfCantidad.getText().toString();
+        String cantidad = tfCantidad.getText().toString();
         
-        if(tfNombre.equals("")||count.equals("")) {
+        if(tfNombre.equals("")||cantidad.equals("")) {
         	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
         }else {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            try {
-            	
-    			Reader reader = Files.newBufferedReader(Paths.get("listas_compras.json"));
-    			ListaCompras[] lcomp = new Gson().fromJson(reader, ListaCompras[].class);
-    			/*
-    			List<Compras> listaActualizada = new ArrayList<>();
-    			for(int i = 0; i < lcomp.length; i++) {
-    				//System.out.println("lista: " + listaActualizada);
-    				listaActualizada.add(new Compras(lcomp[controladorLogin.user_id-1].lista_compras.get(i).name, lcomp[controladorLogin.user_id-1].lista_compras.get(i).cantidad)); 
-    				
-    			}
-    			listaActualizada.add(new Compras(name, count));
-    			for(int i = 0; i < lcomp.length+1; i++) {
-    				System.out.println(listaActualizada.get(i).name); 
-    			}
-    			*/
-    			reader.close();
-    			
-    			Writer writer = new FileWriter("listas_compras.json");
-    			//lcomp[controladorLogin.user_id-1].lista_compras.clear();
-    			for(int i = 0; i<lcomp.length; i++) {
-    				if(lcomp[i].id_user==user_id) {
-    					lcomp[i].lista_compras.add(new Compras(name, count));
-    				}
-    			}
-    			System.out.println("basket id " + user_id);
-    			new Gson().toJson(lcomp, writer);
-    			writer.close();
-    			
-    			final Node source = (Node) e.getSource();
-    		    final Stage stage = (Stage) source.getScene().getWindow();
-    		    stage.close();
-    			
-				controladorVentanaUsuario controladorVentanaUsuario = new controladorVentanaUsuario();
-				//controladorVentanaUsuario.leer_datos();
-    			
-    		} catch (IOException e2) {
-    			// TODO Auto-generated catch block
-    			e2.printStackTrace();
-    		}  
+        	try {
+        		String sqlInsert = "INSERT INTO lista_compras (name, cantidad, id_user)"
+            			+ "VALUES ('" + name + "', '" + cantidad + "', '" + user_id + "')";
+        		
+        		Connection conn = connectBBDD.connect();
+                Statement stmt  = conn.createStatement();
+                stmt.executeUpdate(sqlInsert);
+                conn.close();
+                
+                tfNombre.setText("");
+                tfCantidad.setText("");
+                JOptionPane.showMessageDialog(jFrame, "Has añadido producto!");
+           } catch (SQLException e2) {
+               System.out.println(e2.getMessage());
+           }
+        	controladorVentanaUsuario controladorVentanaUsuario = new controladorVentanaUsuario();
         }
 	}
 }
