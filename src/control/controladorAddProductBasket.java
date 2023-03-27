@@ -51,7 +51,7 @@ public class controladorAddProductBasket {
 	@FXML
     private Button btnAddProduct;
 	
-	public static Stage stage  = new Stage();
+	//public static Stage stage  = new Stage();
 	
 	@FXML
     void addProduct(ActionEvent e) {

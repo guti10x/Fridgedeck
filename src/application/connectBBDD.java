@@ -11,7 +11,7 @@ import org.sqlite.SQLiteDataSource;
 public class connectBBDD {
     public static Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:bbdd.db";
+        String url = "jdbc:sqlite:bbdd/bbdd.db";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);

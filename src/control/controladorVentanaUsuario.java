@@ -77,7 +77,6 @@ public class controladorVentanaUsuario {
 	@FXML
 	private Button bttnInfoUsuario;
 	
-	public static final Stage stage  = new Stage();
 	@FXML
     void mostrarInfoUsuario(ActionEvent event) {
 		 try {
@@ -88,6 +87,8 @@ public class controladorVentanaUsuario {
 			loader2.setController(control2);
 			
 			Parent root2 = loader2.load();
+			
+			Stage stage  = new Stage();
 			
 			stage.setScene(new Scene(root2));
 			
@@ -156,7 +157,8 @@ public class controladorVentanaUsuario {
 			ListaCompras[] listaComp = new Gson().fromJson(readerListaCompras, ListaCompras[].class);
 			ListaProductos[] listaProd = new Gson().fromJson(readerListaProductos, ListaProductos[].class);
 */
-    		String sql = "SELECT temperatura, humedad, estado FROM datos_nevera where id_user = '" + user_id + "';";
+    		String sqlTemperatura = "SELECT valor FROM temperatura where id_nevera = (select id_nevera from subscribe where id_user ='" + user_id + "') "
+    				+ "and fecha = (SELECT MAX(fecha) FROM temperatura WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "'));";
     		String sqlProductos = "SELECT name, cantidad FROM lista_productos where id_user = '" + user_id + "';";
     		String sqlCompras = "SELECT name, cantidad FROM lista_compras where id_user = '" + user_id + "';";
     		int temperatura = -999, humedad = -999;
@@ -164,11 +166,9 @@ public class controladorVentanaUsuario {
             try {
                  Connection conn = connectBBDD.connect();
                  Statement stmt  = conn.createStatement();
-                 ResultSet rs    = stmt.executeQuery(sql);
+                 ResultSet rs    = stmt.executeQuery(sqlTemperatura);
                 while (rs.next()) {
-                	temperatura = rs.getInt("temperatura");
-                	humedad = rs.getInt("humedad");
-                	estado = rs.getString("estado");
+                	temperatura = rs.getInt("valor");
                 }
                 rs.close();
                 stmt.close();
@@ -244,6 +244,8 @@ public class controladorVentanaUsuario {
 			loader.setController(control);
 	
 			Parent root = loader.load();
+			
+			Stage stage  = new Stage();
 			
 			stage.setScene(new Scene(root));
 			

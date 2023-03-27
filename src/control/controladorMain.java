@@ -18,11 +18,12 @@ public class controladorMain {
 	@FXML
     private Button btnRegistrarse;
 	
-	public static final Stage stage  = new Stage();
-	
 	@FXML
     void abrirLogin(ActionEvent event) {
 		try {
+			Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	        currentStage.close();
+	        
 			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/login.fxml"));
 			
 			controladorLogin control2 = new controladorLogin();
@@ -30,6 +31,8 @@ public class controladorMain {
 			loader2.setController(control2);
 	
 			Parent root2 = loader2.load();
+			
+			Stage stage  = new Stage();
 			
 			stage.setScene(new Scene(root2));
 			
@@ -42,13 +45,12 @@ public class controladorMain {
 		}
 	}
 	
-	public void cancelLogin() {
-	    stage.getScene().getWindow().hide();
-	}
-	
 	@FXML
     void abrirRegistrarse(ActionEvent event) {
 		try {
+			Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	        currentStage.close();
+	        
 			FXMLLoader loader3 = new FXMLLoader(getClass().getResource("/view/registrarse.fxml"));
 			
 			controladorRegistrarse control3 = new controladorRegistrarse();

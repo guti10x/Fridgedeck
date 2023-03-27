@@ -49,8 +49,6 @@ public class controladorLogin {
 	@FXML
     private Button btnRecContr;
 	
-	public static final Stage stage  = new Stage();
-	
 	@FXML
     void entrar(ActionEvent e) throws IOException {
 		int user_id = -1;
@@ -66,15 +64,15 @@ public class controladorLogin {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             
             int id = -1;
-    		String type = "";
-    		String sql = "SELECT id, type FROM users where username ='" + username + "' and password ='" + password + "';";
+    		String role = "";
+    		String sql = "SELECT id, role FROM usuarios where username ='" + username + "' and password ='" + password + "';";
             
             try (Connection conn = connectBBDD.connect();
                  Statement stmt  = conn.createStatement();
                  ResultSet rs    = stmt.executeQuery(sql)){      
                 while (rs.next()) {
                 	user_id = rs.getInt("id");
-                    type = rs.getString("type");
+                	role = rs.getString("role");
                 }
             } catch (SQLException e2) {
                 System.out.println(e2.getMessage());
@@ -94,8 +92,11 @@ public class controladorLogin {
 			    }
 			}
 
-			if(type.equals("user")) {
+			if(role.equals("user")) {
 				try {
+					Stage currentStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			        currentStage.close();
+			        
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_usuario.fxml"));
 					
 					controladorVentanaUsuario control = new controladorVentanaUsuario();
@@ -103,7 +104,9 @@ public class controladorLogin {
 					loader.setController(control);
 			
 					Parent root = loader.load();
-				
+					
+					Stage stage  = new Stage();
+					
 					stage.setScene(new Scene(root));
 					
 					stage.initModality(Modality.WINDOW_MODAL);
@@ -116,8 +119,11 @@ public class controladorLogin {
 				} catch(Exception e3) {
 					e3.printStackTrace();
 				}
-			}else if(type.equals("tecnico")) {
+			}else if(role.equals("técnico")) {
 				try {
+					Stage currentStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			        currentStage.close();
+			        
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_tecnico.fxml"));
 					
 					controladorVentanaTecnico control = new controladorVentanaTecnico();
@@ -125,7 +131,9 @@ public class controladorLogin {
 					loader.setController(control);
 			
 					Parent root = loader.load();
-	
+					
+					Stage stage  = new Stage();
+					
 					stage.setScene(new Scene(root));
 					
 					stage.initModality(Modality.WINDOW_MODAL);
@@ -138,8 +146,11 @@ public class controladorLogin {
 				} catch(Exception e3) {
 					e3.printStackTrace();
 				}
-			}else if(type.equals("proveedor")) {
+			}else if(role.equals("repartidor")) {
 				try {
+					Stage currentStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			        currentStage.close();
+			        
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_repartidor.fxml"));
 					
 					controladorVentanaRepartidor control = new controladorVentanaRepartidor();
@@ -147,7 +158,9 @@ public class controladorLogin {
 					loader.setController(control);
 			
 					Parent root = loader.load();
-	
+					
+					Stage stage  = new Stage();
+					
 					stage.setScene(new Scene(root));
 					
 					stage.initModality(Modality.WINDOW_MODAL);
