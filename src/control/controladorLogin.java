@@ -176,7 +176,7 @@ public class controladorLogin {
 			}
 				
 			if(checkUser == false) {
-				JOptionPane.showMessageDialog(jFrame, "Has introducido login o contraseÃ±a erroneo");
+				JOptionPane.showMessageDialog(jFrame, "Has introducido login o contraseña erroneo");
 			}
         }
 	}
