@@ -164,7 +164,6 @@ public class controladorVentanaUsuario {
     		String sqlPuerta = "SELECT valor FROM puerta where id_nevera = (select id_nevera from subscribe where id_user ='" + user_id + "') "
     				+ "and fecha = (SELECT MAX(fecha) FROM puerta WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "'));";
     		String sqlProductos = "SELECT nombre, stock FROM productos where id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "');";
-    		String sqlCompras = "SELECT name, cantidad FROM lista_compras where id_user = '" + user_id + "';";
     		int temperatura = -999, humedad = -999, puerta = -999, cantidad = 0;
     		String name = "";
     		
@@ -206,14 +205,12 @@ public class controladorVentanaUsuario {
                 Statement stmt2  = conn2.createStatement();
                 ResultSet rsPrd = stmt2.executeQuery(sqlProductos);
                 while (rsPrd.next()) {
-                	int cont = 0;
                 	name = rsPrd.getString("nombre");
                 	cantidad = rsPrd.getInt("stock");
                 	listaProductos.getItems().add("- " + name + ", " + cantidad);
                 	if(cantidad < 20) {
                 		listaCompras.getItems().add("- " + name + ", " + cantidad);
                 	}
-                	cont++;
                 }
                 rsPrd.close();
                 stmt2.close();

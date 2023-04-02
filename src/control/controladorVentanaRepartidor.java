@@ -38,7 +38,6 @@ import model.ListaProductos;
 import model.Usuario;
 
 public class controladorVentanaRepartidor {
-	public static final Stage stage  = new Stage();
 	@FXML
     private ListView lwCL;
 	@FXML
@@ -59,6 +58,8 @@ public class controladorVentanaRepartidor {
 					loader2.setController(control2);
 					
 					Parent root2 = loader2.load();
+					
+					Stage stage  = new Stage();
 					
 					stage.setScene(new Scene(root2));
 					
@@ -113,7 +114,7 @@ public class controladorVentanaRepartidor {
             	nombre = rs.getString("nombre");
             	surname1 = rs.getString("surname1");
             	surname2 = rs.getString("surname2");
-            	nombreTotal = "" + nombre + " " + surname1 + " " + surname2;
+            	nombreTotal = nombre + " " + surname1 + " " + surname2 + ", id: " + id;
             	lwCL.getItems().add(nombreTotal);
             	cont++;
             }
@@ -129,44 +130,35 @@ public class controladorVentanaRepartidor {
 		lwCS.getItems().clear();
 		
 
-		int selectedId = lwCL.getSelectionModel().getSelectedIndex();
-		String name_surname = (String) lwCL.getSelectionModel().getSelectedItem();
-		String sqlDelivery = "SELECT name, cantidad FROM lista_compras where id_user = (SELECT id from users where name_surname = '" + name_surname + "');";
-		String sqlClientStock = "SELECT name, cantidad FROM lista_compras where id_user = (SELECT id from users where name_surname = '" + name_surname + "');";
-		String name = "", cantidad = "";
+		String id_user = (String) lwCL.getSelectionModel().getSelectedItem();
+		id_user = id_user.substring(id_user.indexOf(':')+1);
+		String sqlDelivery = "SELECT nombre, stock FROM productos where id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + id_user + "');";
+		String name = "";
+		int cantidad = 0;
+		Connection conn = null;
+        Statement stmt  = null;
+        ResultSet rs    = null;
 		try {
-            Connection conn = connectBBDD.connect();
-            Statement stmt  = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sqlDelivery);
+            conn = connectBBDD.connect();
+            stmt  = conn.createStatement();
+            rs = stmt.executeQuery(sqlDelivery);
             while (rs.next()) {
-            	int cont = 0;
-            	name = rs.getString("name");
-            	cantidad = rs.getString("cantidad");
-            	cont++;
-            	
-            	lwD.getItems().add("- " + name + ", " + cantidad);
-    			
-            }
-            rs.close();
-            rs = stmt.executeQuery(sqlClientStock);
-            
-            while (rs.next()) {
-            	int cont = 0;
-            	name = rs.getString("name");
-            	cantidad = rs.getString("cantidad");
-            	cont++;
-            	
+            	name = rs.getString("nombre");
+            	cantidad = rs.getInt("stock");
             	lwCS.getItems().add("- " + name + ", " + cantidad);
-    			
+            	if(cantidad < 20) {
+            		lwD.getItems().add("- " + name + ", " + cantidad);
+            	}    			
             }
-            
             rs.close();
             stmt.close();
             conn.close();
        } catch (SQLException e2) {
            System.out.println(e2.getMessage());
        }
-		
+		if((lwD).getItems().isEmpty()) {
+			lwD.getItems().add("Tenemos todos los productos, gracias");
+		}
 		/*
 		int id = -1;
 		Vector<Usuario> us = new Vector<Usuario>();
