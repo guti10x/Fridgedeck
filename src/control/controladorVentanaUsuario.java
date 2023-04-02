@@ -159,24 +159,47 @@ public class controladorVentanaUsuario {
 */
     		String sqlTemperatura = "SELECT valor FROM temperatura where id_nevera = (select id_nevera from subscribe where id_user ='" + user_id + "') "
     				+ "and fecha = (SELECT MAX(fecha) FROM temperatura WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "'));";
-    		String sqlProductos = "SELECT name, cantidad FROM lista_productos where id_user = '" + user_id + "';";
+    		String sqlHumedad = "SELECT valor FROM humedad where id_nevera = (select id_nevera from subscribe where id_user ='" + user_id + "') "
+    				+ "and fecha = (SELECT MAX(fecha) FROM humedad WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "'));";
+    		String sqlPuerta = "SELECT valor FROM puerta where id_nevera = (select id_nevera from subscribe where id_user ='" + user_id + "') "
+    				+ "and fecha = (SELECT MAX(fecha) FROM puerta WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "'));";
+    		String sqlProductos = "SELECT nombre, stock FROM productos where id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "');";
     		String sqlCompras = "SELECT name, cantidad FROM lista_compras where id_user = '" + user_id + "';";
-    		int temperatura = -999, humedad = -999;
-    		String estado = "", name = "", cantidad = "";;
+    		int temperatura = -999, humedad = -999, puerta = -999;
+    		String name = "", cantidad = "";
+    		
+    		Connection conn = null;
+            Statement stmt  = null;
+            ResultSet rs    = null;
             try {
-                 Connection conn = connectBBDD.connect();
-                 Statement stmt  = conn.createStatement();
-                 ResultSet rs    = stmt.executeQuery(sqlTemperatura);
+                 conn = connectBBDD.connect();
+                 stmt = conn.createStatement();
+                 rs = stmt.executeQuery(sqlTemperatura);
                 while (rs.next()) {
                 	temperatura = rs.getInt("valor");
+                }
+                rs.close();
+                stmt.close();
+                
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery(sqlHumedad);
+                while (rs.next()) {
+                	humedad = rs.getInt("valor");
+                }
+                rs.close();
+                stmt.close();
+                
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery(sqlPuerta);
+                while (rs.next()) {
+                	puerta = rs.getInt("valor");
                 }
                 rs.close();
                 stmt.close();
                 conn.close();
             } catch (SQLException e2) {
                 System.out.println(e2.getMessage());
-            }
-            
+            }            
             
             try {
                 Connection conn2 = connectBBDD.connect();
@@ -184,8 +207,8 @@ public class controladorVentanaUsuario {
                 ResultSet rsPrd = stmt2.executeQuery(sqlProductos);
                 while (rsPrd.next()) {
                 	int cont = 0;
-                	name = rsPrd.getString("name");
-                	cantidad = rsPrd.getString("cantidad");
+                	name = rsPrd.getString("nombre");
+                	cantidad = rsPrd.getString("stock");
                 	listaProductos.getItems().add("- " + name + ", " + cantidad);
                 	cont++;
                 }
@@ -217,7 +240,7 @@ public class controladorVentanaUsuario {
             
             lblTemperatura.setText(String.valueOf(temperatura + "C"));
 			lblHumedad.setText(String.valueOf(humedad + "%"));
-			if(estado.equals("abierta")) {
+			if(puerta==0) {
 				imgPuertaAbierta.setVisible(true);
 				lblPuerta.setText("open");
 			}else {

@@ -103,9 +103,9 @@ public class controladorVentanaTecnico {
 	}
 
 	public void leer_datos() {
-		String sql = "SELECT id, name_surname from users where type = 'user';";
+		String sql = "SELECT id, nombre, surname1, surname2 from usuarios where role = 'user';";
 		int id;
-		String name="";
+		String nombre="", surname1 = "", surname2 = "", nombreTotal = "";
 		try {
             Connection conn = connectBBDD.connect();
             Statement stmt  = conn.createStatement();
@@ -113,8 +113,11 @@ public class controladorVentanaTecnico {
             while (rs.next()) {
             	int cont = 0;
             	id = rs.getInt("id");
-            	name = rs.getString("name_surname");
-            	listaUsuarios.getItems().add(name);
+            	nombre = rs.getString("nombre");
+            	surname1 = rs.getString("surname1");
+            	surname2 = rs.getString("surname2");
+            	nombreTotal = "" + nombre + " " + surname1 + " " + surname2;
+            	listaUsuarios.getItems().add(nombreTotal);
             	cont++;
             }
             rs.close();

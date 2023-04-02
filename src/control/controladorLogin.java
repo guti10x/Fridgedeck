@@ -119,7 +119,7 @@ public class controladorLogin {
 				} catch(Exception e3) {
 					e3.printStackTrace();
 				}
-			}else if(role.equals("tÃ©cnico")) {
+			}else if(role.equals("técnico")) {
 				try {
 					Stage currentStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 			        currentStage.close();
