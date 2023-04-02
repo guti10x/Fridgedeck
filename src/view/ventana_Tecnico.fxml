@@ -50,6 +50,7 @@
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Label>
+            <ListView fx:id="listWarnings" layoutX="634.0" layoutY="143.0" onMouseClicked="#selectUser" prefHeight="409.0" prefWidth="234.0" style="-fx-background-color: #FFFFFF; -fx-fixed-cell-size: 36;" />
          </children>
          <VBox.margin>
             <Insets />

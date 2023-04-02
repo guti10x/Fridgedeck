@@ -46,6 +46,8 @@ public class controladorVentanaTecnico {
 	@FXML
     private ListView listaUsuarios;
 	@FXML
+    private ListView listWarnings;
+	@FXML
 	private Button bttnInfoTecnico;
 	@FXML
     void mostrarInfoTecnico(ActionEvent event) {
@@ -116,7 +118,7 @@ public class controladorVentanaTecnico {
             	nombre = rs.getString("nombre");
             	surname1 = rs.getString("surname1");
             	surname2 = rs.getString("surname2");
-            	nombreTotal = "" + nombre + " " + surname1 + " " + surname2;
+            	nombreTotal = nombre + " " + surname1 + " " + surname2 + ", id: " + id;
             	listaUsuarios.getItems().add(nombreTotal);
             	cont++;
             }
@@ -127,49 +129,22 @@ public class controladorVentanaTecnico {
            System.out.println(e2.getMessage());
        }
 	}
-	public void selectUser() {/*
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		try {
-			Reader reader = Files.newBufferedReader(Paths.get("userbase.json"));
-			Reader readerFridgedate = Files.newBufferedReader(Paths.get("fridgedate.json"));
-			Usuario[] users = new Gson().fromJson(reader, Usuario[].class);
-			FridgeDate[] fd = new Gson().fromJson(readerFridgedate, FridgeDate[].class);
-			for(int i=0; i<users.length; i++) {
-				if(users[i].tipo.equals("user")) {
-					us.add(users[i]);
-				}
-			}
-			id = us.get(selectedId).id;
-			if(fd[id].estado.equals("abierta")) {
-				imgDoorOpen.setVisible(true);
-				lblEstado.setText("open");
-			}else {
-				imgDoorClose.setVisible(true);
-				lblEstado.setText("close");
-			}
-			lblTemp.setText(fd[id].temperatura + "C");
-			lblHum.setText(fd[id].humedad + "%");
-			reader.close();
-			readerFridgedate.close();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
-		
+	public void selectUser() {	
+		listWarnings.getItems().clear();
 		lblEstado.setText("");
 		imgDoorOpen.setVisible(false);
 		imgDoorClose.setVisible(false);
-		int id = -1;
-		Vector<Usuario> us = new Vector<Usuario>();
-		int selectedId = listaUsuarios.getSelectionModel().getSelectedIndex();
-		String name_surname = (String) listaUsuarios.getSelectionModel().getSelectedItem();
-		String sqlTemperatura = "SELECT valor FROM temperatura where id_nevera = (select id_nevera from subscribe where id_user ='" + id + "') "
-				+ "and fecha = (SELECT MAX(fecha) FROM temperatura WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + id + "'));";
-		String sqlHumedad = "SELECT valor FROM humedad where id_nevera = (select id_nevera from subscribe where id_user ='" + id + "') "
-				+ "and fecha = (SELECT MAX(fecha) FROM humedad WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + id + "'));";
-		String sqlPuerta = "SELECT valor FROM puerta where id_nevera = (select id_nevera from subscribe where id_user ='" + id + "') "
-				+ "and fecha = (SELECT MAX(fecha) FROM puerta WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + id + "'));";
+		String id_user = (String) listaUsuarios.getSelectionModel().getSelectedItem();
+		id_user = id_user.substring(id_user.indexOf(':')+1);
+		String sqlTemperatura = "SELECT valor FROM temperatura where id_nevera = (select id_nevera from subscribe where id_user ='" + id_user + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM temperatura WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + id_user + "'));";
+		String sqlHumedad = "SELECT valor FROM humedad where id_nevera = (select id_nevera from subscribe where id_user ='" + id_user + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM humedad WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + id_user + "'));";
+		String sqlPuerta = "SELECT valor FROM puerta where id_nevera = (select id_nevera from subscribe where id_user ='" + id_user + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM puerta WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + id_user + "'));";
+		String sqlWarnings = "SELECT nombre, fecha FROM notificaciones where id_nevera = (select id_nevera from subscribe where id_user ='" + id_user + "');";
 		int temperatura = -999, humedad = -999, puerta = -999;
+		String warning = "", fecha = "";
 		
 		Connection conn = null;
         Statement stmt  = null;
@@ -205,6 +180,16 @@ public class controladorVentanaTecnico {
     				imgDoorClose.setVisible(true);
     				lblEstado.setText("close");
     			}
+            }
+            rs.close();
+            stmt.close();
+            
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sqlWarnings);
+            while (rs.next()) {
+            	warning = rs.getString("nombre");
+            	fecha = rs.getString("fecha");
+            	listWarnings.getItems().add(warning + ": " + fecha);
             }
             rs.close();
             stmt.close();

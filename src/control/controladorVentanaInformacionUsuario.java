@@ -1,11 +1,7 @@
 package control;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Reader;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,20 +9,12 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import model.Usuario;
 import application.connectBBDD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.FridgeDate;
-import model.ListaCompras;
-import model.ListaProductos;
 
 public class controladorVentanaInformacionUsuario {
 
