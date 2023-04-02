@@ -3,16 +3,16 @@ package model;
 public class Usuario {
 	
     public final int id;
-    public final String tipo;
+    public final String role;
     public final String username;
     public final String email;
     public final String password;
     public final String name_surname;
     public final String fridge_adress;
     
-    public Usuario(int id, String tipo, String username, String email, String password, String name_surname, String fridge_adress) {
+    public Usuario(int id, String role, String username, String email, String password, String name_surname, String fridge_adress) {
         this.id = id;
-		this.tipo = tipo;
+		this.role = role;
         this.username = username;
         this.email = email;
         this.password = password;

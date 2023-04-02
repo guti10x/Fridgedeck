@@ -16,7 +16,7 @@ import java.util.Scanner;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import application.Usuario;
+import model.Usuario;
 import application.connectBBDD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

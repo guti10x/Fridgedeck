@@ -152,14 +152,14 @@ public class controladorRegistrarse {
 					}*/
     			//}	
   
-            /*
+				/*
             try {
     			SendEmail.enviarCorreo(username, password, email);
     		} catch (MessagingException e1) {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
-    		}
-            */	
+    		}*/
+            	
         }
 	}
 }
