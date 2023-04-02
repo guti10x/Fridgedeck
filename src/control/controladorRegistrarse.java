@@ -9,9 +9,11 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -30,6 +32,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.Usuario;
@@ -42,61 +45,80 @@ public class controladorRegistrarse {
     private TextField tfUsername;
 	
 	@FXML
+    private TextField tfNombre;
+	
+	@FXML
+    private TextField tfSurname1;
+	
+	@FXML
+    private TextField tfSurname2;
+	
+	@FXML
     private TextField tfEmail;
 	
 	@FXML
     private PasswordField pfPassword;
 	
 	@FXML
-    private TextField tfName;
+    private DatePicker dpBirthday;
 	
 	@FXML
-    private TextField tfAddress;
+    private TextField tfCreditCard;
+	
+	@FXML
+    private TextField tfTelephone;
 	
 	@FXML
     private ComboBox cmbRole;
 	
-	
 	public void initialize() throws InterruptedException{
-		cmbRole.getItems().add("Usuario");
-		cmbRole.getItems().add("Tecnico");
-		cmbRole.getItems().add("Proveedor");
+		cmbRole.getItems().addAll("Usuario", "Tecnico", "Repartidor");
+	    cmbRole.setValue("Usuario");
 	}
 		
 	@FXML
     void registrarUsuario(ActionEvent e) {
 		JFrame jFrame = new JFrame();
-		String address="", tipo="", username="", email="", password="", name="";
-		if(cmbRole.getValue().equals("Elegir role")) {
+		String username = "", nombre = "", surname1 = "", surname2 = "", email = "", password = "", role = "", bdateString = "";
+		LocalDate bdate = dpBirthday.getValue();
+		Date bdateSql = null;
+		int creditCard = 0, telephone = 0;
+		if(cmbRole.getValue()==null) {
 			JOptionPane.showMessageDialog(jFrame, "Necesita elegir role");
 		}else {	
 			username = tfUsername.getText().toString();
+			nombre = tfNombre.getText().toString();
+			surname1 = tfSurname1.getText().toString();
+			surname2 = tfSurname2.getText().toString();
             email = tfEmail.getText().toString();
             password = pfPassword.getText().toString();
-            name = tfName.getText().toString();
+            bdateSql = Date.valueOf(bdate);
+            creditCard = Integer.parseInt(tfCreditCard.getText().toString());
+            telephone = Integer.parseInt(tfTelephone.getText().toString());
+            System.out.println(bdate);
         	if(cmbRole.getValue().equals("Usuario")) {
-        		tipo = "user";
-        		address = tfAddress.getText().toString();
+        		role = "user";
+        		//address = tfAddress.getText().toString();
         		//tfAddress.setDisable(false);
         	}if(cmbRole.getValue().equals("Tecnico")) {
-        		tipo = "tecnico";
-        		address = "-";
+        		role = "técnico";
+        		//address = "-";
         		//tfAddress.setDisable(true);
-        	}if(cmbRole.getValue().equals("Proveedor")) {
-        		tipo = "proveedor";
-        		address = "-";
+        	}if(cmbRole.getValue().equals("Repartidor")) {
+        		role = "repartidor";
+        		//address = "-";
         		//tfAddress.setDisable(true);
         	}
 		}
             
         if(username.equals("")||email.equals("")||password.equals("")||
-        		name.equals("")|address.equals("")) {
+        		nombre.equals("")||surname1.equals("")||surname2.equals("")) {
         	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
         }else {
             try {
-            	String sql = "INSERT INTO users (type, username, email, password, name_surname, fridge_adress)"
-            			+ "VALUES ('" + tipo + "', '" + username + "', '" + email + "', '" + password + "', '" + name + "', '" + address + "')";
-            	
+            	String sql = "INSERT INTO usuarios (role, username, nombre, surname1, surname2, email, password, birthdate, credit_card, telephone_number)"
+            			+ "VALUES ('" + role + "', '" + username + "', '" + nombre + "', '" + surname1 + "', '" + surname2 + "', '" + email + "', '" + password + "', '" + bdateSql + "', '" + creditCard + "', '" + telephone + "')";
+            	System.out.println(sql);
     			/*boolean checkUser = true;
     			for(int i=0; i<usersArray.length; i++) {
     	
