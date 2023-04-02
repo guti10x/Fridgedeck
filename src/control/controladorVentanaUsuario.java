@@ -165,8 +165,8 @@ public class controladorVentanaUsuario {
     				+ "and fecha = (SELECT MAX(fecha) FROM puerta WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "'));";
     		String sqlProductos = "SELECT nombre, stock FROM productos where id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "');";
     		String sqlCompras = "SELECT name, cantidad FROM lista_compras where id_user = '" + user_id + "';";
-    		int temperatura = -999, humedad = -999, puerta = -999;
-    		String name = "", cantidad = "";
+    		int temperatura = -999, humedad = -999, puerta = -999, cantidad = 0;
+    		String name = "";
     		
     		Connection conn = null;
             Statement stmt  = null;
@@ -208,8 +208,11 @@ public class controladorVentanaUsuario {
                 while (rsPrd.next()) {
                 	int cont = 0;
                 	name = rsPrd.getString("nombre");
-                	cantidad = rsPrd.getString("stock");
+                	cantidad = rsPrd.getInt("stock");
                 	listaProductos.getItems().add("- " + name + ", " + cantidad);
+                	if(cantidad < 20) {
+                		listaCompras.getItems().add("- " + name + ", " + cantidad);
+                	}
                 	cont++;
                 }
                 rsPrd.close();
@@ -217,29 +220,13 @@ public class controladorVentanaUsuario {
                 conn2.close();
            } catch (SQLException e2) {
                System.out.println(e2.getMessage());
-           }
-            
-            try {
-                Connection connComp = connectBBDD.connect();
-                Statement stmtComp  = connComp.createStatement();
-                ResultSet rsCmp = stmtComp.executeQuery(sqlCompras);
-                while (rsCmp.next()) {
-                	int cont = 0;
-                	name = rsCmp.getString("name");
-                	cantidad = rsCmp.getString("cantidad");
-                	listaCompras.getItems().add("- " + name + ", " + cantidad);
-                	cont++;
-                }
-                rsCmp.close();
-                stmtComp.close();
-                connComp.close();
-           } catch (SQLException e2) {
-               System.out.println(e2.getMessage());
-           }
-            
+           }     
             
             lblTemperatura.setText(String.valueOf(temperatura + "C"));
 			lblHumedad.setText(String.valueOf(humedad + "%"));
+			if((listaCompras).getItems().isEmpty()) {
+				listaCompras.getItems().add("Tenemos todos los productos, gracias");
+			}
 			if(puerta==0) {
 				imgPuertaAbierta.setVisible(true);
 				lblPuerta.setText("open");
@@ -257,8 +244,10 @@ public class controladorVentanaUsuario {
 				}
 			}*/
 	}
+	
 	@FXML
     void openAddProductBasket(ActionEvent event) {
+		/*
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add_product_basket.fxml"));
 			
@@ -279,5 +268,6 @@ public class controladorVentanaUsuario {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 }
