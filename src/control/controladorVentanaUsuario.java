@@ -157,14 +157,15 @@ public class controladorVentanaUsuario {
 			ListaCompras[] listaComp = new Gson().fromJson(readerListaCompras, ListaCompras[].class);
 			ListaProductos[] listaProd = new Gson().fromJson(readerListaProductos, ListaProductos[].class);
 */
-    		String sqlTemperatura = "SELECT valor FROM temperatura where id_nevera = (select id_nevera from subscribe where id_user ='" + user_id + "') "
-    				+ "and fecha = (SELECT MAX(fecha) FROM temperatura WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "'));";
-    		String sqlHumedad = "SELECT valor FROM humedad where id_nevera = (select id_nevera from subscribe where id_user ='" + user_id + "') "
-    				+ "and fecha = (SELECT MAX(fecha) FROM humedad WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "'));";
-    		String sqlPuerta = "SELECT valor FROM puerta where id_nevera = (select id_nevera from subscribe where id_user ='" + user_id + "') "
-    				+ "and fecha = (SELECT MAX(fecha) FROM puerta WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "'));";
-    		String sqlProductos = "SELECT nombre, stock FROM productos where id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + user_id + "');";
-    		int temperatura = -999, humedad = -999, puerta = -999, cantidad = 0;
+    		String sqlTemperatura = "SELECT valor FROM Temperatura where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
+    				+ "and fecha = (SELECT MAX(fecha) FROM Temperatura WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "'));";
+    		String sqlHumedad = "SELECT valor FROM Humedad where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
+    				+ "and fecha = (SELECT MAX(fecha) FROM Humedad WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "'));";
+    		String sqlPuerta = "SELECT valor FROM Puerta where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
+    				+ "and fecha = (SELECT MAX(fecha) FROM Puerta WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "'));";
+    		String sqlProductos = "SELECT nombre, stock FROM Productos where id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "');";
+    		int puerta = -999, cantidad = 0;
+    		String temperatura = "", humedad = "";
     		String name = "";
     		
     		Connection conn = null;
@@ -175,7 +176,7 @@ public class controladorVentanaUsuario {
                  stmt = conn.createStatement();
                  rs = stmt.executeQuery(sqlTemperatura);
                 while (rs.next()) {
-                	temperatura = rs.getInt("valor");
+                	temperatura = rs.getString("valor");
                 }
                 rs.close();
                 stmt.close();
@@ -183,7 +184,7 @@ public class controladorVentanaUsuario {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery(sqlHumedad);
                 while (rs.next()) {
-                	humedad = rs.getInt("valor");
+                	humedad = rs.getString("valor");
                 }
                 rs.close();
                 stmt.close();
@@ -219,8 +220,8 @@ public class controladorVentanaUsuario {
                System.out.println(e2.getMessage());
            }     
             
-            lblTemperatura.setText(String.valueOf(temperatura + "C"));
-			lblHumedad.setText(String.valueOf(humedad + "%"));
+            lblTemperatura.setText(temperatura);
+			lblHumedad.setText(humedad);
 			if((listaCompras).getItems().isEmpty()) {
 				listaCompras.getItems().add("Tenemos todos los productos, gracias");
 			}
@@ -244,7 +245,6 @@ public class controladorVentanaUsuario {
 	
 	@FXML
     void openAddProductBasket(ActionEvent event) {
-		/*
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add_product_basket.fxml"));
 			
@@ -265,6 +265,6 @@ public class controladorVentanaUsuario {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		*/
+		
 	}
 }

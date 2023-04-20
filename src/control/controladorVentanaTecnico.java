@@ -105,7 +105,7 @@ public class controladorVentanaTecnico {
 	}
 
 	public void leer_datos() {
-		String sql = "SELECT id, nombre, surname1, surname2 from usuarios where role = 'user';";
+		String sql = "SELECT id, nombre, surname1, surname2 from Usuarios where role = 'user';";
 		int id;
 		String nombre="", surname1 = "", surname2 = "", nombreTotal = "";
 		try {
@@ -136,14 +136,15 @@ public class controladorVentanaTecnico {
 		imgDoorClose.setVisible(false);
 		String id_user = (String) listaUsuarios.getSelectionModel().getSelectedItem();
 		id_user = id_user.substring(id_user.indexOf(':')+1);
-		String sqlTemperatura = "SELECT valor FROM temperatura where id_nevera = (select id_nevera from subscribe where id_user ='" + id_user + "') "
-				+ "and fecha = (SELECT MAX(fecha) FROM temperatura WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + id_user + "'));";
-		String sqlHumedad = "SELECT valor FROM humedad where id_nevera = (select id_nevera from subscribe where id_user ='" + id_user + "') "
-				+ "and fecha = (SELECT MAX(fecha) FROM humedad WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + id_user + "'));";
-		String sqlPuerta = "SELECT valor FROM puerta where id_nevera = (select id_nevera from subscribe where id_user ='" + id_user + "') "
-				+ "and fecha = (SELECT MAX(fecha) FROM puerta WHERE id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + id_user + "'));";
-		String sqlWarnings = "SELECT nombre, fecha FROM notificaciones where id_nevera = (select id_nevera from subscribe where id_user ='" + id_user + "');";
-		int temperatura = -999, humedad = -999, puerta = -999;
+		String sqlTemperatura = "SELECT valor FROM Temperatura where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM Temperatura WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user + "'));";
+		String sqlHumedad = "SELECT valor FROM Humedad where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM Humedad WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user + "'));";
+		String sqlPuerta = "SELECT valor FROM Puerta where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM Puerta WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user + "'));";
+		String sqlWarnings = "SELECT nombre, fecha FROM Notificaciones where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user + "');";
+		int puerta = -999;
+		String temperatura = "", humedad = "";
 		String warning = "", fecha = "";
 		
 		Connection conn = null;
@@ -154,7 +155,7 @@ public class controladorVentanaTecnico {
              stmt = conn.createStatement();
              rs = stmt.executeQuery(sqlTemperatura);
             while (rs.next()) {
-            	temperatura = rs.getInt("valor");
+            	temperatura = rs.getString("valor");
             	lblTemp.setText(String.valueOf(temperatura));
             }
             rs.close();
@@ -163,7 +164,7 @@ public class controladorVentanaTecnico {
             stmt = conn.createStatement();
             rs = stmt.executeQuery(sqlHumedad);
             while (rs.next()) {
-            	humedad = rs.getInt("valor");
+            	humedad = rs.getString("valor");
             	lblHum.setText(humedad + "");
             }
             rs.close();

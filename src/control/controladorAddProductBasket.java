@@ -9,9 +9,11 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,6 +33,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -46,13 +49,17 @@ public class controladorAddProductBasket {
     private TextField tfNombre;
 	
 	@FXML
+    private TextField tfDesc;
+	
+	@FXML
     private TextField tfCantidad;
 
 	@FXML
     private Button btnAddProduct;
 	
-	//public static Stage stage  = new Stage();
-	
+	@FXML
+    private DatePicker dpFechaAddPr;
+		
 	@FXML
     void addProduct(ActionEvent e) {
 		int user_id = 0;
@@ -73,14 +80,19 @@ public class controladorAddProductBasket {
         
         String name = tfNombre.getText().toString();
         String cantidad = tfCantidad.getText().toString();
+        String descripcion = tfDesc.getText().toString();
+        LocalDate fechaProducto = dpFechaAddPr.getValue();
+		Date fechaProductoSql = null;
+		fechaProductoSql = Date.valueOf(fechaProducto);
         
         if(tfNombre.equals("")||cantidad.equals("")) {
         	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
         }else {
         	try {
-        		String sqlInsert = "INSERT INTO lista_compras (name, cantidad, id_user)"
-            			+ "VALUES ('" + name + "', '" + cantidad + "', '" + user_id + "')";
-        		
+        		String sqlInsert = "INSERT INTO Productos (nombre, descripción, stock, fecha, id_nevera) "
+                        + "VALUES ('" + name + "', '" + descripcion + "', '" + cantidad + "', '" + fechaProductoSql + "', "
+                        + "(SELECT id_nevera FROM Subscribe WHERE id_user ='" + user_id + "'))";
+        		System.out.println(sqlInsert);
         		Connection conn = connectBBDD.connect();
                 Statement stmt  = conn.createStatement();
                 stmt.executeUpdate(sqlInsert);
@@ -92,7 +104,14 @@ public class controladorAddProductBasket {
            } catch (SQLException e2) {
                System.out.println(e2.getMessage());
            }
+        	/*
         	controladorVentanaUsuario controladorVentanaUsuario = new controladorVentanaUsuario();
+        	try {
+				controladorVentanaUsuario.initialize();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}*/
         }
 	}
 }

@@ -65,7 +65,7 @@ public class controladorLogin {
             
             int id = -1;
     		String role = "";
-    		String sql = "SELECT id, role FROM usuarios where username ='" + username + "' and password ='" + password + "';";
+    		String sql = "SELECT id, role FROM Usuarios where username ='" + username + "' and password ='" + password + "';";
             
             try (Connection conn = connectBBDD.connect();
                  Statement stmt  = conn.createStatement();
@@ -119,12 +119,12 @@ public class controladorLogin {
 				} catch(Exception e3) {
 					e3.printStackTrace();
 				}
-			}else if(role.equals("técnico")) {
+			}else if(role.equals("tÃ©cnico")) {
 				try {
 					Stage currentStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 			        currentStage.close();
 			        
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_tecnico.fxml"));
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_Tecnico.fxml"));
 					
 					controladorVentanaTecnico control = new controladorVentanaTecnico();
 					
@@ -176,7 +176,7 @@ public class controladorLogin {
 			}
 				
 			if(checkUser == false) {
-				JOptionPane.showMessageDialog(jFrame, "Has introducido login o contraseña erroneo");
+				JOptionPane.showMessageDialog(jFrame, "Has introducido login o contraseÃ±a erroneo");
 			}
         }
 	}

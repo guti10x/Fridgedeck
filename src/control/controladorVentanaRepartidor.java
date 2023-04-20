@@ -101,7 +101,7 @@ public class controladorVentanaRepartidor {
 	}
 
 	private void leer_datos() {
-		String sql = "SELECT id, nombre, surname1, surname2 from usuarios where role = 'user';";
+		String sql = "SELECT id, nombre, surname1, surname2 from Usuarios where role = 'user';";
 		int id;
 		String nombre="", surname1 = "", surname2 = "", nombreTotal = "";
 		try {
@@ -132,7 +132,7 @@ public class controladorVentanaRepartidor {
 
 		String id_user = (String) lwCL.getSelectionModel().getSelectedItem();
 		id_user = id_user.substring(id_user.indexOf(':')+1);
-		String sqlDelivery = "SELECT nombre, stock FROM productos where id_nevera = (SELECT id_nevera FROM subscribe WHERE id_user = '" + id_user + "');";
+		String sqlDelivery = "SELECT nombre, stock FROM Productos where id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user + "');";
 		String name = "";
 		int cantidad = 0;
 		Connection conn = null;

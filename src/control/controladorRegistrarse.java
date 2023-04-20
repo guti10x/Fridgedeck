@@ -82,7 +82,8 @@ public class controladorRegistrarse {
 		String username = "", nombre = "", surname1 = "", surname2 = "", email = "", password = "", role = "", bdateString = "";
 		LocalDate bdate = dpBirthday.getValue();
 		Date bdateSql = null;
-		int creditCard = 0, telephone = 0;
+		long creditCard = 0;
+		int telephone = 0;
 		if(cmbRole.getValue()==null) {
 			JOptionPane.showMessageDialog(jFrame, "Necesita elegir role");
 		}else {	
@@ -93,15 +94,15 @@ public class controladorRegistrarse {
             email = tfEmail.getText().toString();
             password = pfPassword.getText().toString();
             bdateSql = Date.valueOf(bdate);
-            creditCard = Integer.parseInt(tfCreditCard.getText().toString());
-            telephone = Integer.parseInt(tfTelephone.getText().toString());
+            creditCard = Long.parseLong(tfCreditCard.getText().toString());
+            telephone = Integer.parseInt(tfTelephone.getText());
             System.out.println(bdate);
         	if(cmbRole.getValue().equals("Usuario")) {
         		role = "user";
         		//address = tfAddress.getText().toString();
         		//tfAddress.setDisable(false);
         	}if(cmbRole.getValue().equals("Tecnico")) {
-        		role = "técnico";
+        		role = "tï¿½cnico";
         		//address = "-";
         		//tfAddress.setDisable(true);
         	}if(cmbRole.getValue().equals("Repartidor")) {
@@ -116,7 +117,7 @@ public class controladorRegistrarse {
         	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
         }else {
             try {
-            	String sql = "INSERT INTO usuarios (role, username, nombre, surname1, surname2, email, password, birthdate, credit_card, telephone_number)"
+            	String sql = "INSERT INTO Usuarios (role, username, nombre, surname1, surname2, email, password, birthdate, credit_card, telephone_number)"
             			+ "VALUES ('" + role + "', '" + username + "', '" + nombre + "', '" + surname1 + "', '" + surname2 + "', '" + email + "', '" + password + "', '" + bdateSql + "', '" + creditCard + "', '" + telephone + "')";
             	System.out.println(sql);
     			/*boolean checkUser = true;

@@ -91,9 +91,10 @@ public class controladorVentanaInformacionUsuario {
   		    }
   		
 		String username = "", nombre = "", surname1 = "", surname2 = "", email = "", password = "", name_surname = "", fridge_adress = "";
-		int credit_card = 0, telephone_number = 0;
+		long credit_card = 0;
+		int telephone_number = 0;
 		Timestamp bdayTimestamp = null;
-		String sql = "SELECT username, nombre, surname1, surname2, email, password, birthdate, credit_card, telephone_number FROM usuarios where id ='" + user_id + "';";
+		String sql = "SELECT username, nombre, surname1, surname2, email, password, birthdate, credit_card, telephone_number FROM Usuarios where id ='" + user_id + "';";
         
         try (Connection conn = connectBBDD.connect();
              Statement stmt  = conn.createStatement();
@@ -106,7 +107,7 @@ public class controladorVentanaInformacionUsuario {
             	email = rs.getString("email");
             	password = rs.getString("password");
             	//bdayTimestamp = rs.getTimestamp("birthdate");
-            	credit_card = rs.getInt("credit_card");
+            	credit_card = rs.getLong("credit_card");
             	telephone_number = rs.getInt("telephone_number");
             }
             tfUIUsername.setText(username);
