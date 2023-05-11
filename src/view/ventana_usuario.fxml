@@ -53,6 +53,11 @@
             <Button fx:id="btnAddProductBasket" layoutX="827.0" layoutY="517.0" mnemonicParsing="false" onAction="#openAddProductBasket" opacity="0.0" prefHeight="35.0" prefWidth="33.0" text="Add product" />
             <ListView fx:id="listaProductos" layoutX="322.0" layoutY="183.0" prefHeight="333.0" prefWidth="246.0" style="-fx-background-color: #FFFFFF; -fx-fixed-cell-size: 36;" />
             <Button fx:id="bttnInfoUsuario" layoutX="641.0" layoutY="-3.0" mnemonicParsing="false" onAction="#mostrarInfoUsuario" opacity="0.0" prefHeight="59.0" prefWidth="59.0" text="MostrarInfo" />
+            <Button fx:id="btnAbrirChat" layoutX="789.0" layoutY="98.0" mnemonicParsing="false" onAction="#functionAbrirChat" prefHeight="25.0" prefWidth="76.0" text="Chat">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
          <VBox.margin>
             <Insets />

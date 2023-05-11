@@ -102,7 +102,7 @@ public class controladorRegistrarse {
         		//address = tfAddress.getText().toString();
         		//tfAddress.setDisable(false);
         	}if(cmbRole.getValue().equals("Tecnico")) {
-        		role = "t�cnico";
+        		role = "técnico";
         		//address = "-";
         		//tfAddress.setDisable(true);
         	}if(cmbRole.getValue().equals("Repartidor")) {

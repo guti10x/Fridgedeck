@@ -51,6 +51,11 @@
                </font>
             </Label>
             <ListView fx:id="listWarnings" layoutX="634.0" layoutY="143.0" onMouseClicked="#selectUser" prefHeight="409.0" prefWidth="234.0" style="-fx-background-color: #FFFFFF; -fx-fixed-cell-size: 36;" />
+            <Button fx:id="btnChatTecnico" layoutX="519.0" layoutY="87.0" mnemonicParsing="false" onAction="#abrirChatTecnico" prefHeight="25.0" prefWidth="76.0" text="Chat">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
          </children>
          <VBox.margin>
             <Insets />

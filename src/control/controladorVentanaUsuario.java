@@ -78,6 +78,9 @@ public class controladorVentanaUsuario {
 	private Button bttnInfoUsuario;
 	
 	@FXML
+	private Button btnAbrirChat;
+	
+	@FXML
     void mostrarInfoUsuario(ActionEvent event) {
 		 try {
 		 FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
@@ -249,6 +252,31 @@ public class controladorVentanaUsuario {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add_product_basket.fxml"));
 			
 			controladorAddProductBasket control = new controladorAddProductBasket();
+			
+			loader.setController(control);
+	
+			Parent root = loader.load();
+			
+			Stage stage  = new Stage();
+			
+			stage.setScene(new Scene(root));
+			
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+			stage.setResizable(false);
+			stage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@FXML
+    void functionAbrirChat(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_chat.fxml"));
+			
+			controladorChat control = new controladorChat();
 			
 			loader.setController(control);
 	

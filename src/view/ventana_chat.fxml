@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane prefHeight="600.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <children>
+            <TextField fx:id="txtTextoParaEnviar" layoutX="217.0" layoutY="466.0" prefHeight="25.0" prefWidth="466.0" />
+            <Button fx:id="btnEnviarChat" layoutX="386.0" layoutY="518.0" mnemonicParsing="false" onAction="#enviarTextoAlChat" prefHeight="25.0" prefWidth="129.0" text="Enviar" />
+            <TextArea fx:id="txtChat" layoutX="218.0" layoutY="185.0" prefHeight="200.0" prefWidth="466.0" />
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>

@@ -50,6 +50,8 @@ public class controladorVentanaTecnico {
 	@FXML
 	private Button bttnInfoTecnico;
 	@FXML
+	private Button btnChatTecnico;
+	@FXML
     void mostrarInfoTecnico(ActionEvent event) {
 		 try {
 			 FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
@@ -129,7 +131,7 @@ public class controladorVentanaTecnico {
            System.out.println(e2.getMessage());
        }
 	}
-	public void selectUser() {	
+	public void selectUser() {
 		listWarnings.getItems().clear();
 		lblEstado.setText("");
 		imgDoorOpen.setVisible(false);
@@ -198,5 +200,29 @@ public class controladorVentanaTecnico {
         } catch (SQLException e2) {
             System.out.println(e2.getMessage());
         }
+	}
+	@FXML
+    void abrirChatTecnico(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_chat.fxml"));
+			
+			controladorChat control = new controladorChat();
+			
+			loader.setController(control);
+	
+			Parent root = loader.load();
+			
+			Stage stage  = new Stage();
+			
+			stage.setScene(new Scene(root));
+			
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+			stage.setResizable(false);
+			stage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

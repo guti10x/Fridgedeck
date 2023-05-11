@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS Usuarios (
 );
 CREATE TABLE IF NOT EXISTS Mensajes (
 	id INT NOT NULL AUTO_INCREMENT,
-	fecha DATE NOT NULL,
+	fecha DATETIME NOT NULL,
 	contenido TEXT NOT NULL,
 	lectura INT NOT NULL,
 	id_nevera INT NOT NULL,
@@ -83,6 +83,17 @@ CREATE TABLE IF NOT EXISTS Mensajes (
 	INDEX idx_lectura (lectura),
 	INDEX idx_id_nevera (id_nevera)
 );
+
+CREATE TABLE IF NOT EXISTS Messages (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  sender_id INT,
+  receiver_id INT,
+  text VARCHAR(255),
+  send_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (sender_id) REFERENCES Usuarios(id),
+  FOREIGN KEY (receiver_id) REFERENCES Usuarios(id)
+);
+
 INSERT INTO Fridge (id, subscription, country, CCAA, municipality, street, number, CPP) VALUES 
 (1, 'Monthly', 'Spain', 'Madrid', 'Madrid', 'Gran Vía', '123', 28013),
 (2, 'Yearly', 'Spain', 'Valencia', 'Valencia', 'Calle de la Paz', '6', 46003),
@@ -206,13 +217,14 @@ INSERT INTO Subscribe (id_nevera, id_user) VALUES (1,1),
  (2,7),
  (3,8),
  (4,8);
-INSERT INTO "Mensajes" ("id","fecha","contenido","lectura","id_nevera") VALUES (3,'2023-03-27 14:30:00','Ya se ha solucionado la incidencia',1,1),
- (4,'2022-01-03 14:08:00','cesta de la compra realizada',0,2),
- (5,'2022-01-03 12:03:00','Averia solucionada',1,2),
- (6,'2022-01-04 1:12:00','La goma de cierre de la puerta de la nevera necesita ser cambiada',0,2),
- (7,'2022-01-05 8:24:00','Cesta de la compra entregada ',1,3),
- (8,'2022-01-11 15:33:00','Invemtario de la nevera repuesto',0,4),
- (9,'2022-01-21 16:01:00',' Limpieza de la nevera completada',1,1),
- (10,'2022-01-22 17:13:00','Se han retirado 3 articulos caducados de la nevera',0,2),
- (11,'2022-01-22 23:23:00','La entrega de la cesta de la compra se retrasará a mañana',1,4);
+INSERT INTO Mensajes (id, fecha, contenido, lectura, id_nevera) VALUES
+(3, '2023-03-27 14:30:00', 'Ya se ha solucionado la incidencia', 1, 1),
+(4, '2022-01-03 14:08:00', 'cesta de la compra realizada', 0, 2),
+(5, '2022-01-03 12:03:00', 'Averia solucionada', 1, 2),
+(6, '2022-01-04 1:12:00', 'La goma de cierre de la puerta de la nevera necesita ser cambiada', 0, 2),
+(7, '2022-01-05 8:24:00', 'Cesta de la compra entregada', 1, 3),
+(8, '2022-01-11 15:33:00', 'Invemtario de la nevera repuesto', 0, 4),
+(9, '2022-01-21 16:01:00', 'Limpieza de la nevera completada', 1, 1),
+(10, '2022-01-22 17:13:00', 'Se han retirado 3 articulos caducados de la nevera', 0, 2),
+(11, '2022-01-22 23:23:00', 'La entrega de la cesta de la compra se retrasará a mañana', 1, 4);
 COMMIT;
