@@ -276,7 +276,7 @@ public class controladorVentanaUsuario {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_chat.fxml"));
 			
-			controladorChat control = new controladorChat();
+			controladorChatUser control = new controladorChatUser();
 			
 			loader.setController(control);
 	

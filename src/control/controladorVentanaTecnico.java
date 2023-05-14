@@ -31,6 +31,7 @@ import model.Usuario;
 
 public class controladorVentanaTecnico {
 	public static final Stage stage  = new Stage();
+	static int idUser = -1;
 	@FXML
     private ImageView imgDoorOpen;
 	@FXML
@@ -137,7 +138,10 @@ public class controladorVentanaTecnico {
 		imgDoorOpen.setVisible(false);
 		imgDoorClose.setVisible(false);
 		String id_user = (String) listaUsuarios.getSelectionModel().getSelectedItem();
+		System.out.println(id_user);
 		id_user = id_user.substring(id_user.indexOf(':')+1);
+		System.out.println(id_user);
+		idUser = Integer.parseInt(id_user.trim());
 		String sqlTemperatura = "SELECT valor FROM Temperatura where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user + "') "
 				+ "and fecha = (SELECT MAX(fecha) FROM Temperatura WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user + "'));";
 		String sqlHumedad = "SELECT valor FROM Humedad where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user + "') "
@@ -206,7 +210,7 @@ public class controladorVentanaTecnico {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_chat.fxml"));
 			
-			controladorChat control = new controladorChat();
+			controladorChatTecnico control = new controladorChatTecnico();
 			
 			loader.setController(control);
 	
