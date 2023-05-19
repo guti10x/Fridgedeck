@@ -118,8 +118,6 @@ public class controladorLogin {
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_Tecnico.fxml"));
 
-		
-
 		loader.setController(control);
 
 		Parent root = loader.load();
