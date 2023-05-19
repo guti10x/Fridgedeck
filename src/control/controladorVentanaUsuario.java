@@ -1,31 +1,15 @@
 package control;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Reader;
-import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.swing.SwingUtilities;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import application.connectBBDD;
 import javafx.application.Platform;
@@ -41,10 +25,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.FridgeDate;
-import model.ListaCompras;
-import model.ListaProductos;
-import model.Productos;
 
 public class controladorVentanaUsuario {
 	@FXML
@@ -79,6 +59,8 @@ public class controladorVentanaUsuario {
 	
 	@FXML
 	private Button btnAbrirChat;
+	
+	private int user_id;
 	
 	@FXML
     void mostrarInfoUsuario(ActionEvent event) {
@@ -132,118 +114,83 @@ public class controladorVentanaUsuario {
 		
 		leer_datos();
 	}
-/*
-	@FXML
-	public void logoutWindow() throws IOException {
-	    stage.showAndWait();
-	}
-	*/
+	
 	public void leer_datos() {
-		int user_id = 0;
-		try {
-		      File myObj = new File("user_id.txt");
-		      Scanner myReader = new Scanner(myObj);
-		      while (myReader.hasNextLine()) {
-		        String id = myReader.nextLine();
-		        user_id = Integer.valueOf(id);
-		      }
-		      myReader.close();
-		    } catch (FileNotFoundException e) {
-		      System.out.println("An error occurred.");
-		      e.printStackTrace();
-		    }
-		/*
-			Reader reader = Files.newBufferedReader(Paths.get("fridgedate.json"));
-			Reader readerListaCompras = Files.newBufferedReader(Paths.get("listas_compras.json"));
-			Reader readerListaProductos = Files.newBufferedReader(Paths.get("listas_productos.json"));
-			FridgeDate[] datos = new Gson().fromJson(reader, FridgeDate[].class);
-			ListaCompras[] listaComp = new Gson().fromJson(readerListaCompras, ListaCompras[].class);
-			ListaProductos[] listaProd = new Gson().fromJson(readerListaProductos, ListaProductos[].class);
-*/
-    		String sqlTemperatura = "SELECT valor FROM Temperatura where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
-    				+ "and fecha = (SELECT MAX(fecha) FROM Temperatura WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "'));";
-    		String sqlHumedad = "SELECT valor FROM Humedad where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
-    				+ "and fecha = (SELECT MAX(fecha) FROM Humedad WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "'));";
-    		String sqlPuerta = "SELECT valor FROM Puerta where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
-    				+ "and fecha = (SELECT MAX(fecha) FROM Puerta WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "'));";
-    		String sqlProductos = "SELECT nombre, stock FROM Productos where id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "');";
-    		int puerta = -999, cantidad = 0;
-    		String temperatura = "", humedad = "";
-    		String name = "";
-    		
-    		Connection conn = null;
-            Statement stmt  = null;
-            ResultSet rs    = null;
-            try {
-                 conn = connectBBDD.connect();
-                 stmt = conn.createStatement();
-                 rs = stmt.executeQuery(sqlTemperatura);
-                while (rs.next()) {
-                	temperatura = rs.getString("valor");
-                }
-                rs.close();
-                stmt.close();
-                
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(sqlHumedad);
-                while (rs.next()) {
-                	humedad = rs.getString("valor");
-                }
-                rs.close();
-                stmt.close();
-                
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(sqlPuerta);
-                while (rs.next()) {
-                	puerta = rs.getInt("valor");
-                }
-                rs.close();
-                stmt.close();
-                conn.close();
-            } catch (SQLException e2) {
-                System.out.println(e2.getMessage());
-            }            
+		String sqlTemperatura = "SELECT valor FROM Temperatura where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM Temperatura WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "'));";
+		String sqlHumedad = "SELECT valor FROM Humedad where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM Humedad WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "'));";
+		String sqlPuerta = "SELECT valor FROM Puerta where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM Puerta WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "'));";
+		String sqlProductos = "SELECT nombre, stock FROM Productos where id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "');";
+		int puerta = -999, cantidad = 0;
+		String temperatura = "", humedad = "";
+		String name = "";
+		
+		Connection conn = null;
+        Statement stmt  = null;
+        ResultSet rs    = null;
+        try {
+             conn = connectBBDD.connect();
+             stmt = conn.createStatement();
+             rs = stmt.executeQuery(sqlTemperatura);
+            while (rs.next()) {
+            	temperatura = rs.getString("valor");
+            }
+            rs.close();
+            stmt.close();
             
-            try {
-                Connection conn2 = connectBBDD.connect();
-                Statement stmt2  = conn2.createStatement();
-                ResultSet rsPrd = stmt2.executeQuery(sqlProductos);
-                while (rsPrd.next()) {
-                	name = rsPrd.getString("nombre");
-                	cantidad = rsPrd.getInt("stock");
-                	listaProductos.getItems().add("- " + name + ", " + cantidad);
-                	if(cantidad < 20) {
-                		listaCompras.getItems().add("- " + name + ", " + cantidad);
-                	}
-                }
-                rsPrd.close();
-                stmt2.close();
-                conn2.close();
-           } catch (SQLException e2) {
-               System.out.println(e2.getMessage());
-           }     
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sqlHumedad);
+            while (rs.next()) {
+            	humedad = rs.getString("valor");
+            }
+            rs.close();
+            stmt.close();
             
-            lblTemperatura.setText(temperatura);
-			lblHumedad.setText(humedad);
-			if((listaCompras).getItems().isEmpty()) {
-				listaCompras.getItems().add("Tenemos todos los productos, gracias");
-			}
-			if(puerta==0) {
-				imgPuertaAbierta.setVisible(true);
-				lblPuerta.setText("open");
-			}else {
-				imgPuertaCerrada.setVisible(true);
-				lblPuerta.setText("close");
-			}/*
-			for(int i=0; i<listaProd.length; i++) {
-				if(listaProd[i].id_user==user_id) {
-					for(int j=0; j<listaProd[i].lista_productos.size(); j++) {
-						System.out.println("Size lc" + listaProd[i].lista_productos.size());
-						listaProductos.getItems().add("- " + listaProd[i].lista_productos.get(j).name + ", "
-								+ listaProd[i].lista_productos.get(j).cantidad);
-					}
-				}
-			}*/
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sqlPuerta);
+            while (rs.next()) {
+            	puerta = rs.getInt("valor");
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e2) {
+            System.out.println(e2.getMessage());
+        }            
+        
+        try {
+            Connection conn2 = connectBBDD.connect();
+            Statement stmt2  = conn2.createStatement();
+            ResultSet rsPrd = stmt2.executeQuery(sqlProductos);
+            while (rsPrd.next()) {
+            	name = rsPrd.getString("nombre");
+            	cantidad = rsPrd.getInt("stock");
+            	listaProductos.getItems().add("- " + name + ", " + cantidad);
+            	if(cantidad < 20) {
+            		listaCompras.getItems().add("- " + name + ", " + cantidad);
+            	}
+            }
+            rsPrd.close();
+            stmt2.close();
+            conn2.close();
+       } catch (SQLException e2) {
+           System.out.println(e2.getMessage());
+       }     
+        
+        lblTemperatura.setText(temperatura);
+		lblHumedad.setText(humedad);
+		if((listaCompras).getItems().isEmpty()) {
+			listaCompras.getItems().add("Tenemos todos los productos, gracias");
+		}
+		if(puerta==0) {
+			imgPuertaAbierta.setVisible(true);
+			lblPuerta.setText("open");
+		}else {
+			imgPuertaCerrada.setVisible(true);
+			lblPuerta.setText("close");
+		}
 	}
 	
 	@FXML
@@ -274,10 +221,11 @@ public class controladorVentanaUsuario {
 	@FXML
     void functionAbrirChat(ActionEvent event) {
 		try {
+			controladorChatUser control = new controladorChatUser();
+			control.setUserId(user_id);
+			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_chat.fxml"));
-			
-			controladorChat control = new controladorChat();
-			
+
 			loader.setController(control);
 	
 			Parent root = loader.load();
@@ -294,5 +242,8 @@ public class controladorVentanaUsuario {
 			e.printStackTrace();
 		}
 		
+	}
+	public void setUserId(int user_id) {
+	    this.user_id = user_id;
 	}
 }

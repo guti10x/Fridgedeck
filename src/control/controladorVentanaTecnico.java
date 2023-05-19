@@ -10,8 +10,6 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
-
 
 import application.connectBBDD;
 import javafx.application.Platform;
@@ -27,10 +25,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Usuario;
 
 public class controladorVentanaTecnico {
 	public static final Stage stage  = new Stage();
+	private int user_id;
+	private int id_user_Seleccionado;
 	@FXML
     private ImageView imgDoorOpen;
 	@FXML
@@ -136,15 +135,17 @@ public class controladorVentanaTecnico {
 		lblEstado.setText("");
 		imgDoorOpen.setVisible(false);
 		imgDoorClose.setVisible(false);
-		String id_user = (String) listaUsuarios.getSelectionModel().getSelectedItem();
-		id_user = id_user.substring(id_user.indexOf(':')+1);
-		String sqlTemperatura = "SELECT valor FROM Temperatura where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user + "') "
-				+ "and fecha = (SELECT MAX(fecha) FROM Temperatura WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user + "'));";
-		String sqlHumedad = "SELECT valor FROM Humedad where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user + "') "
-				+ "and fecha = (SELECT MAX(fecha) FROM Humedad WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user + "'));";
-		String sqlPuerta = "SELECT valor FROM Puerta where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user + "') "
-				+ "and fecha = (SELECT MAX(fecha) FROM Puerta WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user + "'));";
-		String sqlWarnings = "SELECT nombre, fecha FROM Notificaciones where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user + "');";
+		String idString = (String) listaUsuarios.getSelectionModel().getSelectedItem();
+		idString = idString.substring(idString.indexOf(':')+1);
+		id_user_Seleccionado = Integer.parseInt(idString.trim());
+		System.out.println("id_user_Seleccionado:"+ id_user_Seleccionado);
+		String sqlTemperatura = "SELECT valor FROM Temperatura where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user_Seleccionado + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM Temperatura WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user_Seleccionado + "'));";
+		String sqlHumedad = "SELECT valor FROM Humedad where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user_Seleccionado + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM Humedad WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user_Seleccionado + "'));";
+		String sqlPuerta = "SELECT valor FROM Puerta where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user_Seleccionado + "') "
+				+ "and fecha = (SELECT MAX(fecha) FROM Puerta WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user_Seleccionado + "'));";
+		String sqlWarnings = "SELECT nombre, fecha FROM Notificaciones where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user_Seleccionado + "');";
 		int puerta = -999;
 		String temperatura = "", humedad = "";
 		String warning = "", fecha = "";
@@ -204,10 +205,12 @@ public class controladorVentanaTecnico {
 	@FXML
     void abrirChatTecnico(ActionEvent event) {
 		try {
+			controladorChatTecnico control = new controladorChatTecnico();
+			control.setUserIdTecnico(user_id);
+			control.setUserId(id_user_Seleccionado);
+			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_chat.fxml"));
-			
-			controladorChat control = new controladorChat();
-			
+
 			loader.setController(control);
 	
 			Parent root = loader.load();
@@ -224,5 +227,8 @@ public class controladorVentanaTecnico {
 			e.printStackTrace();
 		}
 		
+	}
+	public void setUserId(int user_id) {
+	    this.user_id = user_id;
 	}
 }
