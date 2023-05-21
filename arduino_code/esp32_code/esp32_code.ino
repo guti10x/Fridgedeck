@@ -1,0 +1,174 @@
+//Librerias
+    #include "DHTesp.h"
+    #include <Keypad.h>
+    #include <WiFi.h>
+    #include <MySQL_Connection.h>
+    #include <MySQL_Cursor.h>
+    #include <TimeLib.h>
+
+//Variable para almacenar valor leído del sensor
+    DHTesp dht;
+    int SENSOR; 
+    String encadenado;
+    int id_nevera=1;
+    
+//Definición de la distribucion de teclas teclado matricial 4x4
+    const uint8_t ROWS = 4; //numero de filas
+    const uint8_t COLS = 4;//numero de columnas
+    char keys[ROWS][COLS] = {
+      { '1', '2', '3', 'A' },
+      { '4', '5', '6', 'B' },
+      { '7', '8', '9', 'C' },
+      { '*', '0', '#', 'D' }
+    };
+    
+//pines de conexión
+    int pinDHT = 23;
+    const int HALL_PIN = 21; 
+    uint8_t colPins[COLS] = {4,0,2,15};// pines filas teclado matricial 4x4
+    uint8_t rowPins[ROWS] = {18,5,17,16}; // pines columnas teclado matricial 4x4
+    //Variable teclado
+      Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+
+//Datos de conexión a la bd remota
+    const char* ssid = "iPhone de Dani"; // Ssid wifi
+    const char* password = "gutiguti";   // Contraseña WiFi
+    IPAddress server(195,235,211,197);   // Dirección IP del servidor MariaDB
+    char user[] = "pri_fridgedeck";      // Usuario de la base de datos
+    char passwordDB[] = "fridgedeck1";     // Contraseña del usuario
+    char database[] = "`prifridgedeck`";   // Nombre de la base de datos
+    int port = 3306;                     // Puerto de conexión
+    //Variable para la conexión a la base de datos
+      WiFiClient client;
+      MySQL_Connection conn((Client *)&client);
+ 
+void setup() {
+  Serial.begin(9600); // Inicializa comunicación serie a 9600 bps
+  configTime(0, 0, "pool.ntp.org"); // Configurar la sincronización de tiempo mediante NTP
+  //Conexión WiFi
+      WiFi.begin(ssid, password);
+      while (WiFi.status() != WL_CONNECTED) {
+        delay(1000);
+        Serial.println("Conectando a WiFi...");
+      }
+
+  //Establecer la conexión a la base de datos
+      if (conn.connect(server, port, user, passwordDB)) {
+        Serial.println("Conexión exitosa a la base de datos");
+       // Seleccionar la base de datos
+    char query[100];
+    sprintf(query, "USE %s", database);
+    MySQL_Cursor *cursor = new MySQL_Cursor(&conn);
+    cursor->execute(query);
+    delete cursor;
+
+    Serial.println("Base de datos seleccionada: " + String(database));
+    } else {
+        Serial.println("Error al conectar a la base de datos");
+      }
+
+  //Inicializamos el dht
+     dht.setup(pinDHT, DHTesp::DHT11);
+  
+  //Establece el pin como entrada
+     pinMode(HALL_PIN, INPUT); 
+}
+void loop() {
+  //Lectura de datos
+     //Obtenemos caracter introducido por teclado
+         char key = keypad.getKey();
+     //Obtenemos el arreglo de datos de humedad y temperatura
+         TempAndHumidity data = dht.getTempAndHumidity();
+     //Lee el valor del sensor Hall
+         SENSOR = digitalRead(HALL_PIN);
+   
+   /*Gestion datos teclado matricial 4x4
+      if (key) {
+        if (key =='*') {
+           //Envía a monitor serial la tecla presionada
+               Serial.println(encadenado);
+           //Consulta SQL INSERT
+               const char* query = ("INSERT INTO Productos (id) VALUES("+ encadenado + ");").c_str();
+           //Crear un objeto MySQL_Cursor para ejecutar la consulta
+               MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
+           //Ejecutar la consulta
+               cur_mem->execute(query);
+           //Liberar memoria
+             delete cur_mem;
+             delay(1000);
+          //Eliminamos los caracteres ya leidos
+             encadenado="";
+
+      }else{
+        encadenado += key; // Concatena la tecla presionada a la cadena
+        }
+      }
+    */
+  //Gestion datos sensor Hall
+    if (SENSOR == HIGH) { // Si se detecta un campo magnético
+      /*Serial.println("Campo detectado");
+      boolean estado = false;
+        //Consulta SQL INSERT humedad
+            const char* query = ("INSERT INTO Puerta (id) VALUES(" + encadenado + ");").c_str();
+            //const char* query = ("INSERT INTO Puerta (valor) VALUES(" + estado + ");"
+        //Crear un objeto MySQL_Cursor para ejecutar la consulta
+            MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
+        //Ejecutar la consulta
+            cur_mem->execute(query);
+        //Liberar memoria
+            delete cur_mem;
+            delay(1000);*/
+    }else{
+      Serial.println("Campo NO detectado");
+      boolean estado = true;
+      // Obtener los componentes de la fecha
+          time_t tiempoActual = time(nullptr);
+          struct tm *tiempoLocal = gmtime(&tiempoActual);
+          int anio = tiempoLocal->tm_year + 1900;
+          int mes = tiempoLocal->tm_mon + 1;
+          int dia = tiempoLocal->tm_mday;
+          int hora = tiempoLocal->tm_hour;
+          int minuto = tiempoLocal->tm_min;
+          int segundo = tiempoLocal->tm_sec;
+          char fechaHora[20];
+          sprintf(fechaHora, "%04d-%02d-%02d %02d:%02d:%02d", anio, mes, dia, hora, minuto, segundo);
+
+        //Consulta SQL INSERT humedad
+        char query[200];
+        sprintf(query, "INSERT INTO Puerta (valor, fecha, id_nevera) VALUES (%d, '%s', %d)", estado, fechaHora,id_nevera);
+
+        //Crear un objeto MySQL_Cursor para ejecutar la consulta
+            MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
+        //Ejecutar la consulta
+            cur_mem->execute(query);
+        //Liberar memoria
+            delete cur_mem;
+            delay(1000);
+    }
+
+  /*Gestion datos Sensor humedad y temperatura
+      Serial.println("Temperatura: " + String(data.temperature, 2) + "°C");
+      Serial.println("Humedad: " + String(data.humidity, 1) + "%");
+      Serial.println("---");
+
+      //Consulta SQL INSERT Temperatura
+          const char* query = ("INSERT INTO Temperatura (valor) VALUES (" + String(data.temperature, 2) + ");").c_str();
+      //Crear un objeto MySQL_Cursor para ejecutar la consulta
+          MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
+      //Ejecutar la consulta
+          cur_mem->execute(query);
+      //Liberar memoria
+          delete cur_mem;
+          delay(1000);
+
+      //Consulta SQL INSERT humedad
+          const char* query2 = ("INSERT INTO Humedad (valor) VALUES(" + String(data.humidity, 1) + ");").c_str();
+      //Crear un objeto MySQL_Cursor para ejecutar la consulta
+          MySQL_Cursor *cur_mem2 = new MySQL_Cursor(&conn);
+      //Ejecutar la consulta
+          cur_mem2->execute(query2);
+      //Liberar memoria
+          delete cur_mem2;
+          */
+      delay(1500);
+  }
