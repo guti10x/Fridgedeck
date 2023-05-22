@@ -79,6 +79,7 @@ void loop() {
          char key = keypad.getKey();
      //Obtenemos el arreglo de datos de humedad y temperatura
          TempAndHumidity data = dht.getTempAndHumidity();
+         float temperature = dht.getTemperature();
      //Lee el valor del sensor Hall
          SENSOR = digitalRead(HALL_PIN);
 
@@ -123,7 +124,7 @@ void loop() {
     if (SENSOR == HIGH) { // Si se detecta un campo magnético
       Serial.println("Campo detectado");
       boolean estado = false;
-  //Consulta SQL INSERT estado puerta
+        //Consulta SQL INSERT estado puerta
         char query[200];
         sprintf(query, "INSERT INTO Puerta (valor, fecha, id_nevera) VALUES (%d, '%s', %d)", estado, fechaHora,id_nevera);
 
@@ -152,29 +153,34 @@ void loop() {
             delay(1000);
     }
 
-  /*Gestion datos Sensor humedad y temperatura
+  //Gestion datos Sensor humedad y temperatura
       Serial.println("Temperatura: " + String(data.temperature, 2) + "°C");
       Serial.println("Humedad: " + String(data.humidity, 1) + "%");
       Serial.println("---");
+       
+      //Consulta SQL INSERT temperatura
+        char query[200];
+         sprintf(query, "INSERT INTO Temperatura (valor, fecha, id_nevera) VALUES (%f, '%s', %d)", temperature, fechaHora, id_nevera);
 
-      //Consulta SQL INSERT Temperatura
-          const char* query = ("INSERT INTO Temperatura (valor) VALUES (" + String(data.temperature, 2) + ");").c_str();
-      //Crear un objeto MySQL_Cursor para ejecutar la consulta
-          MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
-      //Ejecutar la consulta
-          cur_mem->execute(query);
-      //Liberar memoria
-          delete cur_mem;
-          delay(1000);
+        //Crear un objeto MySQL_Cursor para ejecutar la consulta
+            MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
+        //Ejecutar la consulta
+            cur_mem->execute(query);
+        //Liberar memoria
+            delete cur_mem;
+            delay(1500);
 
-      //Consulta SQL INSERT humedad
-          const char* query2 = ("INSERT INTO Humedad (valor) VALUES(" + String(data.humidity, 1) + ");").c_str();
-      //Crear un objeto MySQL_Cursor para ejecutar la consulta
-          MySQL_Cursor *cur_mem2 = new MySQL_Cursor(&conn);
-      //Ejecutar la consulta
-          cur_mem2->execute(query2);
-      //Liberar memoria
-          delete cur_mem2;
-          */
+      /*Consulta SQL INSERT humedad
+        char query2[200];
+        sprintf(query2, "INSERT INTO Humedad (valor, fecha, id_nevera) VALUES (%d, '%s', %d)", (String(data.humidity, 1) + "%"), fechaHora, id_nevera);
+
+        //Crear un objeto MySQL_Cursor para ejecutar la consulta
+            MySQL_Cursor *cur_mem2 = new MySQL_Cursor(&conn);
+        //Ejecutar la consulta
+            cur_mem2->execute(query2);
+        //Liberar memoria
+            delete cur_mem;
+            delay(1000);
+
       delay(1500);
-  }
+  */}
