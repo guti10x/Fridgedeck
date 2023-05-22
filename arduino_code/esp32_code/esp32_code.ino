@@ -10,7 +10,7 @@
     DHTesp dht;
     int SENSOR; 
     String encadenado;
-    int id_nevera=2;
+    int id_nevera=8;
     char fechaHora[20];
     
 //Definición de la distribucion de teclas teclado matricial 4x4
@@ -94,7 +94,6 @@ void loop() {
           int hora = tiempoLocal->tm_hour+2;
           int minuto = tiempoLocal->tm_min;
           int segundo = tiempoLocal->tm_sec;
-          char fechaHora[20];
           sprintf(fechaHora, "%04d-%02d-%02d %02d:%02d:%02d", anio, mes, dia, hora, minuto,segundo); 
   
    /*Gestion datos teclado matricial 4x4
@@ -169,7 +168,7 @@ void loop() {
             delete cur_mem;
             delay(1500);
 
-      /*Consulta SQL INSERT humedad
+      //Consulta SQL INSERT humedad
         char query2[200];
         sprintf(query2, "INSERT INTO Humedad (valor, fecha, id_nevera) VALUES (%f, '%s', %d)", humidity, fechaHora, id_nevera);
         
@@ -182,4 +181,4 @@ void loop() {
             delay(1000);
 
       delay(1500);
-  */}
+  }
