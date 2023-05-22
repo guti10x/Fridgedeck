@@ -5,12 +5,13 @@
     #include <MySQL_Connection.h>
     #include <MySQL_Cursor.h>
     #include <TimeLib.h>
-
+    
 //Variable para almacenar valor leído del sensor
     DHTesp dht;
     int SENSOR; 
     String encadenado;
     int id_nevera=2;
+    char fechaHora[20];
     
 //Definición de la distribucion de teclas teclado matricial 4x4
     const uint8_t ROWS = 4; //numero de filas
@@ -80,6 +81,7 @@ void loop() {
      //Obtenemos el arreglo de datos de humedad y temperatura
          TempAndHumidity data = dht.getTempAndHumidity();
          float temperature = dht.getTemperature();
+         float humidity = dht.getHumidity();
      //Lee el valor del sensor Hall
          SENSOR = digitalRead(HALL_PIN);
 
@@ -89,15 +91,12 @@ void loop() {
           int anio = tiempoLocal->tm_year + 1900;
           int mes = tiempoLocal->tm_mon + 1;
           int dia = tiempoLocal->tm_mday;
-          int hora = tiempoLocal->tm_hour;
+          int hora = tiempoLocal->tm_hour+2;
           int minuto = tiempoLocal->tm_min;
           int segundo = tiempoLocal->tm_sec;
           char fechaHora[20];
-          sprintf(fechaHora, "%04d-%02d-%02d %02d:%02d:%02d", anio, mes, dia, hora, minuto, segundo);
-
-
-
-   
+          sprintf(fechaHora, "%04d-%02d-%02d %02d:%02d:%02d", anio, mes, dia, hora, minuto,segundo); 
+  
    /*Gestion datos teclado matricial 4x4
       if (key) {
         if (key =='*') {
@@ -160,7 +159,7 @@ void loop() {
        
       //Consulta SQL INSERT temperatura
         char query[200];
-         sprintf(query, "INSERT INTO Temperatura (valor, fecha, id_nevera) VALUES (%f, '%s', %d)", temperature, fechaHora, id_nevera);
+        sprintf(query, "INSERT INTO Temperatura (valor, fecha, id_nevera) VALUES (%f, '%s', %d)", temperature, fechaHora, id_nevera);
 
         //Crear un objeto MySQL_Cursor para ejecutar la consulta
             MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
@@ -172,8 +171,8 @@ void loop() {
 
       /*Consulta SQL INSERT humedad
         char query2[200];
-        sprintf(query2, "INSERT INTO Humedad (valor, fecha, id_nevera) VALUES (%d, '%s', %d)", (String(data.humidity, 1) + "%"), fechaHora, id_nevera);
-
+        sprintf(query2, "INSERT INTO Humedad (valor, fecha, id_nevera) VALUES (%f, '%s', %d)", humidity, fechaHora, id_nevera);
+        
         //Crear un objeto MySQL_Cursor para ejecutar la consulta
             MySQL_Cursor *cur_mem2 = new MySQL_Cursor(&conn);
         //Ejecutar la consulta
