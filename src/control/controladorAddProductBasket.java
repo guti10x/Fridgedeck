@@ -89,7 +89,7 @@ public class controladorAddProductBasket {
         	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
         }else {
         	try {
-        		String sqlInsert = "INSERT INTO Productos (nombre, descripción, stock, fecha, id_nevera) "
+        		String sqlInsert = "INSERT INTO Productos (nombre, descripcion, stock, fecha, id_nevera) "
                         + "VALUES ('" + name + "', '" + descripcion + "', '" + cantidad + "', '" + fechaProductoSql + "', "
                         + "(SELECT id_nevera FROM Subscribe WHERE id_user ='" + user_id + "'))";
         		System.out.println(sqlInsert);

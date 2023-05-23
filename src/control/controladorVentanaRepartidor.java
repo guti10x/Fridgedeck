@@ -39,27 +39,29 @@ public class controladorVentanaRepartidor {
 	private Label lblTimeRepatridor;
 	@FXML
 	    void mostrarInfoRepartidor(ActionEvent event) {
-			 try {
-				 FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
+			 try { 
+				controladorVentanaInformacionUsuario control2 = new controladorVentanaInformacionUsuario();
+				control2.setUserId(user_id);
+				System.out.println("E " + user_id);
+				FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
 					
-					controladorVentanaInformacionUsuario control2 = new controladorVentanaInformacionUsuario();
-					
-					loader2.setController(control2);
-					
-					Parent root2 = loader2.load();
-					
-					Stage stage  = new Stage();
-					
-					stage.setScene(new Scene(root2));
-					
-					stage.initModality(Modality.WINDOW_MODAL);
-					stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-					stage.setResizable(false);
-					stage.show();
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
+				loader2.setController(control2);
+				
+				Parent root2 = loader2.load();
+				
+				Stage stage  = new Stage();
+				
+				stage.setScene(new Scene(root2));
+				
+				stage.initModality(Modality.WINDOW_MODAL);
+				stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+				stage.setResizable(false);
+				stage.show();
+			} catch(Exception e) {
+				e.printStackTrace();
 			}
+		}
+	
 	public void initialize() throws InterruptedException{
 		Timer timer = new Timer("Display Timer");
 		TimerTask task = new TimerTask() {

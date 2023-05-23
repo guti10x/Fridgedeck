@@ -60,7 +60,7 @@ public class controladorVentanaInformacionUsuario {
     @FXML
     private Button btnCerrarSesion;
     
-    public static final Stage stage  = new Stage();
+    private int user_id;
 
     @FXML
     void btnCerrar_Click(ActionEvent event) {
@@ -68,28 +68,7 @@ public class controladorVentanaInformacionUsuario {
     }
    
     @FXML
-    void initialize() {/*
-    	  assert tfUsernameInfo != null : "fx:id=\"tfUsernameInfo\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
-          assert btnCerrarSesion != null : "fx:id=\"btnCerrarSesion\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
-          assert tfemailinfo != null : "fx:id=\"tfemailinfo\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
-          assert tfpasswordInfo != null : "fx:id=\"tfpasswordInfo\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
-          assert tfNameSurnameInfo != null : "fx:id=\"tfNameSurnameInfo\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
-          assert tfFridgeaddressInfo != null : "fx:id=\"tfFridgeaddressInfo\" was not injected: check your FXML file 'ventana_Informacion_usuario.fxml'.";
-          */
-          int user_id = 0;
-  		try {
-  		      File myObj = new File("user_id.txt");
-  		      Scanner myReader = new Scanner(myObj);
-  		      while (myReader.hasNextLine()) {
-  		        String id = myReader.nextLine();
-  		        user_id = Integer.valueOf(id);
-  		      }
-  		      myReader.close();
-  		    } catch (FileNotFoundException e) {
-  		      System.out.println("An error occurred.");
-  		      e.printStackTrace();
-  		    }
-  		
+    void initialize() {
 		String username = "", nombre = "", surname1 = "", surname2 = "", email = "", password = "", name_surname = "", fridge_adress = "";
 		long credit_card = 0;
 		int telephone_number = 0;
@@ -126,6 +105,8 @@ public class controladorVentanaInformacionUsuario {
         } catch (SQLException e2) {
             System.out.println(e2.getMessage());
         }
-		
     }
+    public void setUserId(int user_id) {
+	    this.user_id = user_id;
+	}
 }

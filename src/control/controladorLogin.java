@@ -118,6 +118,8 @@ public class controladorLogin {
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_Tecnico.fxml"));
 
+		
+
 		loader.setController(control);
 
 		Parent root = loader.load();
@@ -133,12 +135,13 @@ public class controladorLogin {
 	}
 	
 	private void openVentanaRepartidor(ActionEvent e) throws IOException {
+		controladorVentanaRepartidor control = new controladorVentanaRepartidor();
+		control.setUserId(userId);
+		
 		Stage currentStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		currentStage.close();
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_repartidor.fxml"));
-
-		controladorVentanaRepartidor control = new controladorVentanaRepartidor();
 
 		loader.setController(control);
 

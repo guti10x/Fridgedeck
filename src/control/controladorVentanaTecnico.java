@@ -53,25 +53,25 @@ public class controladorVentanaTecnico {
 	@FXML
     void mostrarInfoTecnico(ActionEvent event) {
 		 try {
-			 FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
-				
-				controladorVentanaInformacionUsuario control2 = new controladorVentanaInformacionUsuario();
-				
-				loader2.setController(control2);
-				
-				Parent root2 = loader2.load();
-				
-				stage.setScene(new Scene(root2));
-				
-				stage.initModality(Modality.WINDOW_MODAL);
-				stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-				stage.setResizable(false);
-				stage.show();
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
+			controladorVentanaInformacionUsuario control2 = new controladorVentanaInformacionUsuario();
+			control2.setUserId(user_id);
+			
+			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
+
+			loader2.setController(control2);
+			
+			Parent root2 = loader2.load();
+			
+			stage.setScene(new Scene(root2));
+			
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+			stage.setResizable(false);
+			stage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
-		
+	}	
 	 
 	public void initialize() throws InterruptedException{
 		Timer timer = new Timer("Display Timer");

@@ -65,10 +65,11 @@ public class controladorVentanaUsuario {
 	@FXML
     void mostrarInfoUsuario(ActionEvent event) {
 		 try {
-		 FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
-			
 			controladorVentanaInformacionUsuario control2 = new controladorVentanaInformacionUsuario();
+			control2.setUserId(user_id);
 			
+			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
+						
 			loader2.setController(control2);
 			
 			Parent root2 = loader2.load();
@@ -118,6 +119,7 @@ public class controladorVentanaUsuario {
 	public void leer_datos() {
 		String sqlTemperatura = "SELECT valor FROM Temperatura where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
 				+ "and fecha = (SELECT MAX(fecha) FROM Temperatura WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "'));";
+		System.out.println("sql " + sqlTemperatura);
 		String sqlHumedad = "SELECT valor FROM Humedad where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
 				+ "and fecha = (SELECT MAX(fecha) FROM Humedad WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + user_id + "'));";
 		String sqlPuerta = "SELECT valor FROM Puerta where id_nevera = (select id_nevera from Subscribe where id_user ='" + user_id + "') "
