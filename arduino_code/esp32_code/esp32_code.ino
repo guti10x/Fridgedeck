@@ -85,21 +85,6 @@ void setup() {
   //Establece el pin del led como salida
      pinMode(pinLED, OUTPUT);
 }
-String obtenerFechaHoraActual() {
-  time_t tiempoActual = time(nullptr);
-  struct tm *tiempoLocal = gmtime(&tiempoActual);
-  int anio = tiempoLocal->tm_year + 1900;
-  int mes = tiempoLocal->tm_mon + 1;
-  int dia = tiempoLocal->tm_mday;
-  int hora = tiempoLocal->tm_hour + 2;
-  int minuto = tiempoLocal->tm_min;
-  int segundo = tiempoLocal->tm_sec;
-  
-  char fechaHora[20];
-  sprintf(fechaHora, "%04d-%02d-%02d %02d:%02d:%02d", anio, mes, dia, hora, minuto, segundo);
-  
-  return String(fechaHora);
-}
 
 void loop() {
   
@@ -117,19 +102,25 @@ void loop() {
              
          //Lee el valor del sensor Hall
              SENSOR = digitalRead(HALL_PIN);
-    
-         //Obtener los componentes de la fecha
-              time_t tiempoActual = time(nullptr);
-              struct tm *tiempoLocal = gmtime(&tiempoActual);
-              int anio = tiempoLocal->tm_year + 1900;
-              int mes = tiempoLocal->tm_mon + 1;
-              int dia = tiempoLocal->tm_mday;
-              int hora = tiempoLocal->tm_hour+2;
-              int minuto = tiempoLocal->tm_min;
-              int segundo = tiempoLocal->tm_sec;
-              sprintf(fechaHora, "%04d-%02d-%02d %02d:%02d:%02d", anio, mes, dia, hora, minuto,segundo); 
-    
-     
+             
+         //Obtener fecha actual
+          time_t tiempoActual = time(nullptr);
+          struct tm *tiempoLocal = gmtime(&tiempoActual);
+          int anio = tiempoLocal->tm_year + 1900;
+          int mes = tiempoLocal->tm_mon + 1;
+          int dia = tiempoLocal->tm_mday;
+          int hora = tiempoLocal->tm_hour + 2;
+          if(hora=24){
+            hora=0;
+            }
+          if(hora=25){
+            hora=1;
+            }
+          int minuto = tiempoLocal->tm_min;
+          int segundo = tiempoLocal->tm_sec;
+          
+          char fechaHora[20];
+          sprintf(fechaHora, "%04d-%02d-%02d %02d:%02d:%02d", anio, mes, dia, hora, minuto, segundo);
      //Gestion datos sensor Hall
         if (SENSOR == HIGH) { // Si se detecta un campo magnético
           Serial.println("---");
@@ -137,7 +128,7 @@ void loop() {
           boolean estado = false;
             //Consulta SQL INSERT estado puerta
             char query[200];
-            sprintf(query, "INSERT INTO Puerta (valor, fecha, id_nevera) VALUES (%d, '%s', %d)", estado, fechaHora,id_nevera);
+            sprintf(query, "INSERT INTO Puerta (valor, fecha, id_nevera) VALUES (%d, '%s', %d)", estado, fechaHora ,id_nevera);
     
             //Crear un objeto MySQL_Cursor para ejecutar la consulta
                 MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
