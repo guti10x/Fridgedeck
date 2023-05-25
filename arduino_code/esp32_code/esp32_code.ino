@@ -14,7 +14,7 @@
     DHTesp dht;
     int SENSOR; 
     String encadenado;
-    int id_nevera=8;
+    int id_nevera=1;
     char fechaHora[20];
        
 //Definición de la distribucion de teclas teclado matricial 4x4
@@ -211,30 +211,17 @@ void loop() {
             
             //Consulta SQL UPDATE
               char query[200];
-              snprintf(query, sizeof(query), "UPDATE Productos SET fecha = CURRENT_TIMESTAMP, stock = stock + 1 WHERE code = '%s'", encadenado.c_str());
-            
+              snprintf(query, sizeof(query), "UPDATE Productos SET fecha = CURRENT_TIMESTAMP, stock = stock+1  WHERE code = '%s' AND id_nevera = %d", encadenado.c_str(), id_nevera);
+ 
             //Crear un objeto MySQL_Cursor para ejecutar la consulta
               MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
                
             //Ejecutar la consulta
               cur_mem->execute(query);
 
-            //Ejecutar la consulta
-              int result = cur_mem->execute(query);
-            
-            //Verificar si la actualización se realizó exitosamente
-              if (result == 1) {
-                  // La actualización fue exitosa
-                  Serial.println("La actualización se realizó correctamente.");
-              } else {
-                  // No se pudo realizar la actualización o hubo un error
-                  Serial.println("No se pudo realizar la actualización.");
-              }
-
-
             //Liberar memoria
               delete cur_mem;
-              delay(400);
+              delay(1000);
                
             //Eliminamos los caracteres ya leidos
               encadenado="";
