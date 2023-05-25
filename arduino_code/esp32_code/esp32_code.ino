@@ -145,7 +145,7 @@ void loop() {
                 cur_mem->execute(query);
             //Liberar memoria
                 delete cur_mem;
-                delay(200);
+                delay(150);
                 
         }else{
           Serial.println("---");
@@ -162,7 +162,7 @@ void loop() {
                 cur_mem->execute(query);
             //Liberar memoria
                 delete cur_mem;
-                delay(200);
+                delay(150);
         }
   
     //Gestion datos Sensor humedad y temperatura
@@ -180,7 +180,7 @@ void loop() {
                 cur_mem->execute(query);
             //Liberar memoria
                 delete cur_mem;
-                delay(200);
+                delay(150);
     
           //Consulta SQL INSERT humedad
             char query2[200];
@@ -192,7 +192,7 @@ void loop() {
                 cur_mem2->execute(query2);
             //Liberar memoria
               delete cur_mem;
-              delay(200);
+              delay(150);
 
    //Actualizar el tiempo anterior al actual
      previousTime = currentTime;
@@ -207,24 +207,34 @@ void loop() {
               digitalWrite(pinLED, HIGH);
               
             //Envía a monitor serial la tecla presionada
-              Serial.println("Enviado:" + encadenado);
+              Serial.println("Añadir:" + encadenado);
             
-            // Obtener la fecha y hora actual
-              String fechaHoraActual = obtenerFechaHoraActual();
-
-            //Consulta SQL INSERT
+            //Consulta SQL UPDATE
               char query[200];
-              snprintf(query, sizeof(query), "INSERT INTO Productos (Code, id_nevera) VALUES ('%s', %d)", encadenado.c_str(), id_nevera);
-
+              snprintf(query, sizeof(query), "UPDATE Productos SET fecha = CURRENT_TIMESTAMP, stock = stock + 1 WHERE code = '%s'", encadenado.c_str());
+            
             //Crear un objeto MySQL_Cursor para ejecutar la consulta
               MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
                
             //Ejecutar la consulta
               cur_mem->execute(query);
-               
+
+            //Ejecutar la consulta
+              int result = cur_mem->execute(query);
+            
+            //Verificar si la actualización se realizó exitosamente
+              if (result == 1) {
+                  // La actualización fue exitosa
+                  Serial.println("La actualización se realizó correctamente.");
+              } else {
+                  // No se pudo realizar la actualización o hubo un error
+                  Serial.println("No se pudo realizar la actualización.");
+              }
+
+
             //Liberar memoria
               delete cur_mem;
-              delay(1000);
+              delay(400);
                
             //Eliminamos los caracteres ya leidos
               encadenado="";
