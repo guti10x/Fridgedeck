@@ -38,7 +38,7 @@ public class controladorMain {
 			
 			stage.initModality(Modality.WINDOW_MODAL);
 			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-			stage.setResizable(false);
+			stage.setResizable(true);
 			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

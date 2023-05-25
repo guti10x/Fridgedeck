@@ -53,6 +53,9 @@ public class controladorAddProductBasket {
 	
 	@FXML
     private TextField tfCantidad;
+	
+	@FXML
+    private TextField tfCode;
 
 	@FXML
     private Button btnAddProduct;
@@ -81,6 +84,7 @@ public class controladorAddProductBasket {
         String name = tfNombre.getText().toString();
         String cantidad = tfCantidad.getText().toString();
         String descripcion = tfDesc.getText().toString();
+        String code = tfCode.getText().toString();
         LocalDate fechaProducto = dpFechaAddPr.getValue();
 		Date fechaProductoSql = null;
 		fechaProductoSql = Date.valueOf(fechaProducto);
@@ -89,8 +93,8 @@ public class controladorAddProductBasket {
         	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
         }else {
         	try {
-        		String sqlInsert = "INSERT INTO Productos (nombre, descripcion, stock, fecha, id_nevera) "
-                        + "VALUES ('" + name + "', '" + descripcion + "', '" + cantidad + "', '" + fechaProductoSql + "', "
+        		String sqlInsert = "INSERT INTO Productos (nombre, descripcion, stock, code, fecha, id_nevera) "
+                        + "VALUES ('" + name + "', '" + descripcion + "', '" + cantidad + "', '" + code + "', '" + fechaProductoSql + "', "
                         + "(SELECT id_nevera FROM Subscribe WHERE id_user ='" + user_id + "'))";
         		System.out.println(sqlInsert);
         		Connection conn = connectBBDD.connect();
@@ -100,6 +104,8 @@ public class controladorAddProductBasket {
                 
                 tfNombre.setText("");
                 tfCantidad.setText("");
+                tfDesc.setText("");
+                tfCode.setText("");
                 JOptionPane.showMessageDialog(jFrame, "Has añadido producto!");
            } catch (SQLException e2) {
                System.out.println(e2.getMessage());

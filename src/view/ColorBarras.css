@@ -1,0 +1,15 @@
+.split-pane:horizontal > .split-pane-divider {
+   -fx-background-color: black;
+}
+.split-pane:vertical > .split-pane-divider {
+   -fx-background-color: black;
+}
+.button-style {
+   -fx-background-color: #FFFFFF;
+   -fx-border-color: #000000;
+   -fx-background-radius: 7;
+   -fx-border-radius: 7;
+   -fx-font-family: "System";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}

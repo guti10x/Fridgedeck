@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class controladorVentanaInformacionUsuario {
@@ -56,10 +57,11 @@ public class controladorVentanaInformacionUsuario {
 	
 	@FXML
     private TextField tfUITelephone;
-
+	
     @FXML
     private Button btnCerrarSesion;
-    
+	@FXML
+    private Text textUsername;
     private int user_id;
 
     @FXML

@@ -16,7 +16,11 @@ public class Main extends Application {
 			loader.setController(control);
 			Parent root = loader.load();
 			primaryStage.setScene(new Scene(root));
-			primaryStage.setResizable(false);
+			primaryStage.setResizable(true);
+			double minWidth = 600.0;
+	        double minHeight = 400.0;
+	        primaryStage.setMinWidth(minWidth);
+	        primaryStage.setMinHeight(minHeight);
 			primaryStage.show();
 			
 			connectBBDD connectBBDD = new connectBBDD();

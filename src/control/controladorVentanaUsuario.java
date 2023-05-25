@@ -23,8 +23,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class controladorVentanaUsuario {
 	@FXML
@@ -64,27 +66,45 @@ public class controladorVentanaUsuario {
 	
 	@FXML
     void mostrarInfoUsuario(ActionEvent event) {
-		 try {
-			controladorVentanaInformacionUsuario control2 = new controladorVentanaInformacionUsuario();
-			control2.setUserId(user_id);
-			
-			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
-						
-			loader2.setController(control2);
-			
-			Parent root2 = loader2.load();
-			
-			Stage stage  = new Stage();
-			
-			stage.setScene(new Scene(root2));
-			
-			stage.initModality(Modality.WINDOW_MODAL);
-			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-			stage.setResizable(false);
-			stage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+		try {
+	        controladorVentanaInformacionUsuario control2 = new controladorVentanaInformacionUsuario();
+	        control2.setUserId(user_id);
+	        
+	        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/ventana_Informacion_usuario.fxml"));
+	        loader2.setController(control2);
+	        
+	        AnchorPane root2 = loader2.load();
+	        
+	        Stage stage = new Stage();
+	        
+	        double minWidth = 480.0;
+	        double minHeight = 850.0;
+	        stage.setMinWidth(minWidth);
+	        stage.setMinHeight(minHeight);
+	        
+	        stage.setScene(new Scene(root2));
+	        stage.initModality(Modality.WINDOW_MODAL);
+	        
+	        if (event.getSource() instanceof Node) {
+	            Node sourceNode = (Node) event.getSource();
+	            Scene sourceScene = sourceNode.getScene();
+	            Window ownerWindow = sourceScene.getWindow();
+	            stage.initOwner(ownerWindow);
+	        }
+	        
+	        stage.setResizable(true);
+	        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+	            double scaleFactor = newVal.doubleValue() / oldVal.doubleValue();
+	            stage.setHeight(stage.getHeight() * scaleFactor);
+	        });
+	        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+	            double scaleFactor = newVal.doubleValue() / oldVal.doubleValue();
+	            stage.setWidth(stage.getWidth() * scaleFactor);
+	        });
+	        stage.show();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 	
 	public void initialize() throws InterruptedException{

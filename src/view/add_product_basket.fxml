@@ -16,12 +16,13 @@
       </Label>
       <TextField fx:id="tfNombre" layoutX="203.0" layoutY="140.0" prefHeight="25.0" prefWidth="195.0" promptText="Nombre" />
       <TextField fx:id="tfCantidad" layoutX="203.0" layoutY="210.0" prefHeight="25.0" prefWidth="195.0" promptText="Stock" />
-      <Button fx:id="btnAddProduct" layoutX="203.0" layoutY="291.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="195.0" text="Añadir">
+      <Button fx:id="btnAddProduct" layoutX="203.0" layoutY="322.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="195.0" text="Añadir">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
       <TextField fx:id="tfDesc" layoutX="203.0" layoutY="175.0" prefHeight="25.0" prefWidth="195.0" promptText="Descripción" />
-      <DatePicker fx:id="dpFechaAddPr" layoutX="203.0" layoutY="245.0" prefHeight="25.0" prefWidth="195.0" />
+      <DatePicker fx:id="dpFechaAddPr" layoutX="203.0" layoutY="277.0" prefHeight="25.0" prefWidth="195.0" />
+      <TextField fx:id="tfCode" layoutX="203.0" layoutY="244.0" prefHeight="25.0" prefWidth="195.0" promptText="Code" />
    </children>
 </AnchorPane>
