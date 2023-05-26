@@ -4,115 +4,136 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="950.0" prefWidth="470.0" style="-fx-background-color: #009DE1;" VBox.vgrow="ALWAYS">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane layoutX="231.0" layoutY="102.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="264.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="412.0" minWidth="10.0" prefWidth="336.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <ImageView fitHeight="1051.0" fitWidth="470.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-101.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <image>
-                  <Image url="@fridgedeck_registrarse.PNG" />
-               </image>
-            </ImageView>
-            <TextField fx:id="tfUsername" layoutX="129.0" layoutY="264.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="29.0" prefWidth="245.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="tfNombre" layoutX="129.0" layoutY="334.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="29.0" prefWidth="245.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="tfSurname1" layoutX="129.0" layoutY="404.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="29.0" prefWidth="245.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="tfSurname2" layoutX="129.0" layoutY="474.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="29.0" prefWidth="245.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <Button fx:id="btnRegistrarUsuario" layoutX="265.0" layoutY="863.0" mnemonicParsing="false" onAction="#registrarUsuario" opacity="0.97" prefHeight="37.0" prefWidth="141.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;" text="REGISTER">
-               <font>
-                  <Font name="SansSerif Bold" size="18.0" />
-               </font></Button>
-            <PasswordField fx:id="pfPassword" layoutX="129.0" layoutY="612.0" prefHeight="27.0" prefWidth="245.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;" />
-            <ComboBox fx:id="cmbRole" layoutX="59.0" layoutY="866.0" prefHeight="31.0" prefWidth="176.0" promptText="Elegir role" style="-fx-background-color: #ffffff;" />
-            <TextField fx:id="tfTelephone" layoutX="129.0" layoutY="819.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="29.0" prefWidth="245.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="tfCreditCard" layoutX="129.0" layoutY="750.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="29.0" prefWidth="245.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="tfEmail" layoutX="129.0" layoutY="543.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="29.0" prefWidth="245.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <Text layoutX="129.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" wrappingWidth="206.13671875">
-               <font>
-                  <Font name="System Bold Italic" size="30.0" />
-               </font>
-            </Text>
-            <Text layoutX="129.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="206.13671875">
-               <font>
-                  <Font name="System Bold Italic" size="30.0" />
-               </font>
-            </Text>
-            <Text layoutX="129.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Surname 1" wrappingWidth="206.13671875">
-               <font>
-                  <Font name="System Bold Italic" size="30.0" />
-               </font>
-            </Text>
-            <Text layoutX="129.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Surname 2" wrappingWidth="206.13671875">
-               <font>
-                  <Font name="System Bold Italic" size="30.0" />
-               </font>
-            </Text>
-            <Text layoutX="129.0" layoutY="535.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="206.13671875">
-               <font>
-                  <Font name="System Bold Italic" size="30.0" />
-               </font>
-            </Text>
-            <Text layoutX="129.0" layoutY="604.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="206.13671875">
-               <font>
-                  <Font name="System Bold Italic" size="30.0" />
-               </font>
-            </Text>
-            <Text layoutX="129.0" layoutY="671.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birthday" wrappingWidth="206.13671875">
-               <font>
-                  <Font name="System Bold Italic" size="30.0" />
-               </font>
-            </Text>
-            <DatePicker fx:id="dpBirthday" layoutX="129.0" layoutY="679.0" prefHeight="25.0" prefWidth="245.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-radius: 4;" />
-            <Text layoutX="129.0" layoutY="739.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Credit card" wrappingWidth="206.13671875">
-               <font>
-                  <Font name="System Bold Italic" size="30.0" />
-               </font>
-            </Text>
-            <Text layoutX="129.0" layoutY="811.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telephone" wrappingWidth="206.13671875">
-               <font>
-                  <Font name="System Bold Italic" size="30.0" />
-               </font>
-            </Text>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #009FE3;" styleClass="sidebar" stylesheets="@firstGUI.css">
+               <children>
+                  <ImageView fitHeight="400.0" fitWidth="526.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@logoFridge.jpeg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <BorderPane prefHeight="200.0" prefWidth="286.0" GridPane.columnIndex="1">
+               <top>
+                  <GridPane prefWidth="150.0" stylesheets="@firstGUI.css" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label styleClass="registrarse" text="REGISTRARSE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="System Bold Italic" size="27.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="10.0" top="18.0" />
+                           </GridPane.margin>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </top>
+               <center>
+                  <GridPane prefWidth="537.0" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextField fx:id="tfUsername" promptText="Usuario" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;">
+                           <GridPane.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="tfNombre" promptText="Nombre" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="tfSurname1" promptText="Apellido 1" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="tfSurname2" promptText="Apellido 2" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="tfEmail" promptText="Email" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <PasswordField fx:id="pfPassword" promptText="Contraseña" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </GridPane.margin>
+                        </PasswordField>
+                        <DatePicker fx:id="dpBirthday" prefHeight="27.0" prefWidth="204.0" promptText="Fecha nacimiento" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </GridPane.margin>
+                        </DatePicker>
+                        <TextField fx:id="tfTelephone" promptText="Telefono" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <ComboBox fx:id="cmbRole" prefHeight="27.0" prefWidth="208.0" promptText="Elegir rol" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </GridPane.margin>
+                        </ComboBox>
+                        <Button fx:id="btnRegistrarUsuario" mnemonicParsing="false" onAction="#registrarUsuario" styleClass="button-style" stylesheets="@ColorBarras.css" text="Registrarse" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets bottom="15.0" />
+                           </GridPane.margin></Button>
+                        <TextField fx:id="tfCreditCard" promptText="Credit card" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </GridPane.margin></TextField>
+                     </children>
+                  </GridPane>
+               </center>
+            </BorderPane>
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-    </AnchorPane>
-  </children>
-</VBox>
+      </GridPane>
+   </children>
+</AnchorPane>

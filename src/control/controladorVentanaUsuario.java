@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -39,13 +40,7 @@ public class controladorVentanaUsuario {
     private Label lblHumedad;
 	
 	@FXML
-    private ImageView imgPuertaAbierta;
-	
-	@FXML
-    private ImageView imgPuertaCerrada;
-	
-	@FXML
-    private Label lblPuerta;
+    private ImageView imgPuerta;
 	
 	@FXML
     private ListView listaCompras;
@@ -57,7 +52,7 @@ public class controladorVentanaUsuario {
     private Button btnAddProductBasket;
 	
 	@FXML
-	private Button bttnInfoUsuario;
+	private Button btnInfoUsuario;
 	
 	@FXML
 	private Button btnAbrirChat;
@@ -206,12 +201,15 @@ public class controladorVentanaUsuario {
 		if((listaCompras).getItems().isEmpty()) {
 			listaCompras.getItems().add("Tenemos todos los productos, gracias");
 		}
+		String PAPath = "/view/puerta_abierta.png";
+		String PCPath = "/view/puerta_cerrada.png";
+		Image newImage;
 		if(puerta==0) {
-			imgPuertaAbierta.setVisible(true);
-			lblPuerta.setText("open");
+	        newImage = new Image(getClass().getClassLoader().getResource("/view/puerta_abierta.png").toString(), true);
+	        imgPuerta.setImage(newImage);
 		}else {
-			imgPuertaCerrada.setVisible(true);
-			lblPuerta.setText("close");
+			newImage = new Image(getClass().getClassLoader().getResource("/view/puerta_cerrada.png").toString(), true);
+	        imgPuerta.setImage(newImage);
 		}
 	}
 	

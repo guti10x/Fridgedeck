@@ -39,6 +39,10 @@ public class controladorMain {
 			stage.initModality(Modality.WINDOW_MODAL);
 			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
 			stage.setResizable(true);
+			double minWidth = 600.0;
+	        double minHeight = 400.0;
+	        stage.setMinWidth(minWidth);
+	        stage.setMinHeight(minHeight);
 			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -65,7 +69,11 @@ public class controladorMain {
 			
 			stage.initModality(Modality.WINDOW_MODAL);
 			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-			stage.setResizable(false);
+			stage.setResizable(true);
+			double minWidth = 630.0;
+	        double minHeight = 400.0;
+	        stage.setMinWidth(minWidth);
+	        stage.setMinHeight(minHeight);
 			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

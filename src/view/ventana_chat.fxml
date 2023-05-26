@@ -5,19 +5,45 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <AnchorPane prefHeight="600.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #009CDE;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="230.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <TextField fx:id="txtTextoParaEnviar" layoutX="217.0" layoutY="466.0" prefHeight="25.0" prefWidth="466.0" />
-            <Button fx:id="btnEnviarChat" layoutX="386.0" layoutY="518.0" mnemonicParsing="false" onAction="#enviarTextoAlChat" prefHeight="25.0" prefWidth="129.0" text="Enviar" />
-            <TextArea fx:id="txtChat" layoutX="218.0" layoutY="185.0" prefHeight="200.0" prefWidth="466.0" />
+            <TextArea fx:id="txtChat" prefHeight="183.0" prefWidth="500.0">
+               <GridPane.margin>
+                  <Insets bottom="17.0" left="50.0" right="50.0" top="30.0" />
+               </GridPane.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextArea>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="788.0" GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="txtTextoParaEnviar" prefHeight="25.0" prefWidth="500.0" promptText="Escribe tu mensaje aquí">
+                     <VBox.margin>
+                        <Insets left="50.0" right="50.0" top="6.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button fx:id="btnEnviarChat" alignment="CENTER" mnemonicParsing="false" onAction="#enviarTextoAlChat" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-background-radius: 7; -fx-border-radius: 7;" styleClass="button-style" stylesheets="@ColorBarras.css" text="ENVIAR">
+                     <VBox.margin>
+                        <Insets top="36.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
          </children>
-    </AnchorPane>
-  </children>
-</VBox>
+      </GridPane>
+   </children>
+</AnchorPane>
