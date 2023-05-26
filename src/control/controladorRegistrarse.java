@@ -1,31 +1,12 @@
 package control;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-
-import javax.mail.MessagingException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
-import com.google.gson.reflect.TypeToken;
 
 import application.connectBBDD;
 import javafx.event.ActionEvent;
@@ -35,7 +16,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import model.Usuario;
 
 public class controladorRegistrarse {
 	@FXML
