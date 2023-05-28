@@ -120,7 +120,6 @@ public class controladorVentanaRepartidor {
 		lwD.getItems().clear();
 		lwCS.getItems().clear();
 		
-
 		String id_user = (String) lwCL.getSelectionModel().getSelectedItem();
 		id_user = id_user.substring(id_user.indexOf(':')+1);
 		String sqlDelivery = "SELECT nombre, stock FROM Productos where id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user + "');";
