@@ -45,8 +45,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #009de0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="713.0" prefWidth="930.0" style="-fx-background-color: #009de0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER" />
       <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #009de0;" stylesheets="@ColorBarras.css">
@@ -56,26 +57,26 @@
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="btnInfoUsuario" mnemonicParsing="false" onAction="#mostrarInfoUsuario" prefWidth="169.0" style="-fx-background-color: #009FE3;">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="168.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@logo.png" />
-                     </image>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </ImageView>
-               </graphic>
-            </Button>
+            <Button fx:id="btnInfoUsuario" mnemonicParsing="false" onAction="#mostrarInfoUsuario" prefWidth="169.0" style="-fx-background-color: #009FE3;" />
+            <ImageView fitHeight="50.0" fitWidth="168.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@logo.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
             <Button fx:id="btnAbrirChat" mnemonicParsing="false" onAction="#functionAbrirChat" styleClass="button-style" stylesheets="@ColorBarras.css" text="Chat">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
         </items>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </ToolBar>
-    <SplitPane dividerPositions="0.2561247216035635, 0.6547884187082406" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #009de0;" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.28619153674832964, 0.6492204899777283" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #009de0;" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane prefHeight="570.0" prefWidth="201.0">
                <children>
@@ -93,12 +94,18 @@
                   </VBox>
                   <VBox alignment="CENTER" layoutX="128.0" prefHeight="167.0" prefWidth="100.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label fx:id="lblTemperatura" text="-10" textFill="WHITE">
+                        <Label fx:id="lblTemperatura" alignment="CENTER" contentDisplay="CENTER" text="-10" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="48.0" />
                            </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </Label>
                      </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                   </VBox>
                   <VBox layoutY="183.0" prefHeight="167.0" prefWidth="128.0" AnchorPane.bottomAnchor="179.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="103.0" AnchorPane.topAnchor="180.0">
                      <children>
@@ -126,11 +133,21 @@
                   </VBox>
                   <VBox alignment="CENTER" layoutX="88.0" layoutY="401.0" prefHeight="146.0" prefWidth="214.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="392.0">
                      <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Puerta">
+                           <font>
+                              <Font name="System Bold Italic" size="36.0" />
+                           </font>
+                        </Text>
                         <ImageView fx:id="imgPuerta" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@puerta_cerrada.png.png" />
                            </image>
                         </ImageView>
+                        <Label fx:id="lblEstadoPuerta" text="Cerrada" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="48.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                </children>

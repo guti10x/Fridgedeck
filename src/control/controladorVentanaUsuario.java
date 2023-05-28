@@ -57,6 +57,9 @@ public class controladorVentanaUsuario {
 	@FXML
 	private Button btnAbrirChat;
 	
+	@FXML
+	private Label lblEstadoPuerta;
+	
 	private int user_id;
 	
 	@FXML
@@ -201,15 +204,17 @@ public class controladorVentanaUsuario {
 		if((listaCompras).getItems().isEmpty()) {
 			listaCompras.getItems().add("Tenemos todos los productos, gracias");
 		}
-		String PAPath = "/view/puerta_abierta.png";
-		String PCPath = "/view/puerta_cerrada.png";
-		Image newImage;
+		//String PAPath = "/view/puerta_abierta.png";
+		//String PCPath = "/view/puerta_cerrada.png";
+		//Image newImage;
 		if(puerta==0) {
-	        newImage = new Image(getClass().getClassLoader().getResource("/view/puerta_abierta.png").toString(), true);
-	        imgPuerta.setImage(newImage);
+	        //newImage = new Image(getClass().getClassLoader().getResource("/view/puerta_abierta.png").toString(), true);
+	        //imgPuerta.setImage(newImage);
+			lblEstadoPuerta.setText("Abierta");
 		}else {
-			newImage = new Image(getClass().getClassLoader().getResource("/view/puerta_cerrada.png").toString(), true);
-	        imgPuerta.setImage(newImage);
+			//newImage = new Image(getClass().getClassLoader().getResource("/view/puerta_cerrada.png").toString(), true);
+	        //imgPuerta.setImage(newImage);
+			lblEstadoPuerta.setText("Cerrada");
 		}
 	}
 	
