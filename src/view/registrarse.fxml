@@ -28,7 +28,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #009FE3;" styleClass="sidebar" stylesheets="@firstGUI.css">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #009FE3;">
                <children>
                   <ImageView fitHeight="400.0" fitWidth="526.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -39,7 +39,7 @@
             </VBox>
             <BorderPane prefHeight="200.0" prefWidth="286.0" GridPane.columnIndex="1">
                <top>
-                  <GridPane prefWidth="150.0" stylesheets="@firstGUI.css" BorderPane.alignment="CENTER">
+                  <GridPane prefWidth="150.0" BorderPane.alignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
