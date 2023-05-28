@@ -94,7 +94,7 @@ public class controladorChatTecnico {
 	            int receiver_id = resultSet.getInt("receiver_id");
 	            LocalDateTime send_time = resultSet.getTimestamp("send_time").toLocalDateTime();
 	            
-	            String formattedTime = send_time.format(formatter);System.out.println(text);
+	            String formattedTime = send_time.format(formatter);
 	            if(sender_id == 7) {
 	            	txtChat.appendText(formattedTime + " | Tecnico: " + text + "\n");
 	            }else {

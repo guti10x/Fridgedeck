@@ -19,9 +19,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -30,18 +32,15 @@ public class controladorVentanaTecnico {
 	public static final Stage stage  = new Stage();
 	private int user_id;
 	private int id_user_Seleccionado;
-	@FXML
-    private ImageView imgDoorOpen;
-	@FXML
-    private ImageView imgDoorClose;
+	
 	@FXML
 	private Label lblTimeTecnico;
-	@FXML
-	private Label lblEstado;
 	@FXML
 	private Label lblHum;
 	@FXML
 	private Label lblTemp;
+	@FXML
+	private Label lblPuertaTec;
 	@FXML
     private ListView listaUsuarios;
 	@FXML
@@ -103,9 +102,6 @@ public class controladorVentanaTecnico {
 		};
 		timer.scheduleAtFixedRate(task, 1000, 1000);	
 		
-		imgDoorOpen.setVisible(false);
-		imgDoorClose.setVisible(false);
-		
 		leer_datos();
 	}
 
@@ -136,9 +132,6 @@ public class controladorVentanaTecnico {
 	}
 	public void selectUser() {
 		listWarnings.getItems().clear();
-		lblEstado.setText("");
-		imgDoorOpen.setVisible(false);
-		imgDoorClose.setVisible(false);
 		String idString = (String) listaUsuarios.getSelectionModel().getSelectedItem();
 		idString = idString.substring(idString.indexOf(':')+1);
 		id_user_Seleccionado = Integer.parseInt(idString.trim());
@@ -182,11 +175,9 @@ public class controladorVentanaTecnico {
             while (rs.next()) {
             	puerta = rs.getInt("valor");
             	if(puerta==0) {
-    				imgDoorOpen.setVisible(true);
-    				lblEstado.setText("open");
+    				lblPuertaTec.setText("Abierta");
     			}else {
-    				imgDoorClose.setVisible(true);
-    				lblEstado.setText("close");
+    				lblPuertaTec.setText("Cerrada");
     			}
             }
             rs.close();
@@ -208,30 +199,40 @@ public class controladorVentanaTecnico {
 	}
 	@FXML
     void abrirChatTecnico(ActionEvent event) {
-		try {
-			controladorChatTecnico control = new controladorChatTecnico();
-			control.setUserIdTecnico(user_id);
-			control.setUserId(id_user_Seleccionado);
-			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_chat.fxml"));
-
-			loader.setController(control);
+		if(id_user_Seleccionado==0) {
+            showAlert("Error", "Necesita elegir usuario en lista de usuarios", AlertType.ERROR);
+		}else {
+			try {
+				controladorChatTecnico control = new controladorChatTecnico();
+				control.setUserIdTecnico(user_id);
+				control.setUserId(id_user_Seleccionado);
+							
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventana_chat.fxml"));
 	
-			Parent root = loader.load();
-			
-			Stage stage  = new Stage();
-			
-			stage.setScene(new Scene(root));
-			
-			stage.initModality(Modality.WINDOW_MODAL);
-			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-			stage.setResizable(false);
-			stage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+				loader.setController(control);
 		
+				Parent root = loader.load();
+				
+				Stage stage  = new Stage();
+				
+				stage.setScene(new Scene(root));
+				
+				stage.initModality(Modality.WINDOW_MODAL);
+				stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+				stage.setResizable(false);
+				stage.show();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
+	private void showAlert(String title, String message, AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 	public void setUserId(int user_id) {
 	    this.user_id = user_id;
 	}

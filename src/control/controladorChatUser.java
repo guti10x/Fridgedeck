@@ -93,7 +93,7 @@ public class controladorChatUser {
 	            int receiver_id = resultSet.getInt("receiver_id");
 	            LocalDateTime send_time = resultSet.getTimestamp("send_time").toLocalDateTime();
 	            
-	            String formattedTime = send_time.format(formatter);System.out.println(text);
+	            String formattedTime = send_time.format(formatter);
 	            if(receiver_id == 7) {
 	            	txtChat.appendText(formattedTime + " | User: " + text + "\n");
 	            }else {
