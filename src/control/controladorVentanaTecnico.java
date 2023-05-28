@@ -66,7 +66,11 @@ public class controladorVentanaTecnico {
 			
 			stage.initModality(Modality.WINDOW_MODAL);
 			stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
-			stage.setResizable(false);
+			stage.setResizable(true);
+			double minWidth = 630.0;
+	        double minHeight = 430.0;
+	        stage.setMinWidth(minWidth);
+	        stage.setMinHeight(minHeight);
 			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

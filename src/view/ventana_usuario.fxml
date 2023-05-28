@@ -52,20 +52,23 @@
     <MenuBar VBox.vgrow="NEVER" />
       <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #009de0;" stylesheets="@ColorBarras.css">
         <items>
-            <Label fx:id="lblTime" prefHeight="34.0" prefWidth="224.0" style="-fx-background-color: grey;" text="22:30">
+            <Label fx:id="lblTime" prefHeight="35.0" prefWidth="261.0" style="-fx-background-color: grey;" text="22:30">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="btnInfoUsuario" mnemonicParsing="false" onAction="#mostrarInfoUsuario" prefWidth="169.0" style="-fx-background-color: #009FE3;" />
-            <ImageView fitHeight="50.0" fitWidth="168.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@logo.png" />
-               </image>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </ImageView>
+            <Button fx:id="btnInfoUsuario" mnemonicParsing="false" onAction="#mostrarInfoUsuario" prefWidth="135.0" style="-fx-background-color: #009FE3;">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@logo.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Button fx:id="btnAbrirChat" mnemonicParsing="false" onAction="#functionAbrirChat" styleClass="button-style" stylesheets="@ColorBarras.css" text="Chat">
                <font>
                   <Font name="System Bold" size="12.0" />

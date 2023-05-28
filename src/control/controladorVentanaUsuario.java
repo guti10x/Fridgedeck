@@ -74,31 +74,15 @@ public class controladorVentanaUsuario {
 	        AnchorPane root2 = loader2.load();
 	        
 	        Stage stage = new Stage();
-	        
-	        double minWidth = 480.0;
-	        double minHeight = 850.0;
-	        stage.setMinWidth(minWidth);
-	        stage.setMinHeight(minHeight);
-	        
+      
 	        stage.setScene(new Scene(root2));
 	        stage.initModality(Modality.WINDOW_MODAL);
 	        
-	        if (event.getSource() instanceof Node) {
-	            Node sourceNode = (Node) event.getSource();
-	            Scene sourceScene = sourceNode.getScene();
-	            Window ownerWindow = sourceScene.getWindow();
-	            stage.initOwner(ownerWindow);
-	        }
-	        
 	        stage.setResizable(true);
-	        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-	            double scaleFactor = newVal.doubleValue() / oldVal.doubleValue();
-	            stage.setHeight(stage.getHeight() * scaleFactor);
-	        });
-	        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
-	            double scaleFactor = newVal.doubleValue() / oldVal.doubleValue();
-	            stage.setWidth(stage.getWidth() * scaleFactor);
-	        });
+			double minWidth = 630.0;
+	        double minHeight = 430.0;
+	        stage.setMinWidth(minWidth);
+	        stage.setMinHeight(minHeight);
 	        stage.show();
 	    } catch (Exception e) {
 	        e.printStackTrace();
