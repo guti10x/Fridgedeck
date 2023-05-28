@@ -5,17 +5,18 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
+import javax.mail.MessagingException;
 import application.connectBBDD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class controladorRegistrarse {
 	@FXML
@@ -58,25 +59,29 @@ public class controladorRegistrarse {
 		
 	@FXML
     void registrarUsuario(ActionEvent e) {
-		JFrame jFrame = new JFrame();
 		String username = "", nombre = "", surname1 = "", surname2 = "", email = "", password = "", role = "", bdateString = "";
 		LocalDate bdate = dpBirthday.getValue();
 		Date bdateSql = null;
 		long creditCard = 0;
 		int telephone = 0;
-		if(cmbRole.getValue()==null) {
-			JOptionPane.showMessageDialog(jFrame, "Necesita elegir role");
-		}else {	
-			username = tfUsername.getText().toString();
-			nombre = tfNombre.getText().toString();
-			surname1 = tfSurname1.getText().toString();
-			surname2 = tfSurname2.getText().toString();
-            email = tfEmail.getText().toString();
-            password = pfPassword.getText().toString();
-            bdateSql = Date.valueOf(bdate);
-            creditCard = Long.parseLong(tfCreditCard.getText().toString());
+		username = tfUsername.getText().toString();
+		nombre = tfNombre.getText().toString();
+		surname1 = tfSurname1.getText().toString();
+		surname2 = tfSurname2.getText().toString();
+        email = tfEmail.getText().toString();
+        password = pfPassword.getText().toString();
+        
+		if(username.equals("")||email.equals("")||password.equals("")||
+        		nombre.equals("")||surname1.equals("")||surname2.equals("")||bdate==null) {
+            showAlert("Error", "Necesita rellenar todos los campos", AlertType.ERROR);
+        }else {
+        	bdateSql = Date.valueOf(bdate);
+        	creditCard = Long.parseLong(tfCreditCard.getText().toString());
             telephone = Integer.parseInt(tfTelephone.getText());
-            System.out.println(bdate);
+			if(cmbRole.getValue()==null) {
+	            showAlert("Error", "Necesita elegir role", AlertType.ERROR);
+			}else {	
+				
         	if(cmbRole.getValue().equals("Usuario")) {
         		role = "user";
         		//address = tfAddress.getText().toString();
@@ -92,10 +97,7 @@ public class controladorRegistrarse {
         	}
 		}
             
-        if(username.equals("")||email.equals("")||password.equals("")||
-        		nombre.equals("")||surname1.equals("")||surname2.equals("")) {
-        	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
-        }else {
+        
             try {
             	String sql = "INSERT INTO Usuarios (role, username, nombre, surname1, surname2, email, password, birthdate, credit_card, telephone_number)"
             			+ "VALUES ('" + role + "', '" + username + "', '" + nombre + "', '" + surname1 + "', '" + surname2 + "', '" + email + "', '" + password + "', '" + bdateSql + "', '" + creditCard + "', '" + telephone + "')";
@@ -123,7 +125,7 @@ public class controladorRegistrarse {
                    System.out.println(e2.getMessage());
                }
 
-				JOptionPane.showMessageDialog(jFrame, "Has registrado");
+            	showAlert("Complete", "Has registrado", AlertType.ERROR);
 	    			/*
 				try {
 						SendEmail.enviarCorreo(username, password, email);
@@ -133,14 +135,21 @@ public class controladorRegistrarse {
 					}*/
     			//}	
   
-				/*
+				
             try {
     			SendEmail.enviarCorreo(username, password, email);
     		} catch (MessagingException e1) {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
-    		}*/
+    		}
             	
         }
 	}
+	private void showAlert(String title, String message, AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
