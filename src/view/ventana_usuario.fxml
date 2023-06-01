@@ -45,7 +45,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="713.0" prefWidth="930.0" style="-fx-background-color: #009de0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="713.0" prefWidth="930.0" style="-fx-background-color: #009de0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER" />
     <SplitPane dividerPositions="0.24892241379310345" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #009de0;" VBox.vgrow="ALWAYS">
@@ -64,7 +64,7 @@
                               <Insets left="3.0" right="34.0" top="2.0" />
                            </VBox.margin>
                         </ImageView>
-                        <Label fx:id="lblTemperatura" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="143.0" text="-" textFill="WHITE">
+                        <Label fx:id="lblTemperatura" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="160.0" text="-" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="48.0" />
                            </font>
@@ -115,17 +115,18 @@
                <children>
                   <VBox alignment="CENTER" layoutX="-25.0" prefHeight="711.0" prefWidth="693.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fitHeight="87.0" fitWidth="359.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@logo.png" />
-                           </image>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                           <VBox.margin>
-                              <Insets bottom="13.0" top="19.0" />
-                           </VBox.margin>
-                        </ImageView>
+                        <Button fx:id="btnInfoUsuario" mnemonicParsing="false" onAction="#mostrarInfoUsuario" style="-fx-background-color: #009de0;">
+                           <graphic>
+                              <ImageView fitHeight="87.0" fitWidth="359.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@logo.png" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                         <VBox alignment="CENTER" prefHeight="582.0" prefWidth="595.0">
                            <children>
                         <Label alignment="TOP_LEFT" contentDisplay="CENTER" style="&#10;" text="Mis productos" textAlignment="CENTER" wrapText="false">
@@ -144,7 +145,7 @@
                                     <Insets right="-11.0" />
                                  </padding>
                               </ListView>
-                              <Button fx:id="btnAddProductBasket" mnemonicParsing="false" onAction="#openAddProductBasket" prefHeight="39.0" prefWidth="44.0" styleClass="button-style" stylesheets="@../Desktop/FRIDGEDECK21/pri22-fridgedeck/src/view/ColorBarras.css" text="+">
+                              <Button fx:id="btnAddProductBasket" mnemonicParsing="false" onAction="#openAddProductBasket" prefHeight="39.0" prefWidth="44.0" styleClass="button-style" stylesheets="@ColorBarras.css" text="+">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -169,7 +170,7 @@
                               <Insets />
                            </opaqueInsets>
                         </VBox>
-                        <Button fx:id="btnAbrirChat" mnemonicParsing="false" onAction="#functionAbrirChat" styleClass="button-style" stylesheets="@../Desktop/FRIDGEDECK21/pri22-fridgedeck/src/view/ColorBarras.css" text="Chat">
+                        <Button fx:id="btnAbrirChat" mnemonicParsing="false" onAction="#functionAbrirChat" styleClass="button-style" stylesheets="@ColorBarras.css" text="Chat">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
