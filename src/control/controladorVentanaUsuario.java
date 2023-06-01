@@ -19,9 +19,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -90,32 +92,6 @@ public class controladorVentanaUsuario {
 	}
 	
 	public void initialize() throws InterruptedException{
-		/*
-		Timer timer = new Timer("Display Timer");
-		TimerTask task = new TimerTask() {
-		    @Override
-		    public void run() {
-		        	try {
-						Platform.runLater(new Runnable() {
-						    @Override
-						    public void run() {
-						        DateFormat timeFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", new Locale("es, ES"));
-						        Calendar cali = Calendar.getInstance();
-						        cali.getTime();
-						        String time = timeFormat.format(cali.getTimeInMillis());
-						        //System.out.println(timeFormat.format(cali.getTimeInMillis()));
-						        lblTime.setText(time);
-
-						    }
-						});
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-		    }
-		};
-		timer.scheduleAtFixedRate(task, 1000, 1000);
-		*/
 		leer_datos();
 	}
 	
@@ -189,16 +165,9 @@ public class controladorVentanaUsuario {
 		if((listaCompras).getItems().isEmpty()) {
 			listaCompras.getItems().add("Tenemos todos los productos, gracias");
 		}
-		//String PAPath = "/view/puerta_abierta.png";
-		//String PCPath = "/view/puerta_cerrada.png";
-		//Image newImage;
 		if(puerta==0) {
-	        //newImage = new Image(getClass().getClassLoader().getResource("/view/puerta_abierta.png").toString(), true);
-	        //imgPuerta.setImage(newImage);
 			lblEstadoPuerta.setText("Abierta");
 		}else {
-			//newImage = new Image(getClass().getClassLoader().getResource("/view/puerta_cerrada.png").toString(), true);
-	        //imgPuerta.setImage(newImage);
 			lblEstadoPuerta.setText("Cerrada");
 		}
 	}
@@ -206,10 +175,11 @@ public class controladorVentanaUsuario {
 	@FXML
     void openAddProductBasket(ActionEvent event) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add_product_basket.fxml"));
-			
 			controladorAddProductBasket control = new controladorAddProductBasket();
+			control.setUserId(user_id);
 			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add_product_basket.fxml"));
+
 			loader.setController(control);
 	
 			Parent root = loader.load();
@@ -225,7 +195,6 @@ public class controladorVentanaUsuario {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	@FXML

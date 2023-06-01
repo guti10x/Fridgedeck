@@ -44,8 +44,6 @@ public class controladorLogin {
     void entrar(ActionEvent e) throws IOException {
 		int user_id = -1;
 		boolean checkUser = false;
-
-		JFrame jFrame = new JFrame();
         
         String username = tfUsernameLogin.getText().toString();
         String password = pfPasswordLogin.getText().toString();
@@ -81,7 +79,7 @@ public class controladorLogin {
 			}
 				
 			if(!checkUser) {
-				JOptionPane.showMessageDialog(jFrame, "Has introducido login o contraseña erroneo");
+				showAlert("Error", "Has introducido login o contraseña erroneo", AlertType.ERROR);
 			}
         }
 	}

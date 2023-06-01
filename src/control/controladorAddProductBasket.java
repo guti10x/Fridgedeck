@@ -13,9 +13,11 @@ import javax.swing.JOptionPane;
 import application.connectBBDD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class controladorAddProductBasket {
 	@FXML
@@ -35,36 +37,23 @@ public class controladorAddProductBasket {
 	
 	@FXML
     private DatePicker dpFechaAddPr;
+
+	private int user_id;
 		
+	@SuppressWarnings("unused")
 	@FXML
-    void addProduct(ActionEvent e) {
-		int user_id = 0;
-		try {
-		      File myObj = new File("user_id.txt");
-		      Scanner myReader = new Scanner(myObj);
-		      while (myReader.hasNextLine()) {
-		        String id = myReader.nextLine();
-		        user_id = Integer.valueOf(id);
-		      }
-		      myReader.close();
-	    } catch (FileNotFoundException e3) {
-	      System.out.println("An error occurred.");
-	      e3.printStackTrace();
-	    }
-		
-		JFrame jFrame = new JFrame();
-        
+    void addProduct(ActionEvent e) {        
         String name = tfNombre.getText().toString();
         String cantidad = tfCantidad.getText().toString();
         String descripcion = tfDesc.getText().toString();
         String code = tfCode.getText().toString();
         LocalDate fechaProducto = dpFechaAddPr.getValue();
 		Date fechaProductoSql = null;
-		fechaProductoSql = Date.valueOf(fechaProducto);
         
-        if(tfNombre.equals("")||cantidad.equals("")) {
-        	JOptionPane.showMessageDialog(jFrame, "Necesita rellenar todos los campos");
+        if(name.equals("")||cantidad.equals("") || descripcion.equals("") || code.equals("") || fechaProducto == null) {
+        	showAlert("Error", "Necesita rellenar todos los campos", AlertType.ERROR);
         }else {
+    		fechaProductoSql = Date.valueOf(fechaProducto);
         	try {
         		String sqlInsert = "INSERT INTO Productos (nombre, descripcion, stock, code, fecha, id_nevera) "
                         + "VALUES ('" + name + "', '" + descripcion + "', '" + cantidad + "', '" + code + "', '" + fechaProductoSql + "', "
@@ -79,18 +68,20 @@ public class controladorAddProductBasket {
                 tfCantidad.setText("");
                 tfDesc.setText("");
                 tfCode.setText("");
-                JOptionPane.showMessageDialog(jFrame, "Has añadido producto!");
+                showAlert("Success", "Has añadido producto!", AlertType.ERROR);
            } catch (SQLException e2) {
                System.out.println(e2.getMessage());
            }
-        	/*
-        	controladorVentanaUsuario controladorVentanaUsuario = new controladorVentanaUsuario();
-        	try {
-				controladorVentanaUsuario.initialize();
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}*/
         }
+	}
+	private void showAlert(String title, String message, AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+	public void setUserId(int user_id) {
+	    this.user_id = user_id;
 	}
 }

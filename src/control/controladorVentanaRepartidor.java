@@ -19,9 +19,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -36,7 +38,10 @@ public class controladorVentanaRepartidor {
 	@FXML
 	private Button bttnInfoRepartidor;
 	@FXML
+	private Button btnAddProductClient;
+	@FXML
 	private Label lblTimeRepatridor;
+	int id_user = 0;
 	@FXML
 	    void mostrarInfoRepartidor(ActionEvent event) {
 			 try { 
@@ -67,32 +72,6 @@ public class controladorVentanaRepartidor {
 		}
 	
 	public void initialize() throws InterruptedException{
-		/*
-		Timer timer = new Timer("Display Timer");
-		TimerTask task = new TimerTask() {
-		    @Override
-		    public void run() {
-		        	try {
-						Platform.runLater(new Runnable() {
-						    @Override
-						    public void run() {
-						        DateFormat timeFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", new Locale("es, ES"));
-						        Calendar cali = Calendar.getInstance();
-						        cali.getTime();
-						        String time = timeFormat.format(cali.getTimeInMillis());
-						        //System.out.println(timeFormat.format(cali.getTimeInMillis()));
-						        lblTimeRepatridor.setText(time);
-
-						    }
-						});
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-		    }
-		};
-		timer.scheduleAtFixedRate(task, 1000, 1000);
-		*/
 		leer_datos();
 	}
 
@@ -124,9 +103,9 @@ public class controladorVentanaRepartidor {
 	public void selectClient() {
 		lwD.getItems().clear();
 		lwCS.getItems().clear();
-		
-		String id_user = (String) lwCL.getSelectionModel().getSelectedItem();
-		id_user = id_user.substring(id_user.indexOf(':')+1);
+		String userId = (String) lwCL.getSelectionModel().getSelectedItem();
+		userId = userId.replaceAll("\\D+", "");
+		id_user = Integer.parseInt(userId);
 		String sqlDelivery = "SELECT nombre, stock FROM Productos where id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user + "');";
 		String name = "";
 		int cantidad = 0;
@@ -155,6 +134,42 @@ public class controladorVentanaRepartidor {
 			lwD.getItems().add("Tenemos todos los productos, gracias");
 		}
 	}
+	@FXML
+    void addProductClient(ActionEvent event) {
+		if(id_user == 0) {
+			showAlert("Error", "Por favor eliga usuario", AlertType.ERROR);
+		}else {
+			try {
+				controladorAddProductBasket control = new controladorAddProductBasket();
+				control.setUserId(id_user);
+				
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add_product_basket.fxml"));
+	
+				loader.setController(control);
+		
+				Parent root = loader.load();
+				
+				Stage stage  = new Stage();
+				
+				stage.setScene(new Scene(root));
+				
+				stage.initModality(Modality.WINDOW_MODAL);
+				stage.initOwner(((Node) (event.getSource())).getScene().getWindow());
+				stage.setResizable(false);
+				stage.show();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	private void showAlert(String title, String message, AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 	public void setUserId(int user_id) {
 	    this.user_id = user_id;
 	}
