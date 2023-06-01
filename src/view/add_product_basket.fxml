@@ -7,22 +7,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.0" prefWidth="249.0" style="-fx-background-color: #009FE3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="203.0" layoutY="71.0" text="Añadir producto a lista">
+      <Label layoutX="18.0" layoutY="21.0" text="Añadir producto a lista">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="tfNombre" layoutX="203.0" layoutY="140.0" prefHeight="25.0" prefWidth="195.0" promptText="Nombre" />
-      <TextField fx:id="tfCantidad" layoutX="203.0" layoutY="210.0" prefHeight="25.0" prefWidth="195.0" promptText="Stock" />
-      <Button fx:id="btnAddProduct" layoutX="203.0" layoutY="322.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="195.0" text="Añadir">
+      <TextField fx:id="tfNombre" layoutX="27.0" layoutY="63.0" prefHeight="25.0" prefWidth="195.0" promptText="nombre" />
+      <TextField fx:id="tfCantidad" layoutX="27.0" layoutY="145.0" prefHeight="25.0" prefWidth="195.0" promptText="número de productis" />
+      <Button fx:id="btnAddProduct" layoutX="27.0" layoutY="275.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="195.0" text="Añadir">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="tfDesc" layoutX="203.0" layoutY="175.0" prefHeight="25.0" prefWidth="195.0" promptText="Descripción" />
-      <DatePicker fx:id="dpFechaAddPr" layoutX="203.0" layoutY="277.0" prefHeight="25.0" prefWidth="195.0" />
-      <TextField fx:id="tfCode" layoutX="203.0" layoutY="244.0" prefHeight="25.0" prefWidth="195.0" promptText="Code" />
+      <TextField fx:id="tfDesc" layoutX="27.0" layoutY="105.0" prefHeight="25.0" prefWidth="195.0" promptText="descripción" />
+      <DatePicker fx:id="dpFechaAddPr" layoutX="26.0" layoutY="227.0" prefHeight="25.0" prefWidth="195.0" />
+      <TextField fx:id="tfCode" layoutX="27.0" layoutY="186.0" prefHeight="25.0" prefWidth="195.0" promptText="código de barras" />
    </children>
 </AnchorPane>
