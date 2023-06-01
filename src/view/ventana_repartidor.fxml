@@ -45,7 +45,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #009FE3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #009FE3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar style="-fx-background-color: #009FE3;" VBox.vgrow="NEVER" />
     <SplitPane dividerPositions="0.3307349665924276" focusTraversable="true" prefHeight="643.0" prefWidth="900.0" style="-fx-background-color: #009FE3;" VBox.vgrow="ALWAYS">
@@ -98,7 +98,7 @@
                               <Insets top="8.0" />
                            </VBox.margin>
                         </Label>
-                        <ListView fx:id="lwD" minWidth="200.0" prefHeight="231.0" prefWidth="249.0">
+                        <ListView fx:id="lwD" maxHeight="-Infinity" minWidth="200.0" prefHeight="231.0" prefWidth="562.0" VBox.vgrow="NEVER">
                            <VBox.margin>
                               <Insets left="30.0" right="30.0" />
                            </VBox.margin>
@@ -106,7 +106,7 @@
                               <Insets bottom="-25.0" />
                            </opaqueInsets>
                            <padding>
-                              <Insets bottom="-41.0" />
+                              <Insets bottom="29.0" />
                            </padding>
                         </ListView>
                         <Label alignment="CENTER" contentDisplay="CENTER" style="&#10;" text="Productos del cliente" textAlignment="CENTER" wrapText="false">
@@ -117,7 +117,7 @@
                               <Insets top="11.0" />
                            </VBox.margin>
                         </Label>
-                        <ListView fx:id="lwCS" cacheShape="false" minWidth="151.0" prefHeight="222.0" prefWidth="511.0">
+                        <ListView fx:id="lwCS" cacheShape="false" maxHeight="-Infinity" minWidth="151.0" prefHeight="222.0" prefWidth="511.0">
                            <opaqueInsets>
                               <Insets bottom="-25.0" />
                            </opaqueInsets>

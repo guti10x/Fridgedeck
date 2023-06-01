@@ -50,7 +50,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #009FE3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #009FE3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar style="-fx-background-color: #009FE3;" VBox.vgrow="NEVER" />
     <SplitPane dividerPositions="0.2906458797327394" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #009FE3;" VBox.vgrow="ALWAYS">
@@ -71,7 +71,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label text="Lista de clientes" textFill="WHITE">
+                        <Label text="Lista de clientes">
                            <VBox.margin>
                               <Insets bottom="2.0" top="20.0" />
                            </VBox.margin>
@@ -97,7 +97,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                            <children>
-                              <Label alignment="TOP_CENTER" contentDisplay="TOP" minWidth="-Infinity" prefHeight="55.0" prefWidth="500.0" text="Medidas de la nevera " textFill="#fffbfb">
+                              <Label alignment="TOP_CENTER" contentDisplay="TOP" minWidth="-Infinity" prefHeight="55.0" prefWidth="500.0" text="Medidas de la nevera ">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
                                  </font>
@@ -123,7 +123,7 @@
                                     <Insets left="58.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <Label fx:id="lblTemp" prefHeight="117.0" prefWidth="138.0" text="-">
+                              <Label fx:id="lblTemp" prefHeight="63.0" prefWidth="182.0" text="-">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
@@ -133,10 +133,10 @@
                                     <Image url="@imgHum.png" />
                                  </image>
                                  <HBox.margin>
-                                    <Insets left="51.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </ImageView>
-                              <Label fx:id="lblHum" prefHeight="58.0" prefWidth="106.0" text="-">
+                              <Label fx:id="lblHum" prefHeight="58.0" prefWidth="182.0" text="-">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>
@@ -147,12 +147,12 @@
                                     <Insets left="11.0" />
                                  </HBox.margin>
                               </Label>
-                              <ImageView fitHeight="63.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="63.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@puerta_cerrada.png.png" />
                                  </image>
                                  <HBox.margin>
-                                    <Insets left="96.0" />
+                                    <Insets left="-6.0" />
                                  </HBox.margin>
                               </ImageView>
                               <Label fx:id="lblPuertaTec" prefHeight="53.0" prefWidth="202.0" text="-" textFill="WHITE">
@@ -181,7 +181,7 @@
                               <Insets bottom="-23.0" top="-29.0" />
                            </VBox.margin>
                         </LineChart>
-                        <Label alignment="CENTER" contentDisplay="TOP" style="&#10;" text="Alertas" textAlignment="CENTER" textFill="WHITE" wrapText="false">
+                        <Label alignment="CENTER" contentDisplay="TOP" style="&#10;" text="Alertas" textAlignment="CENTER" wrapText="false">
                            <font>
                               <Font name="System Bold" size="36.0" fx:id="x11" />
                            </font>

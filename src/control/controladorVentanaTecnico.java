@@ -167,7 +167,7 @@ public class controladorVentanaTecnico {
              rs = stmt.executeQuery(sqlTemperatura);
             while (rs.next()) {
             	temperatura = rs.getString("valor");
-            	lblTemp.setText(String.valueOf(temperatura));
+            	lblTemp.setText(String.valueOf(temperatura)+ " ºC");
             }
             rs.close();
             stmt.close();
@@ -176,7 +176,7 @@ public class controladorVentanaTecnico {
             rs = stmt.executeQuery(sqlHumedad);
             while (rs.next()) {
             	humedad = rs.getString("valor");
-            	lblHum.setText(humedad + "");
+            	lblHum.setText(humedad + " %");
             }
             rs.close();
             stmt.close();

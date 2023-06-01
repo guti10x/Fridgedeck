@@ -45,7 +45,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="713.0" prefWidth="930.0" style="-fx-background-color: #009de0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="713.0" prefWidth="930.0" style="-fx-background-color: #009de0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER" />
     <SplitPane dividerPositions="0.24892241379310345" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #009de0;" VBox.vgrow="ALWAYS">
@@ -117,7 +117,7 @@
                      <children>
                         <Button fx:id="btnInfoUsuario" mnemonicParsing="false" onAction="#mostrarInfoUsuario" style="-fx-background-color: #009de0;">
                            <graphic>
-                              <ImageView fitHeight="87.0" fitWidth="359.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="86.0" fitWidth="343.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@logo.png" />
                                  </image>
@@ -134,10 +134,10 @@
                                     <Font name="System Bold Italic" size="36.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="-2.0" top="-39.0" />
+                                    <Insets bottom="-4.0" top="-47.0" />
                                  </VBox.margin>
                               </Label>
-                              <ListView fx:id="listaProductos" minWidth="100.0" prefHeight="200.0" prefWidth="100.0">
+                              <ListView fx:id="listaProductos" minWidth="100.0" prefHeight="250.0" prefWidth="100.0">
                                  <VBox.margin>
                                     <Insets bottom="3.0" left="30.0" right="59.0" />
                                  </VBox.margin>
@@ -155,12 +155,12 @@
                                  <font>
                                     <Font size="18.0" />
                                  </font></Button>
-                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" style="&#10;" text="Mis Cesta de la compra" textAlignment="CENTER" wrapText="false">
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" style="&#10;" text="Mi cesta de la compra" textAlignment="CENTER" wrapText="false">
                                  <font>
                                     <Font name="System Bold Italic" size="36.0" />
                                  </font>
                               </Label>
-                              <ListView fx:id="listaCompras" prefHeight="200.0" prefWidth="10.0">
+                              <ListView fx:id="listaCompras" prefHeight="182.0" prefWidth="10.0">
                                  <VBox.margin>
                                     <Insets bottom="-55.0" left="30.0" right="59.0" />
                                  </VBox.margin>
