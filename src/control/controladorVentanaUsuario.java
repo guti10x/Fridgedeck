@@ -183,8 +183,8 @@ public class controladorVentanaUsuario {
            System.out.println(e2.getMessage());
        }     
         
-        lblTemperatura.setText(temperatura);
-		lblHumedad.setText(humedad);
+        lblTemperatura.setText(temperatura+" ºC");
+		lblHumedad.setText(humedad+" %");
 		if((listaCompras).getItems().isEmpty()) {
 			listaCompras.getItems().add("Tenemos todos los productos, gracias");
 		}

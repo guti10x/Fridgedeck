@@ -38,174 +38,149 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="713.0" prefWidth="930.0" style="-fx-background-color: #009de0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="713.0" prefWidth="930.0" style="-fx-background-color: #009de0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER" />
-      <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #009de0;" stylesheets="@ColorBarras.css">
-        <items>
-            <Label fx:id="lblTime" prefHeight="35.0" prefWidth="261.0" style="-fx-background-color: grey;" text="22:30">
-               <font>
-                  <Font name="System Bold Italic" size="24.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnInfoUsuario" mnemonicParsing="false" onAction="#mostrarInfoUsuario" prefWidth="135.0" style="-fx-background-color: #009FE3;">
-               <graphic>
-                  <ImageView fitHeight="34.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@logo.png" />
-                     </image>
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="btnAbrirChat" mnemonicParsing="false" onAction="#functionAbrirChat" styleClass="button-style" stylesheets="@ColorBarras.css" text="Chat">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-        </items>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </ToolBar>
-    <SplitPane dividerPositions="0.28619153674832964, 0.6492204899777283" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #009de0;" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.24892241379310345" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #009de0;" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane prefHeight="570.0" prefWidth="201.0">
+        <AnchorPane prefHeight="500.0" prefWidth="100.0">
                <children>
-                  <VBox layoutX="34.0" layoutY="25.0" prefHeight="148.0" prefWidth="138.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutX="34.0" layoutY="25.0" prefHeight="148.0" prefWidth="138.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="0.0" />
+                  <VBox layoutY="183.0" prefHeight="167.0" prefWidth="128.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="103.0" />
+                  <VBox alignment="CENTER" layoutX="-62.0" layoutY="24.0" prefHeight="711.0" prefWidth="284.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@imgTemp.png" />
                            </image>
                            <VBox.margin>
-                              <Insets top="20.0" />
+                              <Insets left="3.0" right="34.0" top="2.0" />
                            </VBox.margin>
                         </ImageView>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="128.0" prefHeight="167.0" prefWidth="100.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label fx:id="lblTemperatura" alignment="CENTER" contentDisplay="CENTER" text="-10" textFill="WHITE">
+                        <Label fx:id="lblTemperatura" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="143.0" text="10ºC" textFill="WHITE">
                            <font>
-                              <Font name="System Bold" size="48.0" />
+                              <Font name="Arial Bold" size="48.0" />
                            </font>
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
+                           <VBox.margin>
+                              <Insets bottom="15.0" right="34.0" top="5.0" />
+                           </VBox.margin>
                         </Label>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </VBox>
-                  <VBox layoutY="183.0" prefHeight="167.0" prefWidth="128.0" AnchorPane.bottomAnchor="179.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="103.0" AnchorPane.topAnchor="180.0">
-                     <children>
                         <ImageView fitHeight="138.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@imgHum.png" />
                            </image>
                            <VBox.margin>
-                              <Insets top="60.0" />
+                              <Insets bottom="5.0" right="46.0" top="5.0" />
                            </VBox.margin>
                         </ImageView>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="134.0" layoutY="167.0" prefHeight="146.0" prefWidth="100.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="-4.400000000000006" AnchorPane.topAnchor="167.0">
-                     <children>
                         <Label fx:id="lblHumedad" alignment="CENTER" contentDisplay="CENTER" text="30%" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="48.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="90.0" />
+                              <Insets bottom="15.0" right="34.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="88.0" layoutY="401.0" prefHeight="146.0" prefWidth="214.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="392.0">
-                     <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Puerta">
-                           <font>
-                              <Font name="System Bold Italic" size="36.0" />
-                           </font>
-                        </Text>
                         <ImageView fx:id="imgPuerta" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@puerta_cerrada.png.png" />
                            </image>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="44.0" right="76.0" top="5.0" />
+                           </VBox.margin>
                         </ImageView>
                         <Label fx:id="lblEstadoPuerta" text="Cerrada" textFill="WHITE">
                            <font>
-                              <Font name="System Bold" size="48.0" />
+                              <Font name="System Bold" size="36.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" right="32.0" top="-10.0" />
+                           </VBox.margin>
                         </Label>
                      </children>
                   </VBox>
                </children>
         </AnchorPane>
-        <AnchorPane>
-          <children>
-                  <VBox alignment="CENTER" layoutX="-2.0" layoutY="31.0" prefHeight="661.0" prefWidth="360.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-8.0" AnchorPane.topAnchor="31.0">
-                     <children>
-                  <Label alignment="TOP_LEFT" contentDisplay="CENTER" style="&#10;" text="My Products" textAlignment="CENTER" textFill="WHITE" wrapText="false">
-                           <font>
-                              <Font name="System Bold Italic" size="36.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="20.0" top="-20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <ListView fx:id="listaProductos" prefHeight="449.0" prefWidth="406.0">
-                           <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </VBox.margin>
-                        </ListView>
-                        <VBox alignment="TOP_RIGHT" prefHeight="54.0" prefWidth="397.0" />
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </VBox>
-          </children>
-        </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <VBox alignment="CENTER" layoutX="78.0" layoutY="163.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="CENTER" layoutX="-25.0" prefHeight="711.0" prefWidth="693.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" style="&#10;" text="Basket" textAlignment="CENTER" textFill="WHITE" wrapText="false">
-                           <font>
-                              <Font name="System Bold Italic" size="36.0" fx:id="x11" />
-                           </font>
+                        <ImageView fitHeight="87.0" fitWidth="359.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@logo.png" />
+                           </image>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                            <VBox.margin>
-                              <Insets bottom="25.0" />
+                              <Insets bottom="13.0" top="19.0" />
                            </VBox.margin>
-                        </Label>
-                        <ListView fx:id="listaCompras" prefHeight="448.0" prefWidth="249.0">
-                           <VBox.margin>
-                              <Insets left="30.0" right="10.0" />
-                           </VBox.margin>
-                        </ListView>
-                        <VBox alignment="TOP_RIGHT" prefHeight="44.0" prefWidth="262.0">
+                        </ImageView>
+                        <VBox alignment="CENTER" prefHeight="582.0" prefWidth="595.0">
                            <children>
-                              <Button fx:id="btnAddProductBasket" mnemonicParsing="false" onAction="#openAddProductBasket" prefWidth="25.0" styleClass="button-style" stylesheets="@ColorBarras.css" text="+">
+                        <Label alignment="TOP_LEFT" contentDisplay="CENTER" style="&#10;" text="Mis productos" textAlignment="CENTER" wrapText="false">
+                                 <font>
+                                    <Font name="System Bold Italic" size="36.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="-2.0" top="-39.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <ListView fx:id="listaProductos" minWidth="100.0" prefHeight="200.0" prefWidth="100.0">
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" left="30.0" right="59.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets right="-11.0" />
+                                 </padding>
+                              </ListView>
+                              <Button fx:id="btnAddProductBasket" mnemonicParsing="false" onAction="#openAddProductBasket" prefHeight="39.0" prefWidth="44.0" styleClass="button-style" stylesheets="@../Desktop/FRIDGEDECK21/pri22-fridgedeck/src/view/ColorBarras.css" text="+">
                                  <opaqueInsets>
                                     <Insets />
-                                 </opaqueInsets></Button>
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets bottom="-11.0" right="-572.0" top="1.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Button>
+                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" style="&#10;" text="Mis Cesta de la compra" textAlignment="CENTER" wrapText="false">
+                                 <font>
+                                    <Font name="System Bold Italic" size="36.0" />
+                                 </font>
+                              </Label>
+                              <ListView fx:id="listaCompras" prefHeight="200.0" prefWidth="10.0">
+                                 <VBox.margin>
+                                    <Insets bottom="-55.0" left="30.0" right="59.0" />
+                                 </VBox.margin>
+                              </ListView>
                            </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </VBox>
+                        <Button fx:id="btnAbrirChat" mnemonicParsing="false" onAction="#functionAbrirChat" styleClass="button-style" stylesheets="@../Desktop/FRIDGEDECK21/pri22-fridgedeck/src/view/ColorBarras.css" text="Chat">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" right="-554.0" top="5.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
+                     <padding>
+                        <Insets right="-42.0" />
+                     </padding>
                   </VBox>
                </children>
             </AnchorPane>
