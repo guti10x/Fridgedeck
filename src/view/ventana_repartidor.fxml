@@ -107,7 +107,7 @@
                               <Insets bottom="-41.0" />
                            </padding>
                         </ListView>
-                        <Label alignment="CENTER" contentDisplay="CENTER" style="&#10;" text="Client stock" textAlignment="CENTER" wrapText="false">
+                        <Label alignment="CENTER" contentDisplay="CENTER" style="&#10;" text="Productos del cliente" textAlignment="CENTER" wrapText="false">
                            <font>
                               <Font name="System Bold" size="30.0" fx:id="x11" />
                            </font>
