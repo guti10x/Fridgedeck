@@ -19,6 +19,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -49,6 +51,8 @@ public class controladorVentanaTecnico {
 	private Button bttnInfoTecnico;
 	@FXML
 	private Button btnChatTecnico;
+	@FXML
+	private LineChart<String, Double> graficoTemperatura;
 	@FXML
     void mostrarInfoTecnico(ActionEvent event) {
 		 try {
@@ -133,6 +137,7 @@ public class controladorVentanaTecnico {
 	}
 	public void selectUser() {
 		listWarnings.getItems().clear();
+		graficoTemperatura.getData().clear();
 		String idString = (String) listaUsuarios.getSelectionModel().getSelectedItem();
 		idString = idString.substring(idString.indexOf(':')+1);
 		id_user_Seleccionado = Integer.parseInt(idString.trim());
@@ -144,10 +149,15 @@ public class controladorVentanaTecnico {
 		String sqlPuerta = "SELECT valor FROM Puerta where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user_Seleccionado + "') "
 				+ "and fecha = (SELECT MAX(fecha) FROM Puerta WHERE id_nevera = (SELECT id_nevera FROM Subscribe WHERE id_user = '" + id_user_Seleccionado + "'));";
 		String sqlWarnings = "SELECT nombre, fecha FROM Notificaciones where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user_Seleccionado + "');";
+		String sqlGraficoTemperatura = "SELECT fecha, valor FROM Temperatura where id_nevera = (select id_nevera from Subscribe where id_user ='" + id_user_Seleccionado + "');";
 		int puerta = -999;
 		String temperatura = "", humedad = "";
+		double valor;
 		String warning = "", fecha = "";
 		
+		XYChart.Series<String, Double> series = new XYChart.Series<>();
+        series.setName("Temperatura");
+        
 		Connection conn = null;
         Statement stmt  = null;
         ResultSet rs    = null;
@@ -193,10 +203,21 @@ public class controladorVentanaTecnico {
             }
             rs.close();
             stmt.close();
+            
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sqlGraficoTemperatura);
+            while (rs.next()) {
+            	fecha = rs.getString("fecha");
+            	valor = rs.getDouble("valor");
+            	series.getData().add(new XYChart.Data<>(fecha, valor));
+            }
+            rs.close();
+            stmt.close();
             conn.close();
         } catch (SQLException e2) {
             System.out.println(e2.getMessage());
         }
+        graficoTemperatura.getData().add(series);
 	}
 	@FXML
     void abrirChatTecnico(ActionEvent event) {

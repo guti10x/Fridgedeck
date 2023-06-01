@@ -170,7 +170,7 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </HBox>
-                        <LineChart>
+                        <LineChart fx:id="graficoTemperatura">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
