@@ -77,6 +77,7 @@ public class controladorVentanaTecnico {
 	}	
 	 
 	public void initialize() throws InterruptedException{
+		/*
 		Timer timer = new Timer("Display Timer");
 		TimerTask task = new TimerTask() {
 		    @Override
@@ -101,7 +102,7 @@ public class controladorVentanaTecnico {
 		    }
 		};
 		timer.scheduleAtFixedRate(task, 1000, 1000);	
-		
+		*/
 		leer_datos();
 	}
 
@@ -156,7 +157,7 @@ public class controladorVentanaTecnico {
              rs = stmt.executeQuery(sqlTemperatura);
             while (rs.next()) {
             	temperatura = rs.getString("valor");
-            	lblTemp.setText(String.valueOf(temperatura+" ºC"));
+            	lblTemp.setText(String.valueOf(temperatura));
             }
             rs.close();
             stmt.close();
@@ -165,7 +166,7 @@ public class controladorVentanaTecnico {
             rs = stmt.executeQuery(sqlHumedad);
             while (rs.next()) {
             	humedad = rs.getString("valor");
-            	lblHum.setText(humedad + " %");
+            	lblHum.setText(humedad + "");
             }
             rs.close();
             stmt.close();

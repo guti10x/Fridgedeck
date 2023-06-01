@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.0" prefWidth="249.0" style="-fx-background-color: #009FE3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.0" prefWidth="249.0" style="-fx-background-color: #009FE3;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="18.0" layoutY="21.0" text="Añadir producto a lista">
          <font>
@@ -16,7 +16,7 @@
       </Label>
       <TextField fx:id="tfNombre" layoutX="27.0" layoutY="63.0" prefHeight="25.0" prefWidth="195.0" promptText="nombre" />
       <TextField fx:id="tfCantidad" layoutX="27.0" layoutY="145.0" prefHeight="25.0" prefWidth="195.0" promptText="número de productis" />
-      <Button fx:id="btnAddProduct" layoutX="27.0" layoutY="275.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="195.0" text="Añadir">
+      <Button fx:id="btnAddProduct" layoutX="27.0" layoutY="275.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="195.0" styleClass="button-style" stylesheets="@ColorBarras.css" text="Añadir">
          <font>
             <Font size="18.0" />
          </font>

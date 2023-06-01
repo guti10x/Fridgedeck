@@ -90,6 +90,7 @@ public class controladorVentanaUsuario {
 	}
 	
 	public void initialize() throws InterruptedException{
+		/*
 		Timer timer = new Timer("Display Timer");
 		TimerTask task = new TimerTask() {
 		    @Override
@@ -114,7 +115,7 @@ public class controladorVentanaUsuario {
 		    }
 		};
 		timer.scheduleAtFixedRate(task, 1000, 1000);
-		
+		*/
 		leer_datos();
 	}
 	
