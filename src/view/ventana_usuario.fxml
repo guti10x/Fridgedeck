@@ -61,18 +61,18 @@
                               <Image url="@imgTemp.png" />
                            </image>
                            <VBox.margin>
-                              <Insets left="3.0" right="34.0" top="2.0" />
+                              <Insets bottom="-17.0" left="3.0" right="34.0" top="2.0" />
                            </VBox.margin>
                         </ImageView>
-                        <Label fx:id="lblTemperatura" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="160.0" text="-" textFill="WHITE">
+                        <Label fx:id="lblTemperatura" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="83.0" text="13ºC" textFill="WHITE">
                            <font>
-                              <Font name="Arial Bold" size="48.0" />
+                              <Font name="Arial Bold" size="36.0" />
                            </font>
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <VBox.margin>
-                              <Insets bottom="15.0" right="34.0" top="5.0" />
+                              <Insets bottom="12.0" right="50.0" top="5.0" />
                            </VBox.margin>
                         </Label>
                         <ImageView fitHeight="138.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
@@ -80,15 +80,15 @@
                               <Image url="@imgHum.png" />
                            </image>
                            <VBox.margin>
-                              <Insets bottom="5.0" right="46.0" top="5.0" />
+                              <Insets bottom="-4.0" right="46.0" top="5.0" />
                            </VBox.margin>
                         </ImageView>
-                        <Label fx:id="lblHumedad" alignment="CENTER" contentDisplay="CENTER" text="-" textFill="WHITE">
+                        <Label fx:id="lblHumedad" alignment="CENTER" contentDisplay="CENTER" text="20%" textFill="WHITE">
                            <font>
-                              <Font name="Arial Bold" size="48.0" />
+                              <Font name="Arial Bold" size="36.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="15.0" right="34.0" top="5.0" />
+                              <Insets bottom="13.0" right="48.0" top="5.0" />
                            </VBox.margin>
                         </Label>
                         <ImageView fx:id="imgPuerta" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
@@ -96,10 +96,10 @@
                               <Image url="@puerta_cerrada.png.png" />
                            </image>
                            <VBox.margin>
-                              <Insets bottom="5.0" left="44.0" right="76.0" top="5.0" />
+                              <Insets bottom="-9.0" left="44.0" right="76.0" top="5.0" />
                            </VBox.margin>
                         </ImageView>
-                        <Label fx:id="lblEstadoPuerta" text="-" textFill="WHITE">
+                        <Label fx:id="lblEstadoPuerta" text="cerrado" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="36.0" />
                            </font>

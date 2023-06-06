@@ -125,7 +125,7 @@ public class controladorRegistrarse {
                    System.out.println(e2.getMessage());
                }
 
-            	showAlert("Complete", "Has registrado", AlertType.ERROR);
+            	showAlert("Complete", "Te has registrado", AlertType.INFORMATION);
 	    			/*
 				try {
 						SendEmail.enviarCorreo(username, password, email);
