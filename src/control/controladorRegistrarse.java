@@ -10,6 +10,10 @@ import javax.mail.MessagingException;
 import application.connectBBDD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -17,6 +21,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class controladorRegistrarse {
 	@FXML
@@ -144,6 +150,33 @@ public class controladorRegistrarse {
     		}
             	
         }
+		try {
+			Stage currentStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+	        currentStage.close();
+	        
+			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+			
+			controladorLogin control2 = new controladorLogin();
+			
+			loader2.setController(control2);
+	
+			Parent root2 = loader2.load();
+			
+			Stage stage  = new Stage();
+			
+			stage.setScene(new Scene(root2));
+			
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.initOwner(((Node) (e.getSource())).getScene().getWindow());
+			stage.setResizable(true);
+			double minWidth = 600.0;
+	        double minHeight = 400.0;
+	        stage.setMinWidth(minWidth);
+	        stage.setMinHeight(minHeight);
+			stage.show();
+		} catch(Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 	private void showAlert(String title, String message, AlertType alertType) {
         Alert alert = new Alert(alertType);
@@ -152,4 +185,7 @@ public class controladorRegistrarse {
         alert.setContentText(message);
         alert.showAndWait();
     }
+	void abrirLogin(ActionEvent event) {
+		
+	}
 }
