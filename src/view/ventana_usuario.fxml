@@ -38,6 +38,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -134,12 +135,17 @@
                                     <Font name="System Bold Italic" size="36.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets bottom="-4.0" top="-47.0" />
+                                    <Insets bottom="-2.0" top="-45.0" />
                                  </VBox.margin>
                               </Label>
-                              <ListView fx:id="listaProductos" minWidth="100.0" prefHeight="250.0" prefWidth="100.0">
+                              <TextField fx:id="inputSearch" promptText="Introduce el producto que necesitas...">
                                  <VBox.margin>
-                                    <Insets bottom="3.0" left="30.0" right="59.0" />
+                                    <Insets bottom="9.0" left="30.0" right="59.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <ListView fx:id="listaProductos" minWidth="100.0" prefHeight="228.0" prefWidth="100.0">
+                                 <VBox.margin>
+                                    <Insets bottom="7.0" left="30.0" right="59.0" />
                                  </VBox.margin>
                                  <padding>
                                     <Insets right="-11.0" />
@@ -159,6 +165,9 @@
                                  <font>
                                     <Font name="System Bold Italic" size="36.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets top="-12.0" />
+                                 </VBox.margin>
                               </Label>
                               <ListView fx:id="listaCompras" prefHeight="182.0" prefWidth="10.0">
                                  <VBox.margin>
@@ -175,7 +184,7 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="10.0" right="-554.0" top="5.0" />
+                              <Insets bottom="10.0" right="-554.0" top="18.0" />
                            </VBox.margin>
                         </Button>
                      </children>
