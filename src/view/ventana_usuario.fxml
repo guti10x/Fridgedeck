@@ -43,6 +43,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -59,7 +60,7 @@
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@imgTemp.png" />
+                              <Image url="@../../../../33loko/pri22-fridgedeck/src/view/imgTemp.png" />
                            </image>
                            <VBox.margin>
                               <Insets bottom="-17.0" left="3.0" right="34.0" top="2.0" />
@@ -78,7 +79,7 @@
                         </Label>
                         <ImageView fitHeight="138.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@imgHum.png" />
+                              <Image url="@../../../../33loko/pri22-fridgedeck/src/view/imgHum.png" />
                            </image>
                            <VBox.margin>
                               <Insets bottom="-4.0" right="46.0" top="5.0" />
@@ -94,7 +95,7 @@
                         </Label>
                         <ImageView fx:id="imgPuerta" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@puerta_cerrada.png.png" />
+                              <Image url="@../../../../33loko/pri22-fridgedeck/src/view/puerta_cerrada.png.png" />
                            </image>
                            <VBox.margin>
                               <Insets bottom="-9.0" left="44.0" right="76.0" top="5.0" />
@@ -120,7 +121,7 @@
                            <graphic>
                               <ImageView fitHeight="86.0" fitWidth="343.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@logo.png" />
+                                    <Image url="@../../../../33loko/pri22-fridgedeck/src/view/logo.png" />
                                  </image>
                                  <effect>
                                     <DropShadow />
@@ -138,20 +139,38 @@
                                     <Insets bottom="-2.0" top="-45.0" />
                                  </VBox.margin>
                               </Label>
-                              <TextField fx:id="inputSearch" promptText="Introduce el producto que necesitas...">
-                                 <VBox.margin>
-                                    <Insets bottom="9.0" left="30.0" right="59.0" />
-                                 </VBox.margin>
-                              </TextField>
+                              <HBox prefHeight="0.0" prefWidth="683.0">
+                                 <children>
+                                    <TextField fx:id="inputSearch" prefHeight="35.0" prefWidth="564.0" promptText="Introduce el producto que necesitas...">
+                                       <HBox.margin>
+                                          <Insets bottom="4.0" left="29.0" right="2.0" />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets bottom="-2.0" />
+                                       </padding>
+                                    </TextField>
+                                    <Button fx:id="btnAbrirChat1" mnemonicParsing="false" onAction="#functionAbrirChat" prefHeight="15.0" prefWidth="82.0" styleClass="button-style" stylesheets="@../../../../33loko/pri22-fridgedeck/src/view/ColorBarras.css" text="Buscar">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets bottom="4.0" top="-1.0" />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets bottom="-1.0" top="-1.0" />
+                                       </padding>
+                                    </Button>
+                                 </children>
+                              </HBox>
                               <ListView fx:id="listaProductos" minWidth="100.0" prefHeight="228.0" prefWidth="100.0">
                                  <VBox.margin>
-                                    <Insets bottom="7.0" left="30.0" right="59.0" />
+                                    <Insets bottom="7.0" left="30.0" right="59.0" top="4.0" />
                                  </VBox.margin>
                                  <padding>
-                                    <Insets right="-11.0" />
+                                    <Insets right="-11.0" top="7.0" />
                                  </padding>
                               </ListView>
-                              <Button fx:id="btnAddProductBasket" mnemonicParsing="false" onAction="#openAddProductBasket" prefHeight="39.0" prefWidth="44.0" styleClass="button-style" stylesheets="@ColorBarras.css" text="+">
+                              <Button fx:id="btnAddProductBasket" mnemonicParsing="false" onAction="#openAddProductBasket" prefHeight="39.0" prefWidth="44.0" styleClass="button-style" stylesheets="@../../../../33loko/pri22-fridgedeck/src/view/ColorBarras.css" text="+">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -179,7 +198,7 @@
                               <Insets />
                            </opaqueInsets>
                         </VBox>
-                        <Button fx:id="btnAbrirChat" mnemonicParsing="false" onAction="#functionAbrirChat" styleClass="button-style" stylesheets="@ColorBarras.css" text="Chat">
+                        <Button fx:id="btnAbrirChat" mnemonicParsing="false" onAction="#functionAbrirChat" styleClass="button-style" stylesheets="@../../../../33loko/pri22-fridgedeck/src/view/ColorBarras.css" text="Chat">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
