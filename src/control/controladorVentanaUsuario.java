@@ -262,9 +262,9 @@ public class controladorVentanaUsuario {
 				}
 
 				if (isFound) {
-					showAlert("Found", "Producto " + productoIntroducido + " está en frigorifico, cantidad: " + cantidad, AlertType.INFORMATION);
+					showAlert("Producto encontrado", "Tienes " + productoIntroducido + " en la nevera en una cantidad de " + cantidad + " unidad(es). " , AlertType.INFORMATION);
 				} else {
-					showAlert("Not found", "Producto " + productoIntroducido + " no está en la lista", AlertType.INFORMATION);
+					showAlert("Producto no encontrado", "No tienes " + productoIntroducido + " en la nevera.", AlertType.ERROR);
 				}
 			}else {
 				showAlert("Error", "Por favor introduzca algo", AlertType.ERROR);

@@ -66,7 +66,7 @@
                               <Insets bottom="-17.0" left="3.0" right="34.0" top="2.0" />
                            </VBox.margin>
                         </ImageView>
-                        <Label fx:id="lblTemperatura" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="83.0" text="13ºC" textFill="WHITE">
+                        <Label fx:id="lblTemperatura" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="99.0" text="13ºC" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="36.0" />
                            </font>
@@ -74,7 +74,7 @@
                               <Insets />
                            </opaqueInsets>
                            <VBox.margin>
-                              <Insets bottom="12.0" right="50.0" top="5.0" />
+                              <Insets bottom="12.0" right="28.0" top="5.0" />
                            </VBox.margin>
                         </Label>
                         <ImageView fitHeight="138.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
@@ -82,15 +82,15 @@
                               <Image url="@imgHum.png" />
                            </image>
                            <VBox.margin>
-                              <Insets bottom="-4.0" right="46.0" top="5.0" />
+                              <Insets bottom="-4.0" right="40.0" top="14.0" />
                            </VBox.margin>
                         </ImageView>
-                        <Label fx:id="lblHumedad" alignment="CENTER" contentDisplay="CENTER" text="20%" textFill="WHITE">
+                        <Label fx:id="lblHumedad" alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="89.0" text="20%" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="36.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="13.0" right="48.0" top="5.0" />
+                              <Insets bottom="13.0" left="-2.0" right="37.0" top="5.0" />
                            </VBox.margin>
                         </Label>
                         <ImageView fx:id="imgPuerta" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
@@ -98,7 +98,7 @@
                               <Image url="@puerta_cerrada.png.png" />
                            </image>
                            <VBox.margin>
-                              <Insets bottom="-9.0" left="44.0" right="76.0" top="5.0" />
+                              <Insets bottom="-9.0" left="44.0" right="76.0" top="14.0" />
                            </VBox.margin>
                         </ImageView>
                         <Label fx:id="lblEstadoPuerta" text="cerrado" textFill="WHITE">
@@ -129,7 +129,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <VBox alignment="CENTER" prefHeight="582.0" prefWidth="595.0">
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="582.0" prefWidth="693.0">
                            <children>
                         <Label alignment="TOP_LEFT" contentDisplay="CENTER" style="&#10;" text="Mis productos" textAlignment="CENTER" wrapText="false">
                                  <font>
@@ -141,7 +141,7 @@
                               </Label>
                               <HBox prefHeight="0.0" prefWidth="683.0">
                                  <children>
-                                    <TextField fx:id="txtBuscarProducto" prefHeight="35.0" prefWidth="564.0" promptText="  Introduce el producto que necesitas...">
+                                    <TextField fx:id="txtBuscarProducto" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="33.0" prefWidth="546.0" promptText="  Introduce el producto que necesitas...">
                                        <HBox.margin>
                                           <Insets bottom="4.0" left="29.0" right="2.0" />
                                        </HBox.margin>
@@ -149,37 +149,40 @@
                                           <Insets bottom="-2.0" />
                                        </padding>
                                     </TextField>
-                                    <Button fx:id="btnBuscarProducto" mnemonicParsing="false" onAction="#buscarProducto" prefHeight="15.0" prefWidth="82.0" styleClass="button-style" stylesheets="@../../../../33loko/pri22-fridgedeck/src/view/ColorBarras.css" text="Buscar">
+                                    <Button fx:id="btnBuscarProducto" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buscarProducto" prefHeight="30.0" prefWidth="97.0" styleClass="button-style" stylesheets="@../../../../33loko/pri22-fridgedeck/src/view/ColorBarras.css" text="Consultar">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                        <HBox.margin>
-                                          <Insets bottom="4.0" top="-1.0" />
+                                          <Insets bottom="4.0" right="6.0" top="1.0" />
                                        </HBox.margin>
                                        <padding>
-                                          <Insets bottom="-1.0" top="-1.0" />
+                                          <Insets bottom="-2.0" top="-3.0" />
                                        </padding>
                                     </Button>
                                  </children>
                               </HBox>
-                              <ListView fx:id="listaProductos" minWidth="100.0" prefHeight="228.0" prefWidth="100.0">
+                              <ListView fx:id="listaProductos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="228.0" prefWidth="643.0">
                                  <VBox.margin>
-                                    <Insets bottom="7.0" left="30.0" right="59.0" top="4.0" />
+                                    <Insets bottom="7.0" left="68.0" right="59.0" top="4.0" />
                                  </VBox.margin>
                                  <padding>
                                     <Insets right="-11.0" top="7.0" />
                                  </padding>
                               </ListView>
-                              <Button fx:id="btnAddProductBasket" mnemonicParsing="false" onAction="#openAddProductBasket" prefHeight="39.0" prefWidth="44.0" styleClass="button-style" stylesheets="@../../../../33loko/pri22-fridgedeck/src/view/ColorBarras.css" text="+">
+                              <Button fx:id="btnAddProductBasket" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openAddProductBasket" prefHeight="34.0" prefWidth="33.0" styleClass="button-style" stylesheets="@../../../../33loko/pri22-fridgedeck/src/view/ColorBarras.css" text="+">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
                                  <VBox.margin>
-                                    <Insets bottom="-11.0" right="-572.0" top="1.0" />
+                                    <Insets bottom="-11.0" right="-619.0" top="-3.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font size="18.0" />
-                                 </font></Button>
+                                 </font>
+                                 <padding>
+                                    <Insets top="-2.0" />
+                                 </padding></Button>
                               <Label alignment="TOP_LEFT" contentDisplay="CENTER" style="&#10;" text="Mi cesta de la compra" textAlignment="CENTER" wrapText="false">
                                  <font>
                                     <Font name="System Bold Italic" size="36.0" />
@@ -188,23 +191,29 @@
                                     <Insets top="-12.0" />
                                  </VBox.margin>
                               </Label>
-                              <ListView fx:id="listaCompras" prefHeight="182.0" prefWidth="10.0">
+                              <ListView fx:id="listaCompras" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="182.0" prefWidth="655.0">
                                  <VBox.margin>
-                                    <Insets bottom="-55.0" left="30.0" right="59.0" />
+                                    <Insets bottom="-55.0" left="74.0" right="59.0" />
                                  </VBox.margin>
                               </ListView>
                            </children>
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
+                           <VBox.margin>
+                              <Insets left="-40.0" />
+                           </VBox.margin>
                         </VBox>
-                        <Button fx:id="btnAbrirChat" mnemonicParsing="false" onAction="#functionAbrirChat" styleClass="button-style" stylesheets="@../../../../33loko/pri22-fridgedeck/src/view/ColorBarras.css" text="Chat">
+                        <Button fx:id="btnAbrirChat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#functionAbrirChat" prefHeight="35.0" prefWidth="60.0" styleClass="button-style" stylesheets="@../../../../33loko/pri22-fridgedeck/src/view/ColorBarras.css" text="Chat">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="10.0" right="-554.0" top="18.0" />
+                              <Insets bottom="10.0" right="-557.0" top="5.0" />
                            </VBox.margin>
+                           <padding>
+                              <Insets right="1.0" />
+                           </padding>
                         </Button>
                      </children>
                      <padding>
