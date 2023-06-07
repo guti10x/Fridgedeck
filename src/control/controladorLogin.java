@@ -79,7 +79,7 @@ public class controladorLogin {
 			}
 				
 			if(!checkUser) {
-				showAlert("Error", "Has introducido login o contraseña erroneo", AlertType.ERROR);
+				showAlert("Error", "Has introducido el nombre de usuario o contraseña de manera erronea", AlertType.ERROR);
 			}
         }
 	}

@@ -85,7 +85,7 @@ public class controladorRegistrarse {
         	creditCard = Long.parseLong(tfCreditCard.getText().toString());
             telephone = Integer.parseInt(tfTelephone.getText());
 			if(cmbRole.getValue()==null) {
-	            showAlert("Error", "Necesita elegir role", AlertType.ERROR);
+	            showAlert("Error", "Necesitas elegir un rol", AlertType.ERROR);
 			}else {	
 				
         	if(cmbRole.getValue().equals("Usuario")) {

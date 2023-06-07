@@ -68,7 +68,7 @@ public class controladorAddProductBasket {
                 tfCantidad.setText("");
                 tfDesc.setText("");
                 tfCode.setText("");
-                showAlert("Success", "Se has añadido el producto!", AlertType.INFORMATION);
+                showAlert("Success", "Se ha añadido el producto!", AlertType.INFORMATION);
            } catch (SQLException e2) {
                System.out.println(e2.getMessage());
            }

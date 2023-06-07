@@ -77,7 +77,7 @@ public class controladorChatTecnico {
 	void actualizarChat() {
 		txtChat.clear();
 	    try {
-	        String sql = "SELECT * FROM Messages WHERE sender_id = ? OR receiver_id = ? ORDER BY send_time DESC";
+	        String sql = "SELECT * FROM Messages WHERE sender_id = ? OR receiver_id = ? ORDER BY send_time ASC";
 
 	        Connection conn = connectBBDD.connect();
 	        PreparedStatement statement = conn.prepareStatement(sql);
