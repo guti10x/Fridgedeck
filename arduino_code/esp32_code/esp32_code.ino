@@ -63,18 +63,18 @@ void setup() {
 
   //Establecer la conexión a la base de datos
       if (conn.connect(server, port, user, passwordDB)) {
-        Serial.println("Conexión exitosa a la base de datos");
-       // Seleccionar la base de datos
-    char query[100];
-    sprintf(query, "USE %s", database);
-    MySQL_Cursor *cursor = new MySQL_Cursor(&conn);
-    cursor->execute(query);
-    delete cursor;
-
-    Serial.println("Base de datos seleccionada: " + String(database));
-    } else {
-        Serial.println("Error al conectar a la base de datos");
-      }
+          Serial.println("Conexión exitosa a la base de datos");
+         // Seleccionar la base de datos
+      char query[100];
+      sprintf(query, "USE %s", database);
+      MySQL_Cursor *cursor = new MySQL_Cursor(&conn);
+      cursor->execute(query);
+      delete cursor;
+  
+      Serial.println("Base de datos seleccionada: " + String(database));
+      } else {
+          Serial.println("Error al conectar a la base de datos");
+        }
 
   //Inicializamos el dht
      dht.setup(pinDHT, DHTesp::DHT11);
@@ -103,24 +103,6 @@ void loop() {
          //Lee el valor del sensor Hall
              SENSOR = digitalRead(HALL_PIN);
              
-         //Obtener fecha actual
-          time_t tiempoActual = time(nullptr);
-          struct tm *tiempoLocal = gmtime(&tiempoActual);
-          int anio = tiempoLocal->tm_year + 1900;
-          int mes = tiempoLocal->tm_mon + 1;
-          int dia = tiempoLocal->tm_mday;
-          int hora = tiempoLocal->tm_hour + 2;
-          if(hora=24){
-            hora=0;
-            }
-          if(hora=25){
-            hora=1;
-            }
-          int minuto = tiempoLocal->tm_min;
-          int segundo = tiempoLocal->tm_sec;
-          
-          char fechaHora[20];
-          sprintf(fechaHora, "%04d-%02d-%02d %02d:%02d:%02d", anio, mes, dia, hora, minuto, segundo);
      //Gestion datos sensor Hall
         if (SENSOR == HIGH) { // Si se detecta un campo magnético
           Serial.println("---");
@@ -128,7 +110,7 @@ void loop() {
           boolean estado = false;
             //Consulta SQL INSERT estado puerta
             char query[200];
-            sprintf(query, "INSERT INTO Puerta (valor, fecha, id_nevera) VALUES (%d, '%s', %d)", estado, fechaHora ,id_nevera);
+            sprintf(query, "INSERT INTO Puerta (valor, fecha, id_nevera) VALUES (%f, CURRENT_TIMESTAMP, %d)", estado, id_nevera);
     
             //Crear un objeto MySQL_Cursor para ejecutar la consulta
                 MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
@@ -145,7 +127,7 @@ void loop() {
           
             //Consulta SQL INSERT estado puerta
             char query[200];
-            sprintf(query, "INSERT INTO Puerta (valor, fecha, id_nevera) VALUES (%d, '%s', %d)", estado, fechaHora,id_nevera);
+            sprintf(query, "INSERT INTO Puerta (valor, fecha, id_nevera) VALUES (%f, CURRENT_TIMESTAMP, %d)", estado, id_nevera);
     
             //Crear un objeto MySQL_Cursor para ejecutar la consulta
                 MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
@@ -163,8 +145,8 @@ void loop() {
          
           //Consulta SQL INSERT temperatura
             char query[200];
-            sprintf(query, "INSERT INTO Temperatura (valor, fecha, id_nevera) VALUES (%f, '%s', %d)", temperature, fechaHora, id_nevera);
-    
+            sprintf(query, "INSERT INTO Temperatura (valor, fecha, id_nevera) VALUES (%f, CURRENT_TIMESTAMP, %d)", temperature, id_nevera);
+
             //Crear un objeto MySQL_Cursor para ejecutar la consulta
                 MySQL_Cursor *cur_mem = new MySQL_Cursor(&conn);
             //Ejecutar la consulta
@@ -175,7 +157,7 @@ void loop() {
     
           //Consulta SQL INSERT humedad
             char query2[200];
-            sprintf(query2, "INSERT INTO Humedad (valor, fecha, id_nevera) VALUES (%f, '%s', %d)", humidity, fechaHora, id_nevera);
+            sprintf(query2, "INSERT INTO Humedad (valor, fecha, id_nevera) VALUES (%f, CURRENT_TIMESTAMP, %d)", humidity, id_nevera);
             
             //Crear un objeto MySQL_Cursor para ejecutar la consulta
                 MySQL_Cursor *cur_mem2 = new MySQL_Cursor(&conn);
