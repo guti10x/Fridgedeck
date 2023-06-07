@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,6 +25,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,6 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import java.util.ArrayList;
 
 public class controladorVentanaUsuario {
 	@FXML
@@ -61,6 +65,10 @@ public class controladorVentanaUsuario {
 	
 	@FXML
 	private Label lblEstadoPuerta;
+	@FXML
+	private Button btnBuscarProducto;
+	@FXML
+	private TextField txtBuscarProducto;
 	
 	private int user_id;
 	
@@ -220,8 +228,58 @@ public class controladorVentanaUsuario {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
+	@FXML
+    void buscarProducto(ActionEvent event) {
+		ArrayList<String> productList = new ArrayList<>();
+		productList.addAll(listaProductos.getItems());
+		productList.replaceAll(s -> s.replace("- ", ""));
+		Collections.sort(productList);
+		try {
+			String productoIntroducido = txtBuscarProducto.getText();
+			if(!productoIntroducido.isEmpty()) {
+				int low = 0;
+				int high = productList.size() - 1;
+				boolean isFound = false;
+				int index = -1;
+				String nombre = "", cantidad = "";
+				
+				while (low <= high) {
+				    int mid = (low + high) / 2;
+				    nombre = (productList.get(mid)).substring(0, productList.get(mid).indexOf(","));
+				    if (nombre.equalsIgnoreCase(productoIntroducido)) {
+				    	cantidad = productList.get(mid).substring(productList.get(mid).indexOf(",") + 2).trim();
+				        isFound = true;
+				        index = mid;
+				        break;
+				    }
+				    
+				    if (productList.get(mid).compareToIgnoreCase(productoIntroducido) < 0) {
+				        low = mid + 1;
+				    } else {
+				        high = mid - 1;
+				    }
+				}
+
+				if (isFound) {
+					showAlert("Found", "Producto " + productoIntroducido + " está en frigorifico, cantidad: " + cantidad, AlertType.INFORMATION);
+				} else {
+					showAlert("Not found", "Producto " + productoIntroducido + " no está en la lista", AlertType.INFORMATION);
+				}
+			}else {
+				showAlert("Error", "Por favor introduzca algo", AlertType.ERROR);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	private void showAlert(String title, String message, AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 	public void setUserId(int user_id) {
 	    this.user_id = user_id;
 	}

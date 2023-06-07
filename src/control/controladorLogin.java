@@ -104,7 +104,7 @@ public class controladorLogin {
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(((Node) (e.getSource())).getScene().getWindow());
 		stage.setResizable(true);
-		double minWidth = 950.0;
+		double minWidth = 1100.0;
         double minHeight = 750.0;
         stage.setMinWidth(minWidth);
         stage.setMinHeight(minHeight);

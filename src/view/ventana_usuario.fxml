@@ -60,7 +60,7 @@
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../33loko/pri22-fridgedeck/src/view/imgTemp.png" />
+                              <Image url="@imgTemp.png" />
                            </image>
                            <VBox.margin>
                               <Insets bottom="-17.0" left="3.0" right="34.0" top="2.0" />
@@ -79,7 +79,7 @@
                         </Label>
                         <ImageView fitHeight="138.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../33loko/pri22-fridgedeck/src/view/imgHum.png" />
+                              <Image url="@imgHum.png" />
                            </image>
                            <VBox.margin>
                               <Insets bottom="-4.0" right="46.0" top="5.0" />
@@ -95,7 +95,7 @@
                         </Label>
                         <ImageView fx:id="imgPuerta" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../33loko/pri22-fridgedeck/src/view/puerta_cerrada.png.png" />
+                              <Image url="@puerta_cerrada.png.png" />
                            </image>
                            <VBox.margin>
                               <Insets bottom="-9.0" left="44.0" right="76.0" top="5.0" />
@@ -121,7 +121,7 @@
                            <graphic>
                               <ImageView fitHeight="86.0" fitWidth="343.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../33loko/pri22-fridgedeck/src/view/logo.png" />
+                                    <Image url="@logo.png" />
                                  </image>
                                  <effect>
                                     <DropShadow />
@@ -141,7 +141,7 @@
                               </Label>
                               <HBox prefHeight="0.0" prefWidth="683.0">
                                  <children>
-                                    <TextField fx:id="inputSearch" prefHeight="35.0" prefWidth="564.0" promptText="Introduce el producto que necesitas...">
+                                    <TextField fx:id="txtBuscarProducto" prefHeight="35.0" prefWidth="564.0" promptText="  Introduce el producto que necesitas...">
                                        <HBox.margin>
                                           <Insets bottom="4.0" left="29.0" right="2.0" />
                                        </HBox.margin>
@@ -149,7 +149,7 @@
                                           <Insets bottom="-2.0" />
                                        </padding>
                                     </TextField>
-                                    <Button fx:id="btnAbrirChat1" mnemonicParsing="false" onAction="#functionAbrirChat" prefHeight="15.0" prefWidth="82.0" styleClass="button-style" stylesheets="@../../../../33loko/pri22-fridgedeck/src/view/ColorBarras.css" text="Buscar">
+                                    <Button fx:id="btnBuscarProducto" mnemonicParsing="false" onAction="#buscarProducto" prefHeight="15.0" prefWidth="82.0" styleClass="button-style" stylesheets="@../../../../33loko/pri22-fridgedeck/src/view/ColorBarras.css" text="Buscar">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
